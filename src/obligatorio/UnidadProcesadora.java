@@ -12,4 +12,10 @@ public class UnidadProcesadora {
    public void tomarPedido(Pedido pedido){
 
    }
+   public void loguearGestor(Gestor g){
+       gestores.add(g);
+   }
+   public void desloguearGestor(Gestor g){
+       gestores.remove(g);
+   }
 }

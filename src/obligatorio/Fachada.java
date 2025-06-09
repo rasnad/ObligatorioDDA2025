@@ -5,13 +5,12 @@ public class Fachada {
     private SubsistemaAcceso subsistemaAcceso;
     private SubsistemaServicio subsistemaServicio;
 
-    public void loginCliente(Dispositivo dispositivo, int id, String passowrd){
-        subsistemaAcceso.loginCliente(dispositivo, id, passowrd);
+    public void loginCliente(Dispositivo dispositivo, String username, String password){
+        subsistemaAcceso.loginCliente(dispositivo, username, password );
     }
 
-    public void loginGestor(String username, String passowrd){
-        subsistemaServicio.loginGestor(username, passowrd);
+    public void loginGestor(String username, String password){
+        subsistemaAcceso.loginGestor(username, password);
     }
-
 
 }

@@ -17,7 +17,7 @@ public class Dispositivo {
         estaOcupado = false;
     }
 
-    public void loginCliente(Dispositivo dispositivo, int id, String password) {
-        fachada.loginCliente(this, id, password);
+    public void loginCliente(Dispositivo dispositivo, String username, String password) {
+        fachada.loginCliente(this, username, password);
     }
 }
