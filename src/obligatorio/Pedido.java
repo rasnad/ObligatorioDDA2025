@@ -18,18 +18,33 @@ public class Pedido {
     Servicio servicio;
     String comentario;
     Date fechaYHora;
+
+    public Pedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) {
+        this.item = item;
+        this.unidadProcesadora = unidadProcesadora;
+        this.servicio = servicio;
+        this.comentario = comentario;
+        
+        //estadoPedido = Estado de pedido nuevo acá, ver patrón state
+        fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
+    }
+    
+    public Item getItem(){
+        return item;
+    }
+    
     public void setGestor(Gestor gestor){
 
     }
+    
     public void setEstado(EstadoPedido estado){
 
     }
-    public void setComentario(){
-
-    }
+    
     public void confirmarPedido(){
 
     }
+    
     public void restarStockDeItem(){
         item.restarStockDeInsumos();
     }

@@ -6,16 +6,18 @@ package obligatorio;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author lucas
- */
 public class Servicio {
     float montoTotal;
     ArrayList<Pedido> pedidos;
     Cliente cliente;
 
     public float calcularSubtotal(){
-        return 0;
+        float subtotal = 0;
+        //calcular descuento de cada pedido
+        for (Pedido pedido : pedidos){
+            subtotal += cliente.calcularBeneficioItem( pedido.getItem() );
+        }
+        //calcular descuentos sobre el total del servicio
+        return cliente.calcularBeneficioServicio(subtotal);
     }
 }
