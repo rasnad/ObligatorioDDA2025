@@ -5,7 +5,10 @@ public class Insumo {
     int cantidadMinima;
     int cantidadActual;
 
-    public Insumo(String aceituna, int i, int i1) {
+    public Insumo(String nombre, int cantidadMinima, int cantidadActual) {
+        this.nombre = nombre;
+        this.cantidadMinima = cantidadMinima;
+        this.cantidadActual = cantidadActual;
     }
 
     public boolean tieneStock(){
