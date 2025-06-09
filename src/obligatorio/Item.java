@@ -22,9 +22,16 @@ public class Item {
             ingrediente.restarStockDeInsumo();
         }
     }
+    
+    public void agregarIngrediente(Ingrediente ingrediente){
+       ingredientes.add(ingrediente);
+    }
+    
+    public void removerIngrediente(Ingrediente ingrediente){
+       ingredientes.remove(ingrediente);
+    }
 
-    public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
-        this.ingredientes = ingredientes;
+    public Item(UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
         this.unidadProcesadora = unidadProcesadora;
         this.categoriaItem = categoriaItem;
         this.nombre = nombre;
