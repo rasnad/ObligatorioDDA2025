@@ -11,7 +11,7 @@ public class SubsistemaAcceso {
     ArrayList<Gestor> todosLosGestores;    
     ArrayList<Gestor> gestoresLogueados;
 
-    public Usuario login(ArrayList<? extends Usuario> lista, String username, String password){
+    private Usuario login(ArrayList<? extends Usuario> lista, String username, String password){
         for(Usuario u : lista){
             if ( u.login(username, password)){
                 return u;
@@ -21,7 +21,7 @@ public class SubsistemaAcceso {
     }
     
     public void loginCliente(Dispositivo dispositivo, String username, String password ) {
-        Cliente cliente = (Cliente) login(todosLosClientes, password, username);
+        Cliente cliente = (Cliente) login(todosLosClientes, username, password);
         if (cliente != null) {
             clientesLogueados.add(cliente);
             dispositivo.asignarCliente(cliente);
@@ -29,12 +29,33 @@ public class SubsistemaAcceso {
         //else throw error
     }
 
-    public void loginGestor(String password, String username) {
-        Gestor gestor = (Gestor) login(todosLosGestores, password, username);
+    public void loginGestor(String username, String password) {
+        Gestor gestor = (Gestor) login(todosLosGestores, username, password);
         if (gestor != null) {
             gestoresLogueados.add(gestor);
             gestor.unidadProcesadora.loguearGestor(gestor);
         }
         //throw error
+    }
+    
+    
+    private void logout(ArrayList<? extends Usuario> lista, Usuario usuario){
+        if (lista.contains(usuario)){
+            lista.remove(usuario);
+        }
+        //else un throws
+    }
+    
+    public void logoutCliente(Dispositivo dispositivo, Cliente cliente) {
+        dispositivo.liberarCliente();
+        logout(clientesLogueados, cliente);
+        //else throw error
+    }
+
+        
+    public void logoutGestor(Gestor gestor) {
+        gestor.unidadProcesadora.desloguearGestor(gestor);
+        logout(gestoresLogueados, gestor);
+        //else throw error
     }
 }
