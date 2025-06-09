@@ -19,4 +19,12 @@ public abstract class TipoCliente {
     public float servicioBeneficio(float subtotal){
         return subtotal;
     }
+    
+    public void agregarItemConDescuento(Item item){
+        itemsConDescuento.add(item);
+    }
+    
+    public void removerItemConDescuento(Item item){
+        itemsConDescuento.remove(item);
+    }
 }
