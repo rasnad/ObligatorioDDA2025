@@ -7,6 +7,10 @@ public class Dispositivo {
     Cliente clienteAsignado;
     boolean estaOcupado;
 
+    public Dispositivo(int i) {
+        this.estaOcupado = false;
+    }
+
     public void asignarCliente(Cliente cliente) {
         clienteAsignado = cliente;
         estaOcupado = true;

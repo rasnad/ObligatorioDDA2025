@@ -13,4 +13,8 @@ public class CategoriaItem {
     public void agregarItem(Item item) {
 
     }
+
+    public CategoriaItem(String nombre) {
+        this.nombre = nombre;
+    }
 }

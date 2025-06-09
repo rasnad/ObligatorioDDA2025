@@ -23,4 +23,11 @@ public class Item {
         }
     }
 
+    public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
+        this.ingredientes = ingredientes;
+        this.unidadProcesadora = unidadProcesadora;
+        this.categoriaItem = categoriaItem;
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+    }
 }

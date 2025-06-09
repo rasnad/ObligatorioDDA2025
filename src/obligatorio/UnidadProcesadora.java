@@ -6,6 +6,11 @@ public class UnidadProcesadora {
    ArrayList<Gestor> gestores;
    ArrayList<Pedido> pedidos;
    ArrayList<Item> items;
+
+   public UnidadProcesadora() {
+
+   }
+
    public void cancelarPedido(Pedido pedido){
 
    }
@@ -17,5 +22,11 @@ public class UnidadProcesadora {
    }
    public void desloguearGestor(Gestor g){
        gestores.remove(g);
+   }
+
+   public UnidadProcesadora(ArrayList<Gestor> gestores, ArrayList<Pedido> pedidos, ArrayList<Item> items) {
+      this.gestores = gestores;
+      this.pedidos = pedidos;
+      this.items = items;
    }
 }
