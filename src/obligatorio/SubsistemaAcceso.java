@@ -22,22 +22,32 @@ public class SubsistemaAcceso {
     
     public void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
         Cliente cliente = (Cliente) login(todosLosClientes, username, password);
-        if (cliente != null) {
-            clientesLogueados.add(cliente);
-            dispositivo.asignarCliente(cliente);
-        } else {
-            throw new PolloException("ID y/o contraseña incorrecta.");
+        
+        if (cliente == null) {
+            throw new PolloException("Credenciales incorrectas.");
         }
+        
+        if (clientesLogueados.contains(cliente)){
+            throw new PolloException("Ud. ya está identificado en otro dispositivo.");
+        }
+        
+        clientesLogueados.add(cliente);
+        dispositivo.asignarCliente(cliente);
     }
 
     public void loginGestor(String username, String password) throws PolloException {
         Gestor gestor = (Gestor) login(todosLosGestores, username, password);
-        if (gestor != null) {
-            gestoresLogueados.add(gestor);
-            gestor.unidadProcesadora.loguearGestor(gestor);
-        } else {
+
+        if (gestor == null) {
             throw new PolloException("Username y/o contraseña incorrecta.");
         }
+        
+        if (gestoresLogueados.contains(gestor)){
+            throw new PolloException("Acceso denegado. El usuario ya está logueado");
+        }
+
+        gestoresLogueados.add(gestor);
+        gestor.getUnidadProcesadora().loguearGestor(gestor);
     }
     
     

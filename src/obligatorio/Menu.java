@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Menu {
     String nombreMenu;
-    ArrayList<CategoriaItem> categoriaItems;
+    ArrayList<CategoriaItem> categoriaItems = new ArrayList<>();
 
     public ArrayList<CategoriaItem> getCategorias() {
         return categoriaItems;
