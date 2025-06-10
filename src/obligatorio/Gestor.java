@@ -8,8 +8,9 @@ public class Gestor extends Usuario {
     String userName;
     String trabajo;
 
-    public Gestor(String nombreCompleto, String username, String password){
+    public Gestor(String nombreCompleto, String username, String password, UnidadProcesadora unidad){
         super(nombreCompleto, username, password);
+        this.unidadProcesadora = unidad;
     }
  
     public void tomarPedido(Pedido pedido){}

@@ -31,7 +31,8 @@ public class Item {
        ingredientes.remove(ingrediente);
     }
 
-    public Item(UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
+    public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
+        this.ingredientes = ingredientes;
         this.unidadProcesadora = unidadProcesadora;
         this.categoriaItem = categoriaItem;
         this.nombre = nombre;

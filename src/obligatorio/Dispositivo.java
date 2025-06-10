@@ -2,7 +2,7 @@ package obligatorio;
 
 public class Dispositivo {
 
-    Fachada fachada;
+    Fachada fachada = Fachada.getInstancia();
     int id;
     Cliente clienteAsignado;
     boolean estaOcupado;
@@ -21,7 +21,7 @@ public class Dispositivo {
         estaOcupado = false;
     }
 
-    public void loginCliente(Dispositivo dispositivo, String username, String password) {
-        fachada.loginCliente(this, username, password);
+    public void loginCliente(int username, String password) throws PolloException {
+        fachada.loginCliente(this, Integer.toString(username), password);
     }
 }

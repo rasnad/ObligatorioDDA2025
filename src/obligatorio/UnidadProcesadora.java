@@ -3,9 +3,9 @@ package obligatorio;
 import java.util.ArrayList;
 
 public class UnidadProcesadora {
-   ArrayList<Gestor> gestores;
-   ArrayList<Pedido> pedidos;
-   ArrayList<Item> items;
+   ArrayList<Gestor> gestores = new ArrayList<>();
+   ArrayList<Pedido> pedidos = new ArrayList<>();
+   ArrayList<Item> items = new ArrayList<>();
 
    public UnidadProcesadora() {
 
