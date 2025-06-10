@@ -12,6 +12,8 @@ public class SubsistemaServicio {
     ArrayList<UnidadProcesadora> unidadesProcesadoras;
     ArrayList<Insumo> insumos;
 
+    protected SubsistemaServicio(){}
+    
     public Pedido generarPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
 
         if (servicio.cliente == null) {

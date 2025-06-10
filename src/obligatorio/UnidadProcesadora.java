@@ -32,6 +32,7 @@ public class UnidadProcesadora extends ObservableBase implements Observable {
       this.items = items;
    }
 
+   /*
    public void avisar(){
       for(Observador o : observadores){
          o.actualizar(PEDIDO_CONFIRMADO, null);
@@ -48,4 +49,5 @@ public class UnidadProcesadora extends ObservableBase implements Observable {
          liberarCliente();
       }
    }
+    */
 }

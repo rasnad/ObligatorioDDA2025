@@ -10,6 +10,8 @@ public class SubsistemaAcceso {
     ArrayList<Cliente> todosLosClientes = new ArrayList<>();
     ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
     ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
+    
+    protected SubsistemaAcceso(){}
 
     private Usuario login(ArrayList<? extends Usuario> lista, String username, String password){
         for(Usuario u : lista){
