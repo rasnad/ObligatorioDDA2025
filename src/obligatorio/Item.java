@@ -3,7 +3,7 @@ package obligatorio;
 import java.util.ArrayList;
 
 public class Item {
-    ArrayList<Ingrediente> ingredientes;
+    ArrayList<Ingrediente> ingredientes = new ArrayList<>();
     UnidadProcesadora unidadProcesadora;
     CategoriaItem categoriaItem;
     String nombre;

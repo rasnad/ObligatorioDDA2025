@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CategoriaItem {
     String nombre;
-    ArrayList<Item> items;
+    ArrayList<Item> items = new ArrayList<>();
 
     public void validar() {
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Gestor extends Usuario {
     UnidadProcesadora unidadProcesadora;
-    ArrayList<Pedido> pedidosTomados;
+    ArrayList<Pedido> pedidosTomados = new ArrayList<>();
     String userName;
     String trabajo;
 

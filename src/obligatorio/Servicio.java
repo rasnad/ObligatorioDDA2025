@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Servicio {
     float montoTotal;
-    ArrayList<Pedido> pedidos;
+    ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
 
     public float calcularSubtotal(){

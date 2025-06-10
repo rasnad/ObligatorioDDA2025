@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class TipoCliente {
 
     // String nombreDelTipo;
-    ArrayList<Item> itemsConDescuento;
+    ArrayList<Item> itemsConDescuento = new ArrayList<>();
 
     // public abstract String getNombreDelTipo();
 
