@@ -13,6 +13,10 @@ public class Gestor extends Usuario {
         this.unidadProcesadora = unidad;
     }
  
+    public UnidadProcesadora getUnidadProcesadora(){
+        return unidadProcesadora;
+    }
+    
     public void tomarPedido(Pedido pedido){}
     public void pedidoListo(Pedido pedido){}
     public void pedidoEntregado(Pedido pedido){}
