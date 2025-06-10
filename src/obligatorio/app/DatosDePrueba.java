@@ -13,8 +13,8 @@ public class DatosDePrueba {
         Cliente cliente2 = new Cliente(2, new DeLaCasa(), "1234", "Maria");
 
         // Dispositivos
-        Dispositivo dispositivo1 = new Dispositivo(1);
-        Dispositivo dispositivo2 = new Dispositivo(2);
+        Dispositivo dispositivo1 = new Dispositivo();
+        Dispositivo dispositivo2 = new Dispositivo();
 
 
         // Unidades procesadoras
