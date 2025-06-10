@@ -4,6 +4,7 @@ public class Cliente extends Usuario {
     int id;
     TipoCliente tipoCliente;
     Servicio servicio;
+    Dispositivo dispositivo;
     
     public Cliente(int id, TipoCliente tipo, String password, String nombreCompleto){
         super(nombreCompleto, Integer.toString(id), password);
@@ -12,7 +13,7 @@ public class Cliente extends Usuario {
     }
 
     public void empezarServicio(){
-        servicio = new Servicio(this);
+        servicio = new Servicio(this, dispositivo);
     }
 
     public void terminarServicio(){

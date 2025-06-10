@@ -20,7 +20,7 @@ public class SubsistemaAcceso {
         return null;
     }
     
-    public void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
+    public String loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
         Cliente cliente = (Cliente) login(todosLosClientes, username, password);
         
         if (cliente == null) {
@@ -34,6 +34,7 @@ public class SubsistemaAcceso {
         clientesLogueados.add(cliente);
         dispositivo.asignarCliente(cliente);
         cliente.empezarServicio();
+        return cliente != null ? "Cliente : " + cliente.nombreCompleto : "";
     }
 
     public void loginGestor(String username, String password) throws PolloException {

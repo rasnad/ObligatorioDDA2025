@@ -9,8 +9,8 @@ public class Main {
         
         DatosDePrueba.cargarDatos();
        
-       //RealizarPedidos rp = new RealizarPedidos();
-       //rp.setVisible(true);
+       RealizarPedidos rp = new RealizarPedidos();
+       rp.setVisible(true);
        
     }
     

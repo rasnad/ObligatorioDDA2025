@@ -10,9 +10,11 @@ public class Servicio {
     float montoTotal;
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
+    Dispositivo dispositivo;
 
-    public Servicio(Cliente cliente) {
+    public Servicio(Cliente cliente, Dispositivo servicio) {
         this.cliente = cliente;
+        this.dispositivo = servicio;
     }
 
     public float calcularSubtotal(){
@@ -24,4 +26,5 @@ public class Servicio {
         //calcular descuentos sobre el total del servicio
         return cliente.calcularBeneficioServicio(subtotal);
     }
+
 }

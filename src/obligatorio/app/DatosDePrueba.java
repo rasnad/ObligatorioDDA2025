@@ -121,6 +121,7 @@ public class DatosDePrueba {
         ArrayList<Ingrediente> ingredientesMilanesas = new ArrayList<>();
         ingredientesMilanesas.add(ingredienteCarne);
         ingredientesMilanesas.add(ingredienteArroz);
+
         Item milanesaConArroz = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa Con Arroz", 250);
 
         // Agregando ítems a categorías
