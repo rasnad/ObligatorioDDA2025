@@ -4,7 +4,9 @@ import obligatorio.*;
 import java.util.*;
 
 public class DatosDePrueba {
-    public static void cargarDatos() {
+    public static void cargarDatos() throws PolloException {
+        
+        Fachada fachada = Fachada.getInstancia();
 
         // Clientes
         Cliente cliente1 = new Cliente(1, new Frecuente(), "1234", "Juan");
@@ -21,7 +23,79 @@ public class DatosDePrueba {
         //UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
 
         // Gestores
-        Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345");
+        Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
+        fachada.nuevoGestor(gestorCocina1);
+        fachada.nuevoCliente(cliente1);
+        fachada.nuevoCliente(cliente2);
+        
+        try {
+            fachada.loginGestor("test", "test");
+            System.out.println("Gestor logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            fachada.loginGestor("gestor1", "12345");
+            System.out.println("Gestor logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            fachada.loginGestor("gestor1", "12345");
+            System.out.println("Gestor logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        //fachada.getGestores();
+        
+        try {
+            dispositivo1.loginCliente(1, "1234");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            dispositivo1.loginCliente(1, "1234");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            dispositivo2.loginCliente(1, "1234");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            dispositivo2.loginCliente(2, "1234");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            dispositivo2.loginCliente(1, "12345");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+        
+        try {
+            dispositivo2.loginCliente(5, "1234");
+            System.out.println("Cliente logueado");
+        } catch(PolloException p) {
+            System.out.println(p);
+        }
+         
+         
+        
+        //fachada.getClientes();
 
         // Insumos
         Insumo aceituna = new Insumo("Aceituna", 100, 500);
@@ -44,8 +118,9 @@ public class DatosDePrueba {
 
         Ingrediente ingredienteCarne = new Ingrediente(1,carne);
         Ingrediente ingredienteArroz = new Ingrediente(1,arroz);
-        ArrayList<Ingrediente> ingredientesMilanesas = (ArrayList<Ingrediente>) List.of(ingredienteArroz, ingredienteCarne);
-
+        ArrayList<Ingrediente> ingredientesMilanesas = new ArrayList<>();
+        ingredientesMilanesas.add(ingredienteCarne);
+        ingredientesMilanesas.add(ingredienteArroz);
         Item milanesaConArroz = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa Con Arroz", 250);
 
         // Agregando ítems a categorías
