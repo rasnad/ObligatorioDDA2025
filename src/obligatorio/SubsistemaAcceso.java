@@ -33,6 +33,7 @@ public class SubsistemaAcceso {
         
         clientesLogueados.add(cliente);
         dispositivo.asignarCliente(cliente);
+        cliente.empezarServicio();
     }
 
     public void loginGestor(String username, String password) throws PolloException {
@@ -60,6 +61,7 @@ public class SubsistemaAcceso {
     public void logoutCliente(Dispositivo dispositivo, Cliente cliente) {
         dispositivo.liberarCliente();
         logout(clientesLogueados, cliente);
+        cliente.terminarServicio();
     }
 
         

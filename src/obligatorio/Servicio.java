@@ -11,6 +11,10 @@ public class Servicio {
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
 
+    public Servicio(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public float calcularSubtotal(){
         float subtotal = 0;
         //calcular descuento de cada pedido
