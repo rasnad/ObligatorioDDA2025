@@ -1,5 +1,10 @@
 package obligatorio;
 
-public class EstadoPedido {
-
+public enum EstadoPedido {
+    PEDIDO_CONFIRMADO,
+    PEDIDO_NO_CONFIRMADO,
+    PEDIDO_FINALIZADO,
+    PEDIDO_ENTREGADO,
+    PEDIDO_ELIMINADO,
+    SERVICIO_FINALIZADO,
 }

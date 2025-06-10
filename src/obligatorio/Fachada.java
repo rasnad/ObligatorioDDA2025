@@ -1,6 +1,8 @@
 package obligatorio;
 
-public class Fachada {
+import java.util.ArrayList;
+
+public class Fachada extends ObservableBase{
     
     private static Fachada instancia = new Fachada();
     private SubsistemaAcceso subsistemaAcceso = new SubsistemaAcceso();
@@ -37,5 +39,19 @@ public class Fachada {
     public void nuevoCliente(Cliente cliente){
         subsistemaAcceso.nuevoCliente(cliente);
     }
+
+    public Pedido nuevoPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
+        return subsistemaServicio.generarPedido(item, unidadProcesadora,servicio,comentario);
+    }
+
+    public ArrayList<Pedido> confirmarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los confirma y los devuelve
+        return subsistemaServicio.confirmarPedido(servicio);
+    }
+
+    public ArrayList<Pedido> cancelarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los cancela y los devuelve
+        return subsistemaServicio.cancelarPedido(servicio);
+    }
+
+
 
 }
