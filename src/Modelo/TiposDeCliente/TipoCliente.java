@@ -1,5 +1,6 @@
-package obligatorio;
+package Modelo.TiposDeCliente;
 
+import Modelo.Item;
 import java.util.ArrayList;
 
 public abstract class TipoCliente {

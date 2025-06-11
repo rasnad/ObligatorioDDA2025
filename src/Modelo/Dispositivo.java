@@ -1,4 +1,7 @@
-package obligatorio;
+package Modelo;
+
+import Modelo.Sistema.Fachada;
+import Modelo.Exception.PolloException;
 
 public class Dispositivo {
 

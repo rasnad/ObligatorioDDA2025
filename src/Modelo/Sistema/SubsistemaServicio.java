@@ -1,7 +1,14 @@
-package obligatorio;
+package Modelo.Sistema;
 
+import Modelo.Exception.PolloException;
+import Modelo.Gestor;
+import Modelo.Insumo;
+import Modelo.Item;
+import Modelo.Menu;
+import Modelo.Pedido;
+import Modelo.Servicio;
+import Modelo.UnidadProcesadora;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class SubsistemaServicio {
     ArrayList<Gestor> gestores;
@@ -14,9 +21,9 @@ public class SubsistemaServicio {
 
     protected SubsistemaServicio(){}
     
-    public Pedido generarPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
+    public Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
 
-        if (servicio.cliente == null) {
+        if (servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de realizar pedidos.");
         }
 
@@ -24,8 +31,8 @@ public class SubsistemaServicio {
             throw new PolloException("Debe seleccionar un ítem.");
         }
 
-        Pedido pedido = new Pedido(item, unidadProcesadora, servicio, comentario);
-        servicio.pedidos.add(pedido);
+        Pedido pedido = new Pedido(item, item.getUnidadProcesadora(), servicio, comentario);
+        servicio.agregarPedido(pedido);
         return pedido;
     }
 

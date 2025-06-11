@@ -1,4 +1,4 @@
-package obligatorio;
+package Modelo.TiposDeCliente;
 
 public class Frecuente extends TipoCliente{
     public Frecuente(){

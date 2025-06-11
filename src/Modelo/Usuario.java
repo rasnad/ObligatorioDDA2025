@@ -1,4 +1,4 @@
-package obligatorio;
+package Modelo;
 
 public abstract class Usuario {
     String nombreCompleto;

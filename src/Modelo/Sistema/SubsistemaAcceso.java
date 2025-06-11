@@ -1,10 +1,15 @@
-package obligatorio;
+package Modelo.Sistema;
 
+import Modelo.Cliente;
+import Modelo.Dispositivo;
+import Modelo.Exception.PolloException;
+import Modelo.Gestor;
+import Modelo.Usuario;
 import java.util.ArrayList;
 
 public class SubsistemaAcceso {
 
-    ArrayList<Dispositivo> listDispositivos = new ArrayList<>();
+    ArrayList<Dispositivo> listaDispositivos = new ArrayList<>();
     ArrayList<Cliente> clientesLogueados = new ArrayList<>();
     ArrayList<Cliente> clientesDeslogueados = new ArrayList<>();
     ArrayList<Cliente> todosLosClientes = new ArrayList<>();
@@ -22,7 +27,7 @@ public class SubsistemaAcceso {
         return null;
     }
     
-    public String loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
+    public void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
         Cliente cliente = (Cliente) login(todosLosClientes, username, password);
         
         if (cliente == null) {
@@ -36,7 +41,6 @@ public class SubsistemaAcceso {
         clientesLogueados.add(cliente);
         dispositivo.asignarCliente(cliente);
         cliente.empezarServicio();
-        return cliente != null ? "Cliente : " + cliente.nombreCompleto : "";
     }
 
     public void loginGestor(String username, String password) throws PolloException {
@@ -69,7 +73,7 @@ public class SubsistemaAcceso {
 
         
     public void logoutGestor(Gestor gestor) {
-        gestor.unidadProcesadora.desloguearGestor(gestor);
+        gestor.getUnidadProcesadora().desloguearGestor(gestor);
         logout(gestoresLogueados, gestor);
     }
 

@@ -1,4 +1,6 @@
-package obligatorio;
+package Modelo;
+
+import Modelo.TiposDeCliente.TipoCliente;
 
 public class Cliente extends Usuario {
     int id;

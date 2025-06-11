@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package obligatorio;
+package Modelo;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,18 @@ public class Servicio {
     public Servicio(Cliente cliente, Dispositivo servicio) {
         this.cliente = cliente;
         this.dispositivo = servicio;
+    }
+    
+    public Cliente getCliente(){
+        return cliente;
+    }
+    
+    public void agregarPedido(Pedido pedido){
+        pedidos.add(pedido);
+    }
+    
+    public Dispositivo getDispositivo(){
+        return dispositivo;
     }
 
     public float calcularSubtotal(){

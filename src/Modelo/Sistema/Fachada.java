@@ -1,5 +1,13 @@
-package obligatorio;
+package Modelo.Sistema;
 
+import Modelo.Cliente;
+import Modelo.Dispositivo;
+import Modelo.Exception.PolloException;
+import Modelo.Gestor;
+import Modelo.Item;
+import Modelo.Pedido;
+import Modelo.Servicio;
+import Modelo.UnidadProcesadora;
 import Observador.Observable;
 import java.util.ArrayList;
 
@@ -42,7 +50,7 @@ public class Fachada extends Observable {
     }
 
     public Pedido nuevoPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
-        return subsistemaServicio.generarPedido(item, unidadProcesadora,servicio,comentario);
+        return subsistemaServicio.generarPedido(item, servicio, comentario);
     }
 
     /*

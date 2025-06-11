@@ -1,7 +1,7 @@
 package IURestaurante;
 
-import obligatorio.PolloException;
-import obligatorio.app.DatosDePrueba;
+import Modelo.Exception.PolloException;
+import Precarga.DatosDePrueba;
 
 public class Main {
     

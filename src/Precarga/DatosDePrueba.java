@@ -1,6 +1,17 @@
-package obligatorio.app;
+package Precarga;
 
-import obligatorio.*;
+import Modelo.Cliente;
+import Modelo.Gestor;
+import Modelo.UnidadProcesadora;
+import Modelo.TiposDeCliente.Frecuente;
+import Modelo.CategoriaItem;
+import Modelo.TiposDeCliente.DeLaCasa;
+import Modelo.Dispositivo;
+import Modelo.Sistema.Fachada;
+import Modelo.Exception.PolloException;
+import Modelo.Ingrediente;
+import Modelo.Item;
+import Modelo.Insumo;
 import java.util.*;
 
 public class DatosDePrueba {

@@ -1,4 +1,4 @@
-package obligatorio;
+package Modelo;
 
 public class Ingrediente {
     int cantidad;

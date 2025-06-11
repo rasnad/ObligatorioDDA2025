@@ -1,4 +1,4 @@
-package obligatorio;
+package Modelo.Exception;
 
 public class PolloException extends Exception {
     

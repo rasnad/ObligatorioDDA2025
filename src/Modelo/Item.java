@@ -1,4 +1,4 @@
-package obligatorio;
+package Modelo;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,10 @@ public class Item {
 
     public float getPrecioUnitario() {
         return precioUnitario;
+    }
+    
+    public UnidadProcesadora getUnidadProcesadora() {
+        return unidadProcesadora;
     }
 
     public boolean tieneStock(){
