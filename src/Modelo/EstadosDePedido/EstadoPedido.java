@@ -5,10 +5,23 @@ import Modelo.Gestor;
 
 public abstract class EstadoPedido {
     
+    public enum TipoDeEstado {
+        NO_CONFIRMADO, CONFIRMADO, EN_PROCESO, FINALIZADO, ENTREGADO
+    }
+    
+    private TipoDeEstado tipoDeEstado;
     private Pedido pedido;
     
     public Pedido getPedido(){
         return pedido;
+    }
+    
+    public TipoDeEstado getTipoDeEstado(){
+        return tipoDeEstado;
+    }
+    
+    public void setTipoDeEstado (TipoDeEstado tipo){
+        tipoDeEstado = tipo;
     }
     
     public abstract void procesarPedido(Gestor gestor) throws PolloException;

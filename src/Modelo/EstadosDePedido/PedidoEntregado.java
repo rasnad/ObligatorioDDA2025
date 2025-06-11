@@ -5,11 +5,15 @@ import Modelo.Gestor;
 
 public class PedidoEntregado extends EstadoPedido{
 
+    public PedidoEntregado(){
+        this.setTipoDeEstado(TipoDeEstado.ENTREGADO);
+    }
+    
     //Acciones válidas
     
     @Override
     public void cobrarPedido() throws PolloException {
-        this.getPedido().hacerCobrarPedido();
+        //this.getPedido().hacerCobrarPedido();
     }
     
     //Acciones inválidas

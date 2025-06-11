@@ -5,6 +5,10 @@ import Modelo.Gestor;
 
 public class PedidoConfirmado extends EstadoPedido{
 
+    public PedidoConfirmado(){
+        this.setTipoDeEstado(TipoDeEstado.CONFIRMADO);
+    }
+    
     //Acciones válidas
     
     @Override
@@ -14,7 +18,7 @@ public class PedidoConfirmado extends EstadoPedido{
 
     @Override
     public void cobrarPedido() {
-        this.getPedido().hacerCobrarPedido();
+        //this.getPedido().hacerCobrarPedido();
     }
     
     @Override //Gestor toma pedido

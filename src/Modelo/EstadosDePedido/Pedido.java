@@ -1,5 +1,6 @@
 package Modelo.EstadosDePedido;
 
+import Modelo.Exception.PolloException;
 import java.util.Date;
 import Modelo.Gestor;
 import Modelo.Item;
@@ -32,7 +33,7 @@ public class Pedido {
         return servicio;
     }
     
-    public void setEstado(EstadoPedido e){
+    protected void setEstado(EstadoPedido e){
         this.estado = e;
     }
     
@@ -45,9 +46,11 @@ public class Pedido {
         this.servicio = null;
     }
     
+    /*
     protected boolean hacerCobrarPedido(){
         return true;
     }
+    */
     
     protected void hacerProcesarPedido(Gestor gestor){
         gestor.tomarPedido(this);
@@ -57,31 +60,30 @@ public class Pedido {
         item.restarStockDeInsumos();
     }
     
-    /* Esto se hará mediante State
+    //Manejo del State:
     
-    public EstadoPedido getEstadoPedido() {
-        return estadoPedido;
+    public void procesarPedido(Gestor gestor) throws PolloException{
+        estado.procesarPedido(gestor);
     }
     
-    public void setEstado(EstadoPedido estado){
-        this.estadoPedido = estado;
+    public void confirmarPedido() throws PolloException{
+        estado.confirmarPedido();
     }
-
-    public void confirmarPedido(){
-        setEstado(EstadoPedido.PEDIDO_CONFIRMADO);
+    
+    public void eliminarPedido() throws PolloException{
+        estado.eliminarPedido();
     }
-
-    public void entregar(){
-        setEstado(EstadoPedido.PEDIDO_ENTREGADO);
+    
+    public boolean cobrarPedido() throws PolloException{
+        estado.cobrarPedido();
+        return true;
     }
-
-    public void finalizar(){
-        setEstado(EstadoPedido.PEDIDO_FINALIZADO);
+    
+    public void finalizarPedido() throws PolloException{
+        estado.finalizarPedido();
     }
-
-
-    public void eliminar(){
-        estadoPedido = EstadoPedido.PEDIDO_ELIMINADO;
+    
+    public void entregarPedido() throws PolloException{
+        estado.entregarPedido();
     }
-    */
 }

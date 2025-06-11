@@ -5,6 +5,10 @@ import Modelo.Gestor;
 
 public class PedidoNoConfirmado extends EstadoPedido{
     
+    public PedidoNoConfirmado(){
+        this.setTipoDeEstado(TipoDeEstado.NO_CONFIRMADO);
+    }
+    
     //Acciones válidas
     
     @Override
