@@ -5,7 +5,7 @@ import Modelo.Gestor;
 import Modelo.Insumo;
 import Modelo.Item;
 import Modelo.Menu;
-import Modelo.Pedido;
+import Modelo.EstadosDePedido.Pedido;
 import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
 import java.util.ArrayList;

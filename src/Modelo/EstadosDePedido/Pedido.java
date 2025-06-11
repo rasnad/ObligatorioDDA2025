@@ -1,6 +1,10 @@
-package Modelo;
+package Modelo.EstadosDePedido;
 
 import java.util.Date;
+import Modelo.Gestor;
+import Modelo.Item;
+import Modelo.Servicio;
+import Modelo.UnidadProcesadora;
 
 public class Pedido {
     Item item;
@@ -9,14 +13,14 @@ public class Pedido {
     Servicio servicio;
     String comentario;
     Date fechaYHora;    
-    //estadoPedido = Estado de pedido nuevo acá, ver patrón state
+    EstadoPedido estado;
 
     public Pedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) {
         this.item = item;
         this.unidadProcesadora = unidadProcesadora;
         this.servicio = servicio;
         this.comentario = comentario;
-        //estadoPedido = Estado de pedido nuevo acá, ver patrón state
+        estado = new PedidoNoConfirmado();
         fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
     }
     
@@ -24,12 +28,29 @@ public class Pedido {
         return item;
     }
     
+    public Servicio getServicio() {
+        return servicio;
+    }
+    
+    public void setEstado(EstadoPedido e){
+        this.estado = e;
+    }
+    
     public void setGestor(Gestor gestor){
         this.gestor = gestor;
     }
     
-    public Servicio getServicio() {
-        return servicio;
+    protected void hacerEliminarPedido(){
+        servicio.removerPedido(this);
+        this.servicio = null;
+    }
+    
+    protected boolean hacerCobrarPedido(){
+        return true;
+    }
+    
+    protected void hacerProcesarPedido(Gestor gestor){
+        gestor.tomarPedido(this);
     }
     
     public void restarStockDeItem(){

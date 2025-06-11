@@ -5,7 +5,7 @@ import Modelo.Dispositivo;
 import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Item;
-import Modelo.Pedido;
+import Modelo.EstadosDePedido.Pedido;
 import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
 import Observador.Observable;

@@ -1,5 +1,6 @@
 package Modelo;
 
+import Modelo.EstadosDePedido.Pedido;
 import java.util.ArrayList;
 
 public class Gestor extends Usuario {
@@ -17,7 +18,10 @@ public class Gestor extends Usuario {
         return unidadProcesadora;
     }
     
-    public void tomarPedido(Pedido pedido){}
+    public void tomarPedido(Pedido pedido){
+        pedidosTomados.add(pedido);
+    }
+    
     public void pedidoListo(Pedido pedido){}
     public void pedidoEntregado(Pedido pedido){}
 

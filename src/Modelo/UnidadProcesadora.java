@@ -1,5 +1,6 @@
 package Modelo;
 
+import Modelo.EstadosDePedido.Pedido;
 import java.util.ArrayList;
 
 

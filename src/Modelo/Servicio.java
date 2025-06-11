@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Modelo.EstadosDePedido.Pedido;
 import java.util.ArrayList;
 
 public class Servicio {
@@ -22,6 +23,10 @@ public class Servicio {
     }
     
     public void agregarPedido(Pedido pedido){
+        pedidos.add(pedido);
+    }
+    
+    public void removerPedido(Pedido pedido){
         pedidos.add(pedido);
     }
     
