@@ -7,7 +7,7 @@ public class Main {
     
     public static void main(String[] args) throws PolloException {
         
-        DatosDePrueba.cargarDatos();
+       DatosDePrueba.cargarDatos();
        
        RealizarPedidos rp = new RealizarPedidos();
        rp.setVisible(true);

@@ -1,12 +1,13 @@
 package obligatorio;
 
+import Observador.Observable;
 import java.util.ArrayList;
 
-public class Fachada extends ObservableBase{
+public class Fachada extends Observable {
     
-    private static Fachada instancia = new Fachada();
-    private SubsistemaAcceso subsistemaAcceso = new SubsistemaAcceso();
-    private SubsistemaServicio subsistemaServicio = new SubsistemaServicio();
+    private final static Fachada instancia = new Fachada();
+    private final SubsistemaAcceso subsistemaAcceso = new SubsistemaAcceso();
+    private final SubsistemaServicio subsistemaServicio = new SubsistemaServicio();
     
     //Constructor Singleton
     private Fachada(){}
@@ -44,6 +45,7 @@ public class Fachada extends ObservableBase{
         return subsistemaServicio.generarPedido(item, unidadProcesadora,servicio,comentario);
     }
 
+    /*
     public ArrayList<Pedido> confirmarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los confirma y los devuelve
         return subsistemaServicio.confirmarPedido(servicio);
     }
@@ -51,7 +53,7 @@ public class Fachada extends ObservableBase{
     public ArrayList<Pedido> cancelarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los cancela y los devuelve
         return subsistemaServicio.cancelarPedido(servicio);
     }
-
+    */
 
 
 }

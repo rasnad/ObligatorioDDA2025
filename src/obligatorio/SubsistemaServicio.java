@@ -25,11 +25,11 @@ public class SubsistemaServicio {
         }
 
         Pedido pedido = new Pedido(item, unidadProcesadora, servicio, comentario);
-        pedido.agregarObservador(servicio.dispositivo);
         servicio.pedidos.add(pedido);
         return pedido;
     }
 
+    /* Implementar con State y Experto
     public ArrayList<Pedido> confirmarPedido(Servicio servicio) {
         return servicio.pedidos.stream() // Recorremos la lista de pedidos del servicio,
                 .filter(pedido -> pedido.getEstadoPedido() == EstadoPedido.PEDIDO_NO_CONFIRMADO)  // y nos quedamos con lo aun no confirmado
@@ -43,6 +43,5 @@ public class SubsistemaServicio {
                 .peek(pedido -> pedido.eliminar())// y lo confirmamos.
                 .collect(Collectors.toCollection(ArrayList::new)); // Nos quedamos con dicha lista.
     }
-
-
+    */
 }
