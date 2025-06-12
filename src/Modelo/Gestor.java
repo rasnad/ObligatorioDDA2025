@@ -1,6 +1,7 @@
 package Modelo;
 
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.Exception.PolloException;
 import java.util.ArrayList;
 
 public class Gestor extends Usuario {
@@ -22,7 +23,12 @@ public class Gestor extends Usuario {
         pedidosTomados.add(pedido);
     }
     
-    public void pedidoListo(Pedido pedido){}
-    public void pedidoEntregado(Pedido pedido){}
+    public void pedidoListo(Pedido pedido) throws PolloException {
+        pedido.finalizarPedido();
+    }
+    
+    public void pedidoEntregado(Pedido pedido) throws PolloException {
+        pedido.entregarPedido();
+    }
 
 }
