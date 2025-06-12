@@ -5,6 +5,7 @@
 package Modelo;
 
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.Exception.PolloException;
 import java.util.ArrayList;
 
 public class Servicio {
@@ -22,16 +23,23 @@ public class Servicio {
         return cliente;
     }
     
+    public Dispositivo getDispositivo(){
+        return dispositivo;
+    }
+    
     public void agregarPedido(Pedido pedido){
         pedidos.add(pedido);
     }
     
     public void removerPedido(Pedido pedido){
-        pedidos.add(pedido);
+        pedidos.remove(pedido);
     }
     
-    public Dispositivo getDispositivo(){
-        return dispositivo;
+    public void confirmarPedidos() throws PolloException {
+        ArrayList<Pedido> copia = new ArrayList(pedidos);
+        for (Pedido p : pedidos){
+            p.confirmarPedido();
+        }
     }
 
     public float calcularSubtotal(){

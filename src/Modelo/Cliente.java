@@ -1,5 +1,7 @@
 package Modelo;
 
+import Modelo.EstadosDePedido.Pedido;
+import Modelo.Exception.PolloException;
 import Modelo.TiposDeCliente.TipoCliente;
 
 public class Cliente extends Usuario {
@@ -16,6 +18,14 @@ public class Cliente extends Usuario {
 
     public void empezarServicio(){
         servicio = new Servicio(this, dispositivo);
+    }
+    
+    public void eliminarPedido(Pedido pedido) throws PolloException {
+        pedido.eliminarPedido();
+    }
+    
+    public void confirmarServicio() throws PolloException{
+        servicio.confirmarPedidos();
     }
 
     public void terminarServicio(){
