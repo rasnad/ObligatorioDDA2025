@@ -1,10 +1,7 @@
 package Controlador;
 
 import Modelo.*;
-<<<<<<< HEAD
-=======
 import Modelo.EstadosDePedido.Pedido;
->>>>>>> e8ce253b76d64b7b4d2f2b86a246cc40cf3a734f
 import java.util.ArrayList;
 
 public interface VistaDispositivo {

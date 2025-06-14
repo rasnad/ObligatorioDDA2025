@@ -2,14 +2,10 @@ package Vista;
 
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
-<<<<<<< HEAD
 import Modelo.CategoriaItem;
 import Modelo.Exception.PolloException;
 import Precarga.DatosDePrueba;
-=======
 import Modelo.EstadosDePedido.Pedido;
-import Modelo.Menu;
->>>>>>> e8ce253b76d64b7b4d2f2b86a246cc40cf3a734f
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
