@@ -16,6 +16,14 @@ public class Item {
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
     }
+    
+    public CategoriaItem getCategoriaItem(){
+        return categoriaItem;
+    }
+    
+    public void setCategoriaItem(CategoriaItem c){
+        categoriaItem = c;
+    }
 
     public boolean tieneStock(){
         return false;
@@ -38,8 +46,8 @@ public class Item {
     public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
         this.ingredientes = ingredientes;
         this.unidadProcesadora = unidadProcesadora;
-        this.categoriaItem = categoriaItem;
         this.nombre = nombre;
         this.precioUnitario = precioUnitario;
+        categoriaItem.agregarItem(this);
     }
 }
