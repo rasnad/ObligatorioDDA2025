@@ -1,10 +1,14 @@
 package Controlador;
 
 import Modelo.*;
+import Modelo.EstadosDePedido.Pedido;
+import java.util.ArrayList;
 
 public interface VistaDispositivo {
     
-    public void mostrarMonto(float monto); //pedidos del servicio, monto
+    public void mostrarMonto(float monto); //datos del servicio: monto
+    
+    public void mostrarPedidosHechos(ArrayList<Pedido> pedidos); //datos del servicio: pedidos
     
     public void mostrarCategorias(Menu menu);
     

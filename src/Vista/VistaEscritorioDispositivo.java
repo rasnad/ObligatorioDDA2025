@@ -2,9 +2,10 @@ package Vista;
 
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
-import Modelo.Servicio;
+import Modelo.EstadosDePedido.Pedido;
 import Modelo.Menu;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
@@ -431,9 +432,27 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         controlador.terminarServicioEnDispositivo();
     }
 
-    @Override
+    @Override //Muestra el monto del servicio hasta el momento
     public void mostrarMonto(float monto) {
         textMonto.setText(monto + "");
+    }
+    
+    @Override //Muestra los pedidos del servicio
+    public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
+        /*
+        Lista de los pedidos del servicio, mostrando para cada uno: 
+            -nombre del ítem
+            -comentario
+            -estado
+            -unidad procesadora
+            -nombre del gestor que lo está elaborando
+            -precio.
+        Para los pedidos no confirmados aún, muestra “Sin confirmar”.
+        Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
+        indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
+        pronto para retirar o está en elaboración o si esta entregado al cliente
+        */
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -445,5 +464,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     public void mostrarItems(Menu menu) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }
