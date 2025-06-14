@@ -8,6 +8,7 @@ public class UnidadProcesadora {
    ArrayList<Gestor> gestores = new ArrayList<>();
    ArrayList<Pedido> pedidos = new ArrayList<>();
    ArrayList<Item> items = new ArrayList<>();
+   String nombre;
 
    public UnidadProcesadora() {
 
@@ -26,7 +27,8 @@ public class UnidadProcesadora {
        gestores.remove(g);
    }
 
-   public UnidadProcesadora(ArrayList<Gestor> gestores, ArrayList<Pedido> pedidos, ArrayList<Item> items) {
+   public UnidadProcesadora(String nombre, ArrayList<Gestor> gestores, ArrayList<Pedido> pedidos, ArrayList<Item> items) {
+      this.nombre = nombre;
       this.gestores = gestores;
       this.pedidos = pedidos;
       this.items = items;
