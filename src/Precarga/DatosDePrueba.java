@@ -27,9 +27,9 @@ public class DatosDePrueba {
 
         // Dispositivos
         Dispositivo dispositivo1 = new Dispositivo();
-        Dispositivo dispositivo2 = new Dispositivo();        
-        fachada.nuevoDispositivo(dispositivo1);
+        Dispositivo dispositivo2 = new Dispositivo();
         fachada.nuevoDispositivo(dispositivo2);
+        fachada.nuevoDispositivo(dispositivo1);
 
 
 

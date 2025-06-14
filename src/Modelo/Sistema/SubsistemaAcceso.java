@@ -95,6 +95,12 @@ public class SubsistemaAcceso {
             return d;
         }
         
+        //devuelve uno random libre
+        Dispositivo disp = todosLosDispositivos.get((int)(Math.random() * todosLosDispositivos.size()));
+        if (!disp.getEstaOcupado()){
+            return disp;
+        }
+        
         for (Dispositivo libre : todosLosDispositivos){ //devuelve primer disp libre
             if (!libre.getEstaOcupado()){
                 return libre;

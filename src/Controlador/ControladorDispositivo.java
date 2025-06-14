@@ -19,6 +19,10 @@ public class ControladorDispositivo implements Observador {
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
     }
     
+    public String getDispositivoId(){
+        return dispositivo.getId() + "";
+    }
+    
     //Eventos del usuario
     
     private void inicializarVista(){

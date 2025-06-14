@@ -12,6 +12,10 @@ public class Main {
        
        VistaEscritorioDispositivo rp = new VistaEscritorioDispositivo();
        rp.setVisible(true);
+       VistaEscritorioDispositivo rp2 = new VistaEscritorioDispositivo();
+       rp2.setVisible(true);
+       VistaEscritorioDispositivo rp3 = new VistaEscritorioDispositivo();
+       rp3.setVisible(true);
        
     }
     

@@ -3,18 +3,20 @@ package Vista;
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
 import Modelo.Servicio;
+import Modelo.Menu;
 import javax.swing.JOptionPane;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
     private final ControladorDispositivo controlador;
     private Servicio servicio;
+    private Menu menu;
     
     public VistaEscritorioDispositivo() {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        //setTitle("Realizar Pedidos : Cliente Deslogueado");
         controlador = new ControladorDispositivo(this);
+        setTitle("Dispositivo " + controlador.getDispositivoId());
     }
 
     /**
@@ -340,6 +342,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     @Override
     public void mostrarServicio(Servicio servicio) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public void mostrarMenu(Menu menu) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -14,6 +14,10 @@ public class Dispositivo {
         this.id = ultimoId++;
     }
     
+    public int getId(){
+        return id;
+    }
+    
     public Cliente getCliente(){
         return clienteAsignado;
     }
