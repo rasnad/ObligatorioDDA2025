@@ -4,6 +4,7 @@ import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
 import Modelo.Servicio;
 import Modelo.Menu;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
@@ -46,7 +47,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         jScrollPane4 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textComentarioPedido = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableItems = new javax.swing.JTable();
@@ -134,9 +136,26 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jScrollPane4.setViewportView(jList2);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane5.setViewportView(jTextArea1);
+        textComentarioPedido.setColumns(20);
+        textComentarioPedido.setRows(5);
+        textComentarioPedido.setText("¿Desea modificar algo sobre la preparación? Deje su comentario acá...");
+        textComentarioPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textComentarioPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textComentarioPedidoFocusLost(evt);
+            }
+        });
+        textComentarioPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textComentarioPedidoKeyTyped(evt);
+            }
+        });
+        jScrollPane5.setViewportView(textComentarioPedido);
+        textComentarioPedido.getAccessibleContext().setAccessibleName("");
+        textComentarioPedido.getAccessibleContext().setAccessibleDescription("");
+        textComentarioPedido.setForeground(Color.gray);
+
+        jLabel7.setText("Comentario");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -147,17 +166,21 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAgregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(133, 133, 133))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(121, 121, 121))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,11 +192,13 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addGap(5, 5, 5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregarPedido)
                             .addComponent(btnEliminarPedido)))
                     .addComponent(jScrollPane4))
@@ -190,7 +215,15 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
             new String [] {
                 "Item", "Comentarios", "Estado", "Unidad", "Gestor", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tableItems);
 
         jLabel3.setText("Pedidos de Servicio");
@@ -199,7 +232,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jButton5.setText("Finalizar Servicio");
 
-        textMonto.setText("jTextField3");
+        textMonto.setEditable(false);
 
         jLabel6.setText("Monto");
 
@@ -243,9 +276,10 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        textSistema.setEditable(false);
         textSistema.setColumns(20);
         textSistema.setRows(5);
-        textSistema.setText("Mensajes del sistema aqui...");
+        textSistema.setText("Esperando mensajes del sistema...");
         jScrollPane6.setViewportView(textSistema);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -306,6 +340,36 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         loginCliente();
     }//GEN-LAST:event_btnLoginClienteActionPerformed
 
+    private void textComentarioPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textComentarioPedidoFocusLost
+        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
+        ponerComentarioPlaceholder(cajaDeComentarios);
+    }//GEN-LAST:event_textComentarioPedidoFocusLost
+
+    private void textComentarioPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textComentarioPedidoKeyTyped
+        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
+        sacarComentarioPlaceholder(cajaDeComentarios);
+    }//GEN-LAST:event_textComentarioPedidoKeyTyped
+
+    private String devolverComentarioPlaceholder(){
+        return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
+    }
+    
+    private void ponerComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
+        String placeholderComentario = devolverComentarioPlaceholder();
+        if ("".equals(cajaDeComentarios.getText())){
+            cajaDeComentarios.setText(placeholderComentario);
+            cajaDeComentarios.setForeground(Color.gray);
+        }
+    }
+    
+    private void sacarComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
+        String placeholderComentario = devolverComentarioPlaceholder();
+        if ( placeholderComentario.equals( cajaDeComentarios.getText() ) ) {
+            cajaDeComentarios.setText("");
+        }
+        
+        cajaDeComentarios.setForeground(Color.black);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPedido;
@@ -319,6 +383,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
@@ -332,10 +397,10 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable tableItems;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
+    private javax.swing.JTextArea textComentarioPedido;
     private javax.swing.JTextField textMonto;
     private javax.swing.JTextArea textSistema;
     // End of variables declaration//GEN-END:variables

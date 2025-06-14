@@ -87,6 +87,7 @@ public class SubsistemaAcceso {
         todosLosDispositivos.add(dispositivo);
     }
     
+    //MÉTODO TEMPORAL PARA TESTING, BORRAR LUEGO DE IMPLEMENTAR SOLUCIÓN FINAL
     public Dispositivo devolverDispositivo(){
         
         if (todosLosDispositivos.isEmpty()){  //si no hay dispositivos, devuelve uno nuevo
