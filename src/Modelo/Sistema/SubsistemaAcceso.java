@@ -5,6 +5,8 @@ import Modelo.Dispositivo;
 import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Usuario;
+import Precarga.DatosDePrueba;
+
 import java.util.ArrayList;
 
 public class SubsistemaAcceso {
@@ -14,6 +16,7 @@ public class SubsistemaAcceso {
     ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
     ArrayList<Cliente> clientesLogueados = new ArrayList<>();
     ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
+    DatosDePrueba datosDePrueba = new DatosDePrueba();
     
     protected SubsistemaAcceso(){}
 

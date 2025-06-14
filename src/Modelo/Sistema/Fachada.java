@@ -6,6 +6,7 @@ import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Item;
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.Menu;
 import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
 import Observador.Observable;
@@ -63,6 +64,10 @@ public class Fachada extends Observable {
     
     public Dispositivo devolverDispositivo(){
         return subsistemaAcceso.devolverDispositivo();
+    }
+    
+    public Menu obtenerMenuPorNombre(String nombre){
+        return subsistemaServicio.devolverMenuPorNombre(nombre);
     }
 
     /*

@@ -3,6 +3,7 @@ package Modelo.Sistema;
 import Modelo.*;
 import Modelo.Exception.PolloException;
 import Modelo.EstadosDePedido.Pedido;
+import Precarga.DatosDePrueba;
 import java.util.ArrayList;
 
 public class SubsistemaServicio {
@@ -13,6 +14,7 @@ public class SubsistemaServicio {
     ArrayList<Menu> menues = new ArrayList<>();
     ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
     ArrayList<Insumo> insumos = new ArrayList<>();
+    DatosDePrueba datosDePrueba = new DatosDePrueba();
 
     protected SubsistemaServicio(){}
     
@@ -36,6 +38,10 @@ public class SubsistemaServicio {
         Pedido pedido = new Pedido(item, item.getUnidadProcesadora(), servicio, comentario);
         servicio.agregarPedido(pedido);
         return pedido;
+    }
+    
+    protected Menu devolverMenuPorNombre(String nombreMenu) {
+        return datosDePrueba.obtenerMenuPorNombre(nombreMenu);
     }
 
     /* Implementar con State y Experto

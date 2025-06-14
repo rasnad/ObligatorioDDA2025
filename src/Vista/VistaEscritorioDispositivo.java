@@ -2,17 +2,19 @@ package Vista;
 
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
-import Modelo.Servicio;
-import Modelo.Menu;
+import Modelo.CategoriaItem;
+import Modelo.Exception.PolloException;
+import Precarga.DatosDePrueba;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
     private final ControladorDispositivo controlador;
-    private Menu menu;
+    private DatosDePrueba datosDePrueba = new DatosDePrueba();
     
-    public VistaEscritorioDispositivo() {
+    public VistaEscritorioDispositivo() throws PolloException {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         controlador = new ControladorDispositivo(this);
@@ -44,7 +46,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        listCategorias = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         textComentarioPedido = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
@@ -133,7 +135,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jLabel5.setText("Categorias");
 
-        jScrollPane4.setViewportView(jList2);
+        jScrollPane4.setViewportView(listCategorias);
 
         textComentarioPedido.setColumns(20);
         textComentarioPedido.setRows(5);
@@ -394,7 +396,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -406,6 +407,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
+    private javax.swing.JList<String> listCategorias;
     private javax.swing.JTable tableItems;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
@@ -437,12 +439,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }
 
     @Override
-    public void mostrarCategorias(Menu menu) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarCategorias(ArrayList<String> nombreCategorias) {
+        listCategorias.setListData(nombreCategorias.toArray(new String[0]));
     }
 
     @Override
-    public void mostrarItems(Menu menu) {
+    public void mostrarItems(CategoriaItem categoria) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

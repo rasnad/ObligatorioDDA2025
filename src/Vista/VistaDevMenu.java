@@ -33,6 +33,7 @@ public class VistaDevMenu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Desarrollador");
 
         jMenu1.setText("Ingresar");
 

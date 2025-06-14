@@ -4,6 +4,7 @@ import Modelo.*;
 import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
+import java.util.ArrayList;
 
 public class ControladorDispositivo implements Observador {
     
@@ -16,7 +17,7 @@ public class ControladorDispositivo implements Observador {
 
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
-        inicializarVista();
+        inicializarVista(obtenerCategoriasDelMenu(fachada.obtenerMenuPorNombre("Menu de invierno")));
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
     }
     
@@ -30,9 +31,18 @@ public class ControladorDispositivo implements Observador {
     
     //Eventos del usuario
     
-    private void inicializarVista(){
+    private void inicializarVista(ArrayList<String> categorias){
         //Carga de información dinámica que necesita la vista
         vista.mostrarMonto(0);
+        vista.mostrarCategorias(categorias); // Aca pasar lista de nombres categorias
+    }
+    
+    private ArrayList<String> obtenerCategoriasDelMenu(Menu menu){
+        ArrayList<String> categorias = new ArrayList<>();
+        for (CategoriaItem categoria : menu.getCategorias()) {
+            categorias.add(categoria.getNombre());
+        }
+        return categorias;
     }
     
     public void loginCliente(String username, String password) {
@@ -66,5 +76,8 @@ public class ControladorDispositivo implements Observador {
         //Algún evento:
         //vista.mostrarMonto();
     }
+
+
+
      
 }

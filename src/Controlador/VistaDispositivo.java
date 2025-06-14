@@ -1,14 +1,15 @@
 package Controlador;
 
 import Modelo.*;
+import java.util.ArrayList;
 
 public interface VistaDispositivo {
     
     public void mostrarMonto(float monto); //pedidos del servicio, monto
     
-    public void mostrarCategorias(Menu menu);
+    public void mostrarCategorias(ArrayList<String> nombresDeCategorias);
     
-    public void mostrarItems(Menu menu);
+    public void mostrarItems(CategoriaItem categoria);
     
     public void mostrarError(String mensaje);
     

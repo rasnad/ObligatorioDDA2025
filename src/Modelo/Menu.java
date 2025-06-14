@@ -13,4 +13,17 @@ public class Menu {
     public ArrayList<CategoriaItem> getCategorias() {
         return categoriaItems;
     }
+
+    public void setNombreMenu(String nombreMenu) {
+        this.nombreMenu = nombreMenu;
+    }
+
+    public void setCategoriaItems(ArrayList<CategoriaItem> categoriaItems) {
+        this.categoriaItems = categoriaItems;
+    }
+    
+    public String getNombre(){
+        return this.nombreMenu;
+    }
+    
 }

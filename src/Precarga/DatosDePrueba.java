@@ -1,23 +1,36 @@
 package Precarga;
 
-import Modelo.Cliente;
-import Modelo.Gestor;
-import Modelo.UnidadProcesadora;
+import Modelo.*;
 import Modelo.TiposDeCliente.Frecuente;
-import Modelo.CategoriaItem;
 import Modelo.TiposDeCliente.DeLaCasa;
-import Modelo.Dispositivo;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
-import Modelo.Ingrediente;
-import Modelo.Item;
-import Modelo.Insumo;
+
 import java.util.*;
 
 public class DatosDePrueba {
+
+    public Menu obtenerMenuPorNombre(String nombre) {
+
+        Menu menu = new Menu();
+
+        CategoriaItem entrada = new CategoriaItem("Entrada");
+        CategoriaItem platoPrincipal = new CategoriaItem("Plato Principal");
+        CategoriaItem bebida = new CategoriaItem("Bebida");
+        CategoriaItem sushi = new CategoriaItem("Sushi");
+
+        menu.setCategoriaItems(new ArrayList<>(List.of(entrada, platoPrincipal, bebida, sushi)));
+        menu.setNombreMenu("Menu de invierno");
+        if(menu.getNombre().equals(nombre)) {
+            return menu;
+        }
+        return null;
+    }
+
     public static void cargarDatos() throws PolloException {
         
         Fachada fachada = Fachada.getInstancia();
+        Menu menu = new Menu();
 
         // Clientes
         Cliente cliente1 = new Cliente(1, new Frecuente(), "1234", "Juan");
@@ -95,6 +108,9 @@ public class DatosDePrueba {
         CategoriaItem bebida = new CategoriaItem("Bebida");
         CategoriaItem sushi = new CategoriaItem("Sushi");
 
+        menu.setCategoriaItems(new ArrayList<>(List.of(entrada, platoPrincipal, bebida, sushi)));
+        menu.setNombreMenu("Menu de invierno");
+        
         // Ítems del menú
 
         Ingrediente ingredienteCarne = new Ingrediente(1,carne);

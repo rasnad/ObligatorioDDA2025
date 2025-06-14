@@ -10,6 +10,10 @@ public class CategoriaItem {
  
     }
 
+    public String getNombre() {
+        return this.nombre;
+    }
+
     public void agregarItem(Item item) {
         this.items.add(item);
     }
