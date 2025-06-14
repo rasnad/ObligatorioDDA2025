@@ -1,11 +1,11 @@
 package Precarga;
 
-import Vista.VistaDevMenu;
+import Vista.VistaEscritorioDevMenu;
 import Vista.VistaEscritorioDispositivo;
 import Modelo.Exception.PolloException;
 import Precarga.DatosDePrueba;
-import Vista.VistaLoginGestor;
-import Vista.VistaProcesadorPedidos;
+import Vista.VistaEscritorioLoginGestor;
+import Vista.VistaEscritorioProcesadorPedidos;
 
 public class Main {
     
@@ -19,11 +19,11 @@ public class Main {
        rp2.setVisible(true);
        VistaEscritorioDispositivo rp3 = new VistaEscritorioDispositivo();
        rp3.setVisible(true);
-       VistaDevMenu rp4 = new VistaDevMenu();
+       VistaEscritorioDevMenu rp4 = new VistaEscritorioDevMenu();
        rp4.setVisible(true);
-       VistaLoginGestor rp5 = new VistaLoginGestor();
+       VistaEscritorioLoginGestor rp5 = new VistaEscritorioLoginGestor();
        rp5.setVisible(true);
-       VistaProcesadorPedidos rp6 = new VistaProcesadorPedidos();
+       VistaEscritorioProcesadorPedidos rp6 = new VistaEscritorioProcesadorPedidos();
        rp6.setVisible(true);
 
 

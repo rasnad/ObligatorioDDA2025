@@ -1,8 +1,11 @@
 package Vista;
 
-public class VistaLoginGestor extends javax.swing.JFrame {
+import Controlador.VistaLoginGestor;
+import Modelo.Gestor;
 
-    public VistaLoginGestor() {
+public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements VistaLoginGestor {
+
+    public VistaEscritorioLoginGestor() {
         initComponents();
     }
 
@@ -72,4 +75,9 @@ public class VistaLoginGestor extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Gestor loginGestor(String username, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

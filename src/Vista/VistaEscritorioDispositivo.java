@@ -9,6 +9,7 @@ import Modelo.EstadosDePedido.Pedido;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionListener;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
@@ -20,7 +21,9 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         controlador = new ControladorDispositivo(this);
         setTitle("Dispositivo " + controlador.getDispositivoId());
+        
     }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -466,6 +469,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     public void mostrarItems(CategoriaItem categoria) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+   
     
 }

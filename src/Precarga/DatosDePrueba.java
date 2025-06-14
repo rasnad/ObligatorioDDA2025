@@ -12,7 +12,7 @@ public class DatosDePrueba {
 
     public Menu obtenerMenuPorNombre(String nombre) {
 
-        Menu menu = new Menu();
+        Menu menu = new Menu("Menu De Invierno");
 
         CategoriaItem entrada = new CategoriaItem("Entrada");
         CategoriaItem platoPrincipal = new CategoriaItem("Plato Principal");
@@ -28,9 +28,8 @@ public class DatosDePrueba {
     }
 
     public static void cargarDatos() throws PolloException {
-        
+
         Fachada fachada = Fachada.getInstancia();
-        Menu menu = new Menu();
 
         // Clientes
         Cliente cliente1 = new Cliente(1, new Frecuente(), "1234", "Juan");
@@ -108,8 +107,15 @@ public class DatosDePrueba {
         CategoriaItem bebida = new CategoriaItem("Bebida");
         CategoriaItem sushi = new CategoriaItem("Sushi");
 
-        menu.setCategoriaItems(new ArrayList<>(List.of(entrada, platoPrincipal, bebida, sushi)));
-        menu.setNombreMenu("Menu de invierno");
+        //Menú
+        fachada.crearMenu("Menu de Invierno");
+        Menu menu = fachada.devolverMenuPorNombre("Menu de Invierno");
+
+        //Añadir categorías
+        menu.agregarCategoria(entrada);
+        menu.agregarCategoria(platoPrincipal);
+        menu.agregarCategoria(bebida);
+        menu.agregarCategoria(sushi);
         
         // Ítems del menú
 

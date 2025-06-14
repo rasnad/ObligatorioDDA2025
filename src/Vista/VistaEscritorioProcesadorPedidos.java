@@ -1,8 +1,10 @@
 package Vista;
 
-public class VistaProcesadorPedidos extends javax.swing.JFrame {
+import Controlador.VistaProcesarPedidos;
 
-    public VistaProcesadorPedidos() {
+public class VistaEscritorioProcesadorPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
+
+    public VistaEscritorioProcesadorPedidos() {
         initComponents();
     }
 
@@ -156,4 +158,24 @@ public class VistaProcesadorPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField textNombreGestor;
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarPedidosConfirmador() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void tomarPedido() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void FinalizarPedido() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void EntregarPedido() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
