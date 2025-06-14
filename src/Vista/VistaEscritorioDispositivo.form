@@ -326,7 +326,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton5" min="-2" pref="125" max="-2" attributes="0"/>
+                                  <Component id="btnFinalizarServicio" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -343,7 +343,7 @@
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFinalizarServicio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="96" max="-2" attributes="0"/>
@@ -428,10 +428,13 @@
             <Property name="text" type="java.lang.String" value="Confirmar Pedidos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="btnFinalizarServicio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Finalizar Servicio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFinalizarServicioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="textMonto">
           <Properties>

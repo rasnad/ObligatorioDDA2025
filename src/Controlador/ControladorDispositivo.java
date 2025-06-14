@@ -10,9 +10,9 @@ public class ControladorDispositivo implements Observador {
     private VistaDispositivo vista;
     private Servicio servicio;
     private Dispositivo dispositivo;
+    private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
 
-    
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
         inicializarVista();
@@ -34,6 +34,8 @@ public class ControladorDispositivo implements Observador {
         try {
             dispositivo.puedeLoguearseCliente();
             fachada.loginCliente(dispositivo, username, password);
+            servicio = dispositivo.getServicio();
+            cliente = dispositivo.getCliente();
         } catch (PolloException e){
             vista.mostrarError(e.getMessage());
         }
@@ -41,6 +43,16 @@ public class ControladorDispositivo implements Observador {
     
     public void salir(){
         servicio.quitarObservador(this);
+    }
+    
+    public void terminarServicioEnDispositivo(){
+        if (servicio != null){
+            fachada.logoutCliente(dispositivo, cliente);
+            servicio.quitarObservador(this);
+            servicio.getCliente().terminarServicioEnDispositivo();
+            dispositivo.liberarClienteDelServicio();
+            servicio = null;
+        }
     }
     
     //Evento del modelo

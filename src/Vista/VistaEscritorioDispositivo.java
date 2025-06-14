@@ -54,7 +54,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         tableItems = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnFinalizarServicio = new javax.swing.JButton();
         textMonto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -230,7 +230,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jButton4.setText("Confirmar Pedidos");
 
-        jButton5.setText("Finalizar Servicio");
+        btnFinalizarServicio.setText("Finalizar Servicio");
+        btnFinalizarServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarServicioActionPerformed(evt);
+            }
+        });
 
         textMonto.setEditable(false);
 
@@ -255,7 +260,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jButton4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnFinalizarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -266,7 +271,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnFinalizarServicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -350,6 +355,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         sacarComentarioPlaceholder(cajaDeComentarios);
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
+    private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
+        controlador.terminarServicioEnDispositivo();
+        System.out.println("btn presionado");
+    }//GEN-LAST:event_btnFinalizarServicioActionPerformed
+
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
     }
@@ -374,9 +384,9 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPedido;
     private javax.swing.JButton btnEliminarPedido;
+    private javax.swing.JButton btnFinalizarServicio;
     private javax.swing.JButton btnLoginCliente;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -10,6 +10,10 @@ public class Dispositivo {
     Cliente clienteAsignado;
     Servicio servicio;
 
+    public Servicio getServicio() {
+        return servicio;
+    }
+
     public Dispositivo() {
         this.id = ultimoId++;
     }
