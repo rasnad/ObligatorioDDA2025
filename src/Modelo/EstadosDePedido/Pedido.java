@@ -16,9 +16,9 @@ public class Pedido {
     Date fechaYHora;    
     EstadoPedido estado;
 
-    public Pedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) {
+    public Pedido(Item item, Servicio servicio, String comentario) {
         this.item = item;
-        this.unidadProcesadora = unidadProcesadora;
+        this.unidadProcesadora = item.getUnidadProcesadora();
         this.servicio = servicio;
         this.comentario = comentario;
         estado = new PedidoNoConfirmado();

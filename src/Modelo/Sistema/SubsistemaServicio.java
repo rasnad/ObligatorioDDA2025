@@ -35,14 +35,26 @@ public class SubsistemaServicio {
             throw new PolloException("Debe seleccionar un ítem.");
         }
 
-        Pedido pedido = new Pedido(item, item.getUnidadProcesadora(), servicio, comentario);
+        Pedido pedido = new Pedido(item, servicio, comentario);
         servicio.agregarPedido(pedido);
         return pedido;
     }
     
     protected Menu devolverMenuPorNombre(String nombreMenu) {
-        return datosDePrueba.obtenerMenuPorNombre(nombreMenu);
+        for (Menu m : menues){
+            if (m.getNombre().equals(nombreMenu)){
+                return m;
+            }
+        }
+        return null;
     }
+
+    protected void crearMenu(String nombre){
+        menues.add (new Menu(nombre));
+    }
+    
+    
+    
 
     /* Implementar con State y Experto
     public ArrayList<Pedido> confirmarPedido(Servicio servicio) {

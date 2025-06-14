@@ -66,8 +66,12 @@ public class Fachada extends Observable {
         return subsistemaAcceso.devolverDispositivo();
     }
     
-    public Menu obtenerMenuPorNombre(String nombre){
+    public Menu devolverMenuPorNombre(String nombre){
         return subsistemaServicio.devolverMenuPorNombre(nombre);
+    }
+
+    public void crearMenu(String nombre){
+        subsistemaServicio.crearMenu(nombre);
     }
 
     /*

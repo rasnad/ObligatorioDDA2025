@@ -25,5 +25,13 @@ public class Menu {
     public String getNombre(){
         return this.nombreMenu;
     }
+
+    public void agregarCategoria(CategoriaItem categoriaItem){
+        this.categoriaItems.add(categoriaItem);
+    }
+
+    public Menu(String nombreMenu){
+        this.nombreMenu = nombreMenu;
+    }
     
 }

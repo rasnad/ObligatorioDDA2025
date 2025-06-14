@@ -14,11 +14,13 @@ public class ControladorDispositivo implements Observador {
     private Dispositivo dispositivo;
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
-
+    private Menu menu;
+        
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
-        inicializarVista(obtenerCategoriasDelMenu(fachada.obtenerMenuPorNombre("Menu de invierno")));
+        this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
+        inicializarVista();
     }
     
     public Servicio getServicio() {
@@ -76,8 +78,12 @@ public class ControladorDispositivo implements Observador {
         //Algún evento:
         //vista.mostrarMonto();
     }
+    
+    private void inicializarVista(){
+        //Carga de información dinámica que necesita la vista
+        vista.mostrarMonto(0);
+        vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
+    }
 
 
-
-     
 }
