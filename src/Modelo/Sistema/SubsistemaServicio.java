@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SubsistemaServicio {
     ArrayList<Gestor> gestores;
-    ArrayList<Pedido> pedidos;
+    ArrayList<Pedido> pedidos = new ArrayList<>();
     ArrayList<Item> items;
     ArrayList<Servicio> servicios;
     ArrayList<Menu> menues;
@@ -21,19 +21,17 @@ public class SubsistemaServicio {
 
     protected SubsistemaServicio(){}
     
-    public Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
+    public void generarPedido(Servicio servicio) throws PolloException {
 
         if (servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de realizar pedidos.");
         }
 
-        if (item == null) {
+        if (servicio.getItems().isEmpty()) {
             throw new PolloException("Debe seleccionar un ítem.");
         }
 
-        Pedido pedido = new Pedido(item, item.getUnidadProcesadora(), servicio, comentario);
-        servicio.agregarPedido(pedido);
-        return pedido;
+        pedidos.addAll(servicio.confirmarPedidos());
     }
 
     /* Implementar con State y Experto

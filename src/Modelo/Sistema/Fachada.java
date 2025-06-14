@@ -49,8 +49,8 @@ public class Fachada extends Observable {
         subsistemaAcceso.nuevoCliente(cliente);
     }
 
-    public Pedido nuevoPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
-        return subsistemaServicio.generarPedido(item, servicio, comentario);
+    public void nuevoPedido(Servicio servicio) throws PolloException {
+        subsistemaServicio.generarPedido(servicio);
     }
 
     /*

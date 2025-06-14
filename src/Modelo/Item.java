@@ -26,7 +26,11 @@ public class Item {
             ingrediente.restarStockDeInsumo();
         }
     }
-    
+
+    public String getNombre() {
+        return nombre;
+    }
+
     public void agregarIngrediente(Ingrediente ingrediente){
        ingredientes.add(ingrediente);
     }

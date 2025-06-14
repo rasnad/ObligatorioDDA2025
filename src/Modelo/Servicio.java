@@ -7,16 +7,19 @@ package Modelo;
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.Exception.PolloException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Servicio {
     float montoTotal;
     ArrayList<Pedido> pedidos = new ArrayList<>();
+    HashMap<Item, String> items = new HashMap<>();
     Cliente cliente;
     Dispositivo dispositivo;
 
     public Servicio(Cliente cliente, Dispositivo servicio) {
         this.cliente = cliente;
         this.dispositivo = servicio;
+        this.items = new HashMap<>();
     }
     
     public Cliente getCliente(){
@@ -34,12 +37,36 @@ public class Servicio {
     public void removerPedido(Pedido pedido){
         pedidos.remove(pedido);
     }
-    
-    public void confirmarPedidos() throws PolloException {
+
+    public HashMap<Item, String> agregarItemsAlServicio(Item item) {
+        items.put(item, "");
+        return items;
+    }
+
+    public void agregarComentarioAlItem(Item item, String comentario){ // Aplicar Logica en la iu por cada item posibilidad de agregar comentario
+        items.put(item, comentario);
+    }
+
+    public HashMap<Item, String> getItems() {
+        return items;
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public ArrayList<Pedido> confirmarPedidos() throws PolloException {
         ArrayList<Pedido> copia = new ArrayList(pedidos);
-        for (Pedido p : pedidos){
-            p.confirmarPedido();
+        // recorrer items con un entry set
+        for (HashMap.Entry<Item, String> entry : items.entrySet()) {
+            Item item = entry.getKey();
+            Pedido pedido = new Pedido(item, item.getUnidadProcesadora(), this);
+            pedido.confirmarPedido();
+            copia.add(pedido);
+            agregarPedido(pedido);
         }
+        this.pedidos = copia;
+        return this.pedidos;
     }
 
     public float calcularSubtotal(){

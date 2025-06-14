@@ -1,6 +1,7 @@
 package Modelo.EstadosDePedido;
 
 import Modelo.Exception.PolloException;
+
 import java.util.Date;
 import Modelo.Gestor;
 import Modelo.Item;
@@ -16,11 +17,12 @@ public class Pedido {
     Date fechaYHora;    
     EstadoPedido estado;
 
-    public Pedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) {
+    public Pedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio) {
         this.item = item;
         this.unidadProcesadora = unidadProcesadora;
+        this.gestor = null;
         this.servicio = servicio;
-        this.comentario = comentario;
+        this.comentario = servicio.getItems().get(item);
         estado = new PedidoNoConfirmado();
         fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
     }
@@ -67,7 +69,8 @@ public class Pedido {
     }
     
     public void confirmarPedido() throws PolloException{
-        estado.confirmarPedido();
+        EstadoPedido estadoConfirmado = new PedidoConfirmado();
+        setEstado(estadoConfirmado);
     }
     
     public void eliminarPedido() throws PolloException{
@@ -85,5 +88,13 @@ public class Pedido {
     
     public void entregarPedido() throws PolloException{
         estado.entregarPedido();
+    }
+
+    public Gestor getGestor() {
+        return gestor;
+    }
+
+    public EstadoPedido getEstado() {
+        return estado;
     }
 }
