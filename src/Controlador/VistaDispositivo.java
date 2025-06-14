@@ -4,12 +4,16 @@ import Modelo.*;
 
 public interface VistaDispositivo {
     
-    public void mostrarServicio(Servicio servicio); //pedidos del servicio, monto
+    public void mostrarMonto(float monto); //pedidos del servicio, monto
     
-    public void mostrarMenu(Menu menu); //categorías e items
+    public void mostrarCategorias(Menu menu);
+    
+    public void mostrarItems(Menu menu);
     
     public void mostrarError(String mensaje);
     
     public void loginCliente();
+    
+    public void terminarServicio();
     
 }

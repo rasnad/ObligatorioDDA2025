@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
     private final ControladorDispositivo controlador;
-    private Servicio servicio;
     private Menu menu;
     
     public VistaEscritorioDispositivo() {
@@ -239,7 +238,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         textMonto.setEditable(false);
 
-        jLabel6.setText("Monto");
+        jLabel6.setText("Monto $");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -356,8 +355,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
-        controlador.terminarServicioEnDispositivo();
-        System.out.println("btn presionado");
+        terminarServicio();
+        //System.out.println("btn presionado");
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
     private String devolverComentarioPlaceholder(){
@@ -415,15 +414,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JTextArea textSistema;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void mostrarServicio(Servicio servicio) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
-    @Override
-    public void mostrarMenu(Menu menu) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public void mostrarError(String mensaje) {
@@ -434,4 +425,25 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     public void loginCliente() {
         controlador.loginCliente( textClienteId.getText(), new String(textClientePassword.getPassword()) );
     }
+
+    @Override
+    public void terminarServicio() {
+        controlador.terminarServicioEnDispositivo();
+    }
+
+    @Override
+    public void mostrarMonto(float monto) {
+        textMonto.setText(monto + "");
+    }
+
+    @Override
+    public void mostrarCategorias(Menu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarItems(Menu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

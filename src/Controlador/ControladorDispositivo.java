@@ -9,6 +9,7 @@ public class ControladorDispositivo implements Observador {
     
     private VistaDispositivo vista;
     private Servicio servicio;
+
     private Dispositivo dispositivo;
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
@@ -19,6 +20,10 @@ public class ControladorDispositivo implements Observador {
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
     }
     
+    public Servicio getServicio() {
+        return servicio;
+    }
+    
     public String getDispositivoId(){
         return dispositivo.getId() + "";
     }
@@ -27,7 +32,7 @@ public class ControladorDispositivo implements Observador {
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
-        //vista.mostrar( datos de inicialización );
+        vista.mostrarMonto(0);
     }
     
     public void loginCliente(String username, String password) {
@@ -59,7 +64,7 @@ public class ControladorDispositivo implements Observador {
     @Override
     public void actualizar(Object evento, Object origen) {
         //Algún evento:
-        vista.mostrarServicio(servicio);
+        //vista.mostrarMonto();
     }
      
 }
