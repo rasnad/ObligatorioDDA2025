@@ -21,8 +21,13 @@ public class Item {
         return categoriaItem;
     }
     
-    public void setCategoriaItem(CategoriaItem c){
-        categoriaItem = c;
+    public final void setCategoriaItem(CategoriaItem categoriaNueva){
+        if (this.categoriaItem != null){
+            this.categoriaItem.removerItem(this);
+        }
+        
+        categoriaNueva.agregarItem(this);
+        categoriaItem = categoriaNueva;
     }
 
     public boolean tieneStock(){
@@ -48,6 +53,6 @@ public class Item {
         this.unidadProcesadora = unidadProcesadora;
         this.nombre = nombre;
         this.precioUnitario = precioUnitario;
-        categoriaItem.agregarItem(this);
+        this.setCategoriaItem(categoriaItem);
     }
 }

@@ -11,8 +11,11 @@ public class CategoriaItem {
     }
 
     public void agregarItem(Item item) {
-        item.setCategoriaItem(this);
         this.items.add(item);
+    }
+
+    public void removerItem(Item item){
+        this.items.remove(item);
     }
 
     public CategoriaItem(String nombre) {
