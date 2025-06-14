@@ -7,11 +7,15 @@ public class CategoriaItem {
     ArrayList<Item> items = new ArrayList<>();
 
     public void validar() {
-
+ 
     }
 
     public void agregarItem(Item item) {
+        this.items.add(item);
+    }
 
+    public void removerItem(Item item){
+        this.items.remove(item);
     }
 
     public CategoriaItem(String nombre) {

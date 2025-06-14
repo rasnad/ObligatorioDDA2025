@@ -16,6 +16,19 @@ public class Item {
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
     }
+    
+    public CategoriaItem getCategoriaItem(){
+        return categoriaItem;
+    }
+    
+    public final void setCategoriaItem(CategoriaItem categoriaNueva){
+        if (this.categoriaItem != null){
+            this.categoriaItem.removerItem(this);
+        }
+        
+        categoriaNueva.agregarItem(this);
+        categoriaItem = categoriaNueva;
+    }
 
     public boolean tieneStock(){
         return false;
@@ -38,8 +51,8 @@ public class Item {
     public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
         this.ingredientes = ingredientes;
         this.unidadProcesadora = unidadProcesadora;
-        this.categoriaItem = categoriaItem;
         this.nombre = nombre;
         this.precioUnitario = precioUnitario;
+        this.setCategoriaItem(categoriaItem);
     }
 }
