@@ -22,10 +22,15 @@ public class DatosDePrueba {
         // Clientes
         Cliente cliente1 = new Cliente(1, new Frecuente(), "1234", "Juan");
         Cliente cliente2 = new Cliente(2, new DeLaCasa(), "1234", "Maria");
+        fachada.nuevoCliente(cliente1);
+        fachada.nuevoCliente(cliente2);
 
         // Dispositivos
         Dispositivo dispositivo1 = new Dispositivo();
-        Dispositivo dispositivo2 = new Dispositivo();
+        Dispositivo dispositivo2 = new Dispositivo();        
+        fachada.nuevoDispositivo(dispositivo1);
+        fachada.nuevoDispositivo(dispositivo2);
+
 
 
         // Unidades procesadoras
@@ -61,49 +66,14 @@ public class DatosDePrueba {
         }
         
         //fachada.getGestores();
-        
-        try {
-            dispositivo1.loginCliente(1, "1234");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-        
-        try {
-            dispositivo1.loginCliente(1, "1234");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-        
-        try {
-            dispositivo2.loginCliente(1, "1234");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-        
-        try {
-            dispositivo2.loginCliente(2, "1234");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-        
-        try {
-            dispositivo2.loginCliente(1, "12345");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-        
-        try {
-            dispositivo2.loginCliente(5, "1234");
-            System.out.println("Cliente logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
-         
+        /*
+        fachada.loginCliente(dispositivo1, "1", "1234");
+        fachada.loginCliente(dispositivo1, "1", "1234");
+        fachada.loginCliente(dispositivo2, "1", "1234");
+        fachada.loginCliente(dispositivo2, "2", "1234");
+        fachada.loginCliente(dispositivo2, "1", "12345");
+        fachada.loginCliente(dispositivo2, "5", "1234");
+        */
          
         
         //fachada.getClientes();

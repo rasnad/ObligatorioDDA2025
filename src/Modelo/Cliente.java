@@ -16,8 +16,9 @@ public class Cliente extends Usuario {
         this.tipoCliente = tipo;
     }
 
-    public void empezarServicio(){
-        servicio = new Servicio(this, dispositivo);
+    public void asignarDispositivo (Dispositivo dispositivo, Servicio servicio){
+        this.dispositivo = dispositivo;
+        this.servicio = servicio;
     }
     
     public void eliminarPedido(Pedido pedido) throws PolloException {
@@ -28,15 +29,16 @@ public class Cliente extends Usuario {
         servicio.confirmarPedidos();
     }
 
-    public void terminarServicio(){
+    public void terminarServicioEnDispositivo(){
         servicio = null;
+        dispositivo = null;
     }
     
     public float calcularBeneficioItem(Item item) {
-        return 0;
+        return tipoCliente.aplicarBeneficioItem(item);
     }
     
     public float calcularBeneficioServicio(float subTotal) {
-        return 0;
+        return tipoCliente.aplicarBeneficioServicio(subTotal);
     }
 }

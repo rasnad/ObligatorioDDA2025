@@ -1,27 +1,29 @@
 package Modelo.Sistema;
 
+import Modelo.*;
 import Modelo.Exception.PolloException;
-import Modelo.Gestor;
-import Modelo.Insumo;
-import Modelo.Item;
-import Modelo.Menu;
 import Modelo.EstadosDePedido.Pedido;
-import Modelo.Servicio;
-import Modelo.UnidadProcesadora;
 import java.util.ArrayList;
 
 public class SubsistemaServicio {
-    ArrayList<Gestor> gestores;
-    ArrayList<Pedido> pedidos;
-    ArrayList<Item> items;
-    ArrayList<Servicio> servicios;
-    ArrayList<Menu> menues;
-    ArrayList<UnidadProcesadora> unidadesProcesadoras;
-    ArrayList<Insumo> insumos;
+    ArrayList<Gestor> gestores = new ArrayList<>();
+    ArrayList<Pedido> pedidos = new ArrayList<>();
+    ArrayList<Item> items = new ArrayList<>();
+    ArrayList<Servicio> servicios = new ArrayList<>();
+    ArrayList<Menu> menues = new ArrayList<>();
+    ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
+    ArrayList<Insumo> insumos = new ArrayList<>();
 
     protected SubsistemaServicio(){}
     
-    public Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
+    protected void crearServicio(Dispositivo dispositivo, Cliente cliente){
+        Servicio servicio = new Servicio(cliente, dispositivo);
+        dispositivo.asignarCliente(cliente, servicio);
+        cliente.asignarDispositivo(dispositivo, servicio);
+        servicios.add(servicio);
+    }
+    
+    protected Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
 
         if (servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de realizar pedidos.");

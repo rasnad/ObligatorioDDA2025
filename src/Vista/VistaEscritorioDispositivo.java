@@ -1,22 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package IURestaurante;
+package Vista;
 
-/**
- *
- * @author lucas
- */
-public class RealizarPedidos extends javax.swing.JFrame {
+import Controlador.ControladorDispositivo;
+import Controlador.VistaDispositivo;
+import Modelo.Servicio;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form RealizarPedido
-     */
-    public RealizarPedidos() {
+public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
+
+    private final ControladorDispositivo controlador;
+    private Servicio servicio;
+    
+    public VistaEscritorioDispositivo() {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setTitle("Realizar Pedidos : Cliente Deslogueado");
+        //setTitle("Realizar Pedidos : Cliente Deslogueado");
+        controlador = new ControladorDispositivo(this);
     }
 
     /**
@@ -34,7 +32,7 @@ public class RealizarPedidos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textClienteId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        textPasswordCliente = new javax.swing.JPasswordField();
+        textClientePassword = new javax.swing.JPasswordField();
         btnLoginCliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -73,18 +71,24 @@ public class RealizarPedidos extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel2.setText("Nombre de cliente");
-
-        textClienteId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textClienteIdActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
+        jLabel2.setText("Nombre de cliente");
+
+        textClienteId.setToolTipText("");
+
         jLabel1.setText("Password");
 
-        btnLoginCliente.setText("Conectarte.");
+        btnLoginCliente.setText("Iniciar Sesión");
+        btnLoginCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,7 +102,7 @@ public class RealizarPedidos extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textPasswordCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textClientePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLoginCliente)
                 .addContainerGap(211, Short.MAX_VALUE))
@@ -109,7 +113,7 @@ public class RealizarPedidos extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textClienteId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textPasswordCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textClientePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(btnLoginCliente))
@@ -267,15 +271,11 @@ public class RealizarPedidos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -295,9 +295,14 @@ public class RealizarPedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textClienteIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textClienteIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textClienteIdActionPerformed
+    //Implementar si en algún momento aparece un CU para que el cliente pueda cerrar la UI:
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        //controlador.salir();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnLoginClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginClienteActionPerformed
+        loginCliente();
+    }//GEN-LAST:event_btnLoginClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -328,8 +333,23 @@ public class RealizarPedidos extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable tableItems;
     private javax.swing.JTextField textClienteId;
+    private javax.swing.JPasswordField textClientePassword;
     private javax.swing.JTextField textMonto;
-    private javax.swing.JPasswordField textPasswordCliente;
     private javax.swing.JTextArea textSistema;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarServicio(Servicio servicio) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "ERROR DE LOGIN", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void loginCliente() {
+        controlador.loginCliente( textClienteId.getText(), new String(textClientePassword.getPassword()) );
+    }
 }

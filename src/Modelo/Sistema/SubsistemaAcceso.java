@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 public class SubsistemaAcceso {
 
-    ArrayList<Dispositivo> listaDispositivos = new ArrayList<>();
-    ArrayList<Cliente> clientesLogueados = new ArrayList<>();
-    ArrayList<Cliente> clientesDeslogueados = new ArrayList<>();
+    ArrayList<Dispositivo> todosLosDispositivos = new ArrayList<>();
     ArrayList<Cliente> todosLosClientes = new ArrayList<>();
     ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
+    ArrayList<Cliente> clientesLogueados = new ArrayList<>();
     ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
     
     protected SubsistemaAcceso(){}
@@ -39,9 +38,10 @@ public class SubsistemaAcceso {
         }
         
         clientesLogueados.add(cliente);
-        dispositivo.asignarCliente(cliente);
-        cliente.empezarServicio();
+        Fachada.getInstancia().crearServicio(dispositivo, cliente);
     }
+    
+
 
     public void loginGestor(String username, String password) throws PolloException {
         Gestor gestor = (Gestor) login(todosLosGestores, username, password);
@@ -58,7 +58,6 @@ public class SubsistemaAcceso {
         gestor.getUnidadProcesadora().loguearGestor(gestor);
     }
     
-    
     private void logout(ArrayList<? extends Usuario> lista, Usuario usuario){
         if (lista.contains(usuario)){
             lista.remove(usuario);
@@ -66,22 +65,44 @@ public class SubsistemaAcceso {
     }
     
     public void logoutCliente(Dispositivo dispositivo, Cliente cliente) {
-        dispositivo.liberarCliente();
+        dispositivo.liberarClienteDelServicio();
+        cliente.terminarServicioEnDispositivo();
         logout(clientesLogueados, cliente);
-        cliente.terminarServicio();
     }
-
         
     public void logoutGestor(Gestor gestor) {
         gestor.getUnidadProcesadora().desloguearGestor(gestor);
         logout(gestoresLogueados, gestor);
     }
 
-    void nuevoCliente(Cliente cliente) {
+    public void nuevoCliente(Cliente cliente) {
         todosLosClientes.add(cliente);
     }
 
-    void nuevoGestor(Gestor gestor) {
+    public void nuevoGestor(Gestor gestor) {
         todosLosGestores.add(gestor);
     }
+    
+    public void nuevoDispositivo(Dispositivo dispositivo) {
+        todosLosDispositivos.add(dispositivo);
+    }
+    
+    public Dispositivo devolverDispositivo(){
+        
+        if (todosLosDispositivos.isEmpty()){  //si no hay dispositivos, devuelve uno nuevo
+            Dispositivo d = new Dispositivo();
+            nuevoDispositivo(d);
+            return d;
+        }
+        
+        for (Dispositivo libre : todosLosDispositivos){ //devuelve primer disp libre
+            if (!libre.getEstaOcupado()){
+                return libre;
+            }
+        }
+        
+        return todosLosDispositivos.getFirst(); //devuelve disp 0 si están todos ocupados
+        
+    }
+    
 }

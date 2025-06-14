@@ -6,17 +6,18 @@ package Modelo;
 
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.Exception.PolloException;
+import Observador.Observable;
 import java.util.ArrayList;
 
-public class Servicio {
+public class Servicio extends Observable {
     float montoTotal;
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
     Dispositivo dispositivo;
 
-    public Servicio(Cliente cliente, Dispositivo servicio) {
+    public Servicio(Cliente cliente, Dispositivo dispositivo) {
         this.cliente = cliente;
-        this.dispositivo = servicio;
+        this.dispositivo = dispositivo;
     }
     
     public Cliente getCliente(){

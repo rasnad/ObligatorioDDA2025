@@ -1,37 +1,43 @@
 package Modelo;
 
-import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
 
 public class Dispositivo {
-
-    Fachada fachada = Fachada.getInstancia();
 
     int id;
     static int ultimoId = 0;
     boolean estaOcupado = false;
     Cliente clienteAsignado;
+    Servicio servicio;
 
     public Dispositivo() {
         this.id = ultimoId++;
     }
-
-    public void asignarCliente(Cliente cliente) {
-        this.clienteAsignado = cliente;
-        estaOcupado = true;
+    
+    public Cliente getCliente(){
+        return clienteAsignado;
+    }
+    
+    public boolean getEstaOcupado(){
+        return estaOcupado;
     }
 
-    public void liberarCliente() {
-        this.clienteAsignado = null;
-        estaOcupado = false;
-    }
-
-    public void loginCliente(int username, String password) throws PolloException {
-        if(this.estaOcupado){
+    public void puedeLoguearseCliente() throws PolloException {
+        if (this.estaOcupado){
             throw new PolloException("Debe primero finalizar el servicio actual.");
         }
-        
-        fachada.loginCliente(this, Integer.toString(username), password);
+    }
+    
+    public void asignarCliente(Cliente cliente, Servicio servicio) {
+        estaOcupado = true;
+        this.clienteAsignado = cliente;
+        this.servicio = servicio;
+    }
+
+    public void liberarClienteDelServicio() {
+        clienteAsignado = null;
+        servicio = null;
+        estaOcupado = false;
     }
 
 }

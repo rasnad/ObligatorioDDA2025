@@ -17,7 +17,7 @@ public abstract class TipoCliente {
         return item.getPrecioUnitario();
     }
 
-    public float servicioBeneficio(float subtotal){
+    public float aplicarBeneficioServicio(float subtotal){
         return subtotal;
     }
     

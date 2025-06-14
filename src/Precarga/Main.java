@@ -1,5 +1,6 @@
-package IURestaurante;
+package Precarga;
 
+import Vista.VistaEscritorioDispositivo;
 import Modelo.Exception.PolloException;
 import Precarga.DatosDePrueba;
 
@@ -9,7 +10,7 @@ public class Main {
         
        DatosDePrueba.cargarDatos();
        
-       RealizarPedidos rp = new RealizarPedidos();
+       VistaEscritorioDispositivo rp = new VistaEscritorioDispositivo();
        rp.setVisible(true);
        
     }

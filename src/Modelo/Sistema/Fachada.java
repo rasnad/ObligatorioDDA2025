@@ -9,7 +9,6 @@ import Modelo.EstadosDePedido.Pedido;
 import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
 import Observador.Observable;
-import java.util.ArrayList;
 
 public class Fachada extends Observable {
     
@@ -48,9 +47,22 @@ public class Fachada extends Observable {
     public void nuevoCliente(Cliente cliente){
         subsistemaAcceso.nuevoCliente(cliente);
     }
+    
+    public void nuevoDispositivo(Dispositivo dispositivo){
+        subsistemaAcceso.nuevoDispositivo(dispositivo);
+    }
 
     public Pedido nuevoPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
         return subsistemaServicio.generarPedido(item, servicio, comentario);
+    }
+    
+    public void crearServicio(Dispositivo dispositivo, Cliente cliente){
+        subsistemaServicio.crearServicio(dispositivo, cliente);
+    }
+    
+    
+    public Dispositivo devolverDispositivo(){
+        return subsistemaAcceso.devolverDispositivo();
     }
 
     /*
