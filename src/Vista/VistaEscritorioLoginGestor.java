@@ -1,6 +1,5 @@
 package Vista;
 
-import Controlador.ControladorDispositivo;
 import Controlador.ControladorGestor;
 import Controlador.VistaLoginGestor;
 import Modelo.Exception.PolloException;

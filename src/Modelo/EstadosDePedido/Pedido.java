@@ -22,6 +22,7 @@ public class Pedido {
         this.servicio = servicio;
         this.comentario = comentario;
         estado = new PedidoNoConfirmado();
+        estado.setPedido(this);
         fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
     }
     

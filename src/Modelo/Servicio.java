@@ -4,10 +4,14 @@
  */
 package Modelo;
 
+import Modelo.EstadosDePedido.EstadoPedido;
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.PedidoNoConfirmado;
 import Modelo.Exception.PolloException;
 import Observador.Observable;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Servicio extends Observable {
     float montoTotal;
@@ -41,11 +45,21 @@ public class Servicio extends Observable {
     }
     
     public void confirmarPedidos() throws PolloException {
-        ArrayList<Pedido> copia = new ArrayList(pedidos);
-        for (Pedido p : pedidos){
+        confirmarPedidos(obetenerPedidosSinConfirmar());
+    }
+
+    public ArrayList<Pedido> obetenerPedidosSinConfirmar() {
+        return pedidos.stream()
+                .filter(pedido -> Objects.equals(pedido.getEstado(), "NO_CONFIRMADO"))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
+        for (Pedido p : pedidosSinConfirmar){
             p.confirmarPedido();
         }
     }
+
 
     public float calcularSubtotal(){
         float subtotal = 0;
