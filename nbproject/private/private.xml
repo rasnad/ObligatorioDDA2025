@@ -6,29 +6,18 @@
             <file>file:/C:/Users/lucas/Desktop/Diseño%20de%20aplicaciones/Obligatorio/ObligatorioProyecto/src/obligatorio/app/DatosDePrueba.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/app/DatosDePrueba.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Frecuente.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Comun.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Item.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Ingrediente.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/SubsistemaAcceso.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Fachada.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Dispositivo.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/IURestaurante/Main.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/UnidadProcesadora.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Usuario.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/TipoCliente.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/SubsistemaServicio.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Servicio.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Preferencial.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Pedido.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Menu.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Insumo.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/Gestor.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/EstadoPedido.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/DeLaCasa.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/obligatorio/CategoriaItem.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/IURestaurante/RealizarPedidos.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/ControladorDispositivo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/Fachada.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDispositivo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/SubsistemaServicio.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDevMenu.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioLoginGestor.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Menu.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Item.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/Pedido.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/CategoriaItem.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Cliente.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Precarga/Main.java</file>
         </group>
     </open-files>
 </project-private>

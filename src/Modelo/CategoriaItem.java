@@ -29,4 +29,9 @@ public class CategoriaItem {
     public ArrayList<Item> getItems(){
         return this.items;
     }
+    
+    @Override
+    public String toString(){
+        return this.nombre;
+    }
 }

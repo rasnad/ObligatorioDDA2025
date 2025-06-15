@@ -5,7 +5,7 @@ import Vista.VistaEscritorioDispositivo;
 import Modelo.Exception.PolloException;
 import Precarga.DatosDePrueba;
 import Vista.VistaEscritorioLoginGestor;
-import Vista.VistaEscritorioProcesadorPedidos;
+import Vista.VistaEscritorioProcesarPedidos;
 
 public class Main {
     
@@ -23,7 +23,7 @@ public class Main {
        rp4.setVisible(true);
        VistaEscritorioLoginGestor rp5 = new VistaEscritorioLoginGestor();
        rp5.setVisible(true);
-       VistaEscritorioProcesadorPedidos rp6 = new VistaEscritorioProcesadorPedidos();
+       VistaEscritorioProcesarPedidos rp6 = new VistaEscritorioProcesarPedidos();
        rp6.setVisible(true);
 
 

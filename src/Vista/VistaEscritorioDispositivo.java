@@ -2,13 +2,13 @@ package Vista;
 
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
+import Modelo.CategoriaItem;
 import Modelo.Exception.PolloException;
-import Precarga.DatosDePrueba;
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.Item;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionListener;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
@@ -42,13 +42,13 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         btnLoginCliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listItems = new javax.swing.JList<>();
+        listItems = new javax.swing.JList();
         btnAgregarPedido = new javax.swing.JButton();
         btnEliminarPedido = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listCategorias = new javax.swing.JList<>();
+        listCategorias = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
         textComentarioPedido = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
@@ -127,7 +127,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        listCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listItems.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listItemsValueChanged(evt);
             }
@@ -142,6 +142,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jLabel5.setText("Categorias");
 
+        listCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listCategoriasValueChanged(evt);
+            }
+        });
         jScrollPane4.setViewportView(listCategorias);
 
         textComentarioPedido.setColumns(20);
@@ -354,24 +359,25 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }//GEN-LAST:event_btnLoginClienteActionPerformed
 
     private void textComentarioPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textComentarioPedidoFocusLost
-        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
-        ponerComentarioPlaceholder(cajaDeComentarios);
+        ponerComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_textComentarioPedidoFocusLost
 
     private void textComentarioPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textComentarioPedidoKeyTyped
-        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
-        sacarComentarioPlaceholder(cajaDeComentarios);
+        sacarComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
         terminarServicio();
-        //System.out.println("btn presionado");
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
     private void listItemsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listItemsValueChanged
-        // TODO add your handling code here:
-        mostrarItems();
+        textComentarioPedido.setText("");
+        ponerComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_listItemsValueChanged
+
+    private void listCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listCategoriasValueChanged
+       mostrarItems( (CategoriaItem) listCategorias.getSelectedValue() );
+    }//GEN-LAST:event_listCategoriasValueChanged
     
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
@@ -418,8 +424,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
-    private javax.swing.JList<String> listCategorias;
-    private javax.swing.JList<String> listItems;
+    private javax.swing.JList listCategorias;
+    private javax.swing.JList listItems;
     private javax.swing.JTable tableItems;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
@@ -469,13 +475,13 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }
 
     @Override
-    public void mostrarCategorias(ArrayList<String> nombreCategorias) {
-        listCategorias.setListData(nombreCategorias.toArray(new String[0]));
+    public void mostrarCategorias(ArrayList<CategoriaItem> categorias) {
+        listCategorias.setListData(categorias.toArray());
     }
 
     @Override
-    public void mostrarItems() {
-        listItems.setListData(controlador.getItemsPorCategoria(listCategorias.getSelectedValue()).toArray(new String[0]));
+    public void mostrarItems(CategoriaItem categoria) {
+        listItems.setListData(categoria.getItems().toArray());
     }
 
 }

@@ -2,9 +2,9 @@ package Vista;
 
 import Controlador.VistaProcesarPedidos;
 
-public class VistaEscritorioProcesadorPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
+public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
 
-    public VistaEscritorioProcesadorPedidos() {
+    public VistaEscritorioProcesarPedidos() {
         initComponents();
     }
 

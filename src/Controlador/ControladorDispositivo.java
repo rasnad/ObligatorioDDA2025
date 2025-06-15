@@ -33,18 +33,14 @@ public class ControladorDispositivo implements Observador {
     
     //Eventos del usuario
     
-    private void inicializarVista(ArrayList<String> categorias){
+    private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
         vista.mostrarMonto(0);
-        vista.mostrarCategorias(categorias); // Aca pasar lista de nombres categorias
+        vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
     }
     
-    public ArrayList<String> obtenerCategoriasDelMenu(Menu menu){
-        ArrayList<String> categorias = new ArrayList<>();
-        for (CategoriaItem categoria : menu.getCategorias()) {
-            categorias.add(categoria.getNombre());
-        }
-        return categorias;
+    public ArrayList<CategoriaItem> obtenerCategoriasDelMenu(Menu menu){
+            return menu.getCategorias();
     }
     
     public void loginCliente(String username, String password) {
@@ -79,28 +75,11 @@ public class ControladorDispositivo implements Observador {
         //vista.mostrarMonto();
     }
     
-    private void inicializarVista(){
-        //Carga de información dinámica que necesita la vista
-        vista.mostrarMonto(0);
-        vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
+    
+    public ArrayList<Item> getItemsPorCategoria(CategoriaItem categoria){
+        return categoria.getItems();
     }
     
-    public ArrayList<Item> getItemsPorCategoria(String categoria){
-        for(CategoriaItem categoriaItem : menu.getCategorias()){
-            if (categoriaItem.getNombre().equals(categoria)) {
-                return categoriaItem.getItems();
-            }
-        }
-        return new ArrayList<>();
-    }
-    
-    public ArrayList<String> getNombreDeItems(ArrayList<Item> items){
-        ArrayList<String> nombreDeItems = new ArrayList<>();
-        for (Item item : items) {
-            nombreDeItems.add(item.getNombre());
-        }
-        return nombreDeItems;
-    }
 
 
 }

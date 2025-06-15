@@ -129,9 +129,9 @@ public class DatosDePrueba {
         ingredientesMilanesas.add(ingredienteArroz);
 
         Item milanesaConArroz = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa Con Arroz", 250);
+        Item pureZapalloFideo = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Puré de zapallo con fideos", 250);
 
         // Agregando ítems a categorías
-        platoPrincipal.agregarItem(milanesaConArroz);
 
         //Gestor gestorCocina2 = new Gestor("Pedro López", "gestor1", "12345", cocina);
         //Gestor gestorCocina3 = new Gestor("Pedro López", "gestor1", "12345", cocina);
