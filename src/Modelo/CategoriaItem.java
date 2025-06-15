@@ -25,4 +25,8 @@ public class CategoriaItem {
     public CategoriaItem(String nombre) {
         this.nombre = nombre;
     }
+    
+    public ArrayList<Item> getItems(){
+        return this.items;
+    }
 }

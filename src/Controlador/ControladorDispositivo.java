@@ -39,7 +39,7 @@ public class ControladorDispositivo implements Observador {
         vista.mostrarCategorias(categorias); // Aca pasar lista de nombres categorias
     }
     
-    private ArrayList<String> obtenerCategoriasDelMenu(Menu menu){
+    public ArrayList<String> obtenerCategoriasDelMenu(Menu menu){
         ArrayList<String> categorias = new ArrayList<>();
         for (CategoriaItem categoria : menu.getCategorias()) {
             categorias.add(categoria.getNombre());
@@ -83,6 +83,23 @@ public class ControladorDispositivo implements Observador {
         //Carga de información dinámica que necesita la vista
         vista.mostrarMonto(0);
         vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
+    }
+    
+    public ArrayList<Item> getItemsPorCategoria(String categoria){
+        for(CategoriaItem categoriaItem : menu.getCategorias()){
+            if (categoriaItem.getNombre().equals(categoria)) {
+                return categoriaItem.getItems();
+            }
+        }
+        return new ArrayList<>();
+    }
+    
+    public ArrayList<String> getNombreDeItems(ArrayList<Item> items){
+        ArrayList<String> nombreDeItems = new ArrayList<>();
+        for (Item item : items) {
+            nombreDeItems.add(item.getNombre());
+        }
+        return nombreDeItems;
     }
 
 

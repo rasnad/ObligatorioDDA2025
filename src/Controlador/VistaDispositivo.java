@@ -12,7 +12,7 @@ public interface VistaDispositivo {
     
     public void mostrarCategorias(ArrayList<String> nombresDeCategorias);
     
-    public void mostrarItems(CategoriaItem categoria);
+    public void mostrarItems();
     
     public void mostrarError(String mensaje);
     

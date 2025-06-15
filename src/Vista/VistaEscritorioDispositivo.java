@@ -2,7 +2,6 @@ package Vista;
 
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
-import Modelo.CategoriaItem;
 import Modelo.Exception.PolloException;
 import Precarga.DatosDePrueba;
 import Modelo.EstadosDePedido.Pedido;
@@ -14,7 +13,6 @@ import javax.swing.event.ListSelectionListener;
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
     private final ControladorDispositivo controlador;
-    private DatosDePrueba datosDePrueba = new DatosDePrueba();
     
     public VistaEscritorioDispositivo() throws PolloException {
         initComponents();
@@ -44,7 +42,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         btnLoginCliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listItems = new javax.swing.JList<>();
         btnAgregarPedido = new javax.swing.JButton();
         btnEliminarPedido = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -129,7 +127,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jList1);
+        listCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listItemsValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listItems);
 
         btnAgregarPedido.setText("Agregar Pedido");
 
@@ -365,6 +368,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         //System.out.println("btn presionado");
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
+    private void listItemsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listItemsValueChanged
+        // TODO add your handling code here:
+        mostrarItems();
+    }//GEN-LAST:event_listItemsValueChanged
+    
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
     }
@@ -399,7 +407,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -412,6 +419,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     private javax.swing.JList<String> listCategorias;
+    private javax.swing.JList<String> listItems;
     private javax.swing.JTable tableItems;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
@@ -466,9 +474,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }
 
     @Override
-    public void mostrarItems(CategoriaItem categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarItems() {
+        listItems.setListData(controlador.getItemsPorCategoria(listCategorias.getSelectedValue()).toArray(new String[0]));
     }
-   
-    
+
 }
