@@ -15,19 +15,20 @@ public class SubsistemaServicio {
     ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
     ArrayList<Insumo> insumos = new ArrayList<>();
     DatosDePrueba datosDePrueba = new DatosDePrueba();
-    
-    protected SubsistemaServicio(){}
-    
-    
-    protected void crearServicio(Dispositivo dispositivo, Cliente cliente){
+
+    protected SubsistemaServicio() {
+    }
+
+
+    protected void crearServicio(Dispositivo dispositivo, Cliente cliente) {
         Servicio servicio = new Servicio(cliente, dispositivo);
         dispositivo.asignarCliente(cliente, servicio);
         cliente.asignarDispositivo(dispositivo, servicio);
         servicios.add(servicio);
     }
-    
+
     protected Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
-        
+
         if (servicio == null || servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de realizar pedidos.");
         }
@@ -38,38 +39,52 @@ public class SubsistemaServicio {
 
         Pedido pedido = new Pedido(item, servicio, comentario);
         servicio.agregarPedido(pedido);
-        
+
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoAgregado);
-        
+
         return pedido;
     }
-    
-    protected void eliminarPedido(Pedido pedido){
-        if (pedido == null){
+
+    protected void eliminarPedido(Pedido pedido) {
+        if (pedido == null) {
             //acá un throw, ver si la letra no tiene un CA específico
         }
-        
+
         pedido.getServicio().removerPedido(pedido);
         pedidos.remove(pedido);
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoEliminado);
         //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
     }
-    
+
     protected Menu devolverMenuPorNombre(String nombreMenu) {
-        for (Menu m : menues){
-            if (m.getNombre().equals(nombreMenu)){
+        for (Menu m : menues) {
+            if (m.getNombre().equals(nombreMenu)) {
                 return m;
             }
         }
         return null;
     }
 
-    protected void crearMenu(String nombre){
-        menues.add (new Menu(nombre));
+    protected void crearMenu(String nombre) {
+        menues.add(new Menu(nombre));
     }
-    
-    
-    
+
+    public void confirmarPedidos(Servicio servicio) throws PolloException {
+
+        if (servicio == null || servicio.getCliente() == null) {
+            throw new PolloException("Debe identificarse antes de confirmar el servicio");
+        }
+
+        if (servicio.obetenerPedidosSinConfirmar().isEmpty()) {
+            throw new PolloException("No hay pedidos nuevos.");
+        }
+
+        // Queda implementar caso de Stock !!!
+        servicio.confirmarPedidos();
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidosConfirmados);
+    }
+
+
 
     /* Implementar con State y Experto
     public ArrayList<Pedido> confirmarPedido(Servicio servicio) {

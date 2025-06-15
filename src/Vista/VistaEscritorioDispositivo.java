@@ -56,7 +56,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaPedidosHechos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnConfirmarPedido = new javax.swing.JButton();
         btnFinalizarServicio = new javax.swing.JButton();
         textMonto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -237,7 +237,16 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         jLabel3.setText("Pedidos de Servicio");
 
-        jButton4.setText("Confirmar Pedidos");
+        btnConfirmarPedido.setText("Confirmar Pedidos");
+        btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnConfirmarPedidoActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         btnFinalizarServicio.setText("Finalizar Servicio");
         btnFinalizarServicio.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +276,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton4)
+                                .addComponent(btnConfirmarPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnFinalizarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -279,7 +288,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addComponent(jLabel3)
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnConfirmarPedido)
                     .addComponent(btnFinalizarServicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -388,9 +397,14 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
             controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
         }
     }//GEN-LAST:event_btnEliminarPedidoActionPerformed
+
+    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
+        // TODO add your handling code here:
+            controlador.confirmarPedido();
+    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
     
     private String devolverComentarioPlaceholder(){
-        return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
+        return "¿Desea modificar algo sobre la preparación?\n\nDeje su comentario acá...";
     }
     
     private void ponerComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
@@ -412,10 +426,10 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPedido;
+    private javax.swing.JButton btnConfirmarPedido;
     private javax.swing.JButton btnEliminarPedido;
     private javax.swing.JButton btnFinalizarServicio;
     private javax.swing.JButton btnLoginCliente;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -488,7 +502,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
             fila[2] = p.getEstado().equals("CONFIRMADO") ? p.getItem().getUnidadProcesadora().getNombre() : "";
             fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
             fila[4] = p.getItem().getPrecioUnitario();
-            fila[5] = comentario.equals("¿Desea modificar algo sobre la preparación? Deje su comentario acá...") ? "" : comentario;
+            fila[5] = comentario.equals("¿Desea modificar algo sobre la preparación?\n\nDeje su comentario acá...") ? "" : comentario;
             fila[6] = p; // objeto Pedido (será oculto)
 
             modelo.addRow(fila);

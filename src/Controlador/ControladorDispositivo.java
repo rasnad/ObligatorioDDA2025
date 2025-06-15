@@ -87,6 +87,14 @@ public class ControladorDispositivo implements Observador {
             vista.mostrarError(e.getMessage());
         }
     }
+
+    public void confirmarPedido() throws PolloException {
+        try {
+            fachada.confirmarPedidos(servicio);
+        } catch (PolloException e){
+            vista.mostrarError(e.getMessage());
+        }
+    }
     
     //Evento del modelo
     @Override
@@ -100,11 +108,12 @@ public class ControladorDispositivo implements Observador {
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
             }
+        } else if (evento.equals(Fachada.eventos.pedidosConfirmados)){
+                vista.mostrarPedidosHechos(servicio.getPedidos());
         }
         //Algún evento:
         //vista.mostrarPedidosHechos(); //evento estadoDePedidoActualizado
         //vista.mostrarMonto(); //evento montoActualizado
         //vista.mostrarMensaje(); //evento nuevoMensaje
     }
-
 }

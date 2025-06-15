@@ -79,15 +79,8 @@ public class Fachada extends Observable {
         subsistemaServicio.crearMenu(nombre);
     }
 
-    /*
-    public ArrayList<Pedido> confirmarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los confirma y los devuelve
-        return subsistemaServicio.confirmarPedido(servicio);
+    public void confirmarPedidos(Servicio servicio) throws PolloException { // Verifica los pedidos pednientes, los confirma y los devuelve
+         subsistemaServicio.confirmarPedidos(servicio);
     }
-
-    public ArrayList<Pedido> cancelarPedidos(Servicio servicio){ // Verifica los pedidos pednientes, los cancela y los devuelve
-        return subsistemaServicio.cancelarPedido(servicio);
-    }
-    */
-
 
 }
