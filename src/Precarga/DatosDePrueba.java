@@ -59,14 +59,9 @@ public class DatosDePrueba {
         fachada.nuevoCliente(cliente1);
         fachada.nuevoCliente(cliente2);
         
-        try {
-            fachada.loginGestor("test", "test");
-            System.out.println("Gestor logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
+
         
-        try {
+        /*try {
             fachada.loginGestor("gestor1", "12345");
             System.out.println("Gestor logueado");
         } catch(PolloException p) {
@@ -78,7 +73,7 @@ public class DatosDePrueba {
             System.out.println("Gestor logueado");
         } catch(PolloException p) {
             System.out.println(p);
-        }
+        }/*
         
         //fachada.getGestores();
         /*

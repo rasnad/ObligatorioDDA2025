@@ -16,7 +16,7 @@ public class ControladorDispositivo implements Observador {
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
     private Menu menu;
-        
+    
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
         this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");

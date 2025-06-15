@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.VistaDevMenu;
+import Modelo.Exception.PolloException;
 
 public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaDevMenu {
 
@@ -29,12 +30,25 @@ public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaD
         jMenu1.setText("Ingresar");
 
         jMenuItem1.setText("Cliente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jMenuItem1ActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Gestor");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                try {
+                    jMenuItem2ActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         jMenu1.add(jMenuItem2);
@@ -57,9 +71,18 @@ public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaD
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        VistaEscritorioLoginGestor vista = new VistaEscritorioLoginGestor();
+        vista.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        VistaEscritorioDispositivo vista = new VistaEscritorioDispositivo();
+        vista.setVisible(true);
+        // this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -68,4 +91,7 @@ public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaD
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
+
+
+
 }

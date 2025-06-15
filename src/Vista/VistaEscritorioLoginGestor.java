@@ -1,12 +1,20 @@
 package Vista;
 
+import Controlador.ControladorDispositivo;
+import Controlador.ControladorGestor;
 import Controlador.VistaLoginGestor;
+import Modelo.Exception.PolloException;
 import Modelo.Gestor;
+
 
 public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements VistaLoginGestor {
 
-    public VistaEscritorioLoginGestor() {
+
+    private final ControladorGestor controladorGestor;
+
+    public VistaEscritorioLoginGestor() throws PolloException {
         initComponents();
+        controladorGestor = new ControladorGestor(this);
     }
 
     /**
@@ -21,8 +29,8 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnLoginGestor = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        textGestorPwd = new javax.swing.JPasswordField();
+        textGestorUser = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Gestor");
@@ -32,6 +40,15 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         jLabel2.setText("Contraseña");
 
         btnLoginGestor.setText("Ingresar");
+        btnLoginGestor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnLoginGestorActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -44,8 +61,8 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jPasswordField1)
+                    .addComponent(textGestorUser)
+                    .addComponent(textGestorPwd)
                     .addComponent(btnLoginGestor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
@@ -54,12 +71,12 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textGestorUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textGestorPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(btnLoginGestor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
@@ -68,16 +85,37 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLoginGestorActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnLoginGestorActionPerformed
+        try {
+            Gestor gestorLogueado = loginGestor();
+            if(gestorLogueado != null){
+                VistaEscritorioProcesarPedidos vista = new VistaEscritorioProcesarPedidos();
+                vista.setVisible(true);
+            }
+        } catch (PolloException e) {
+            throw new PolloException(e.getMessage());
+        }
+    }//GEN-LAST:event_btnLoginGestorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLoginGestor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField textGestorPwd;
+    private javax.swing.JTextField textGestorUser;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public Gestor loginGestor(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Gestor loginGestor() throws PolloException {
+        try {
+            return controladorGestor.loginGestor(textGestorUser.getText(), textGestorPwd.getText());
+        } catch (PolloException e) {
+            throw new PolloException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+
     }
 }

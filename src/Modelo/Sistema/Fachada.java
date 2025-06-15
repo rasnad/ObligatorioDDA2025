@@ -31,8 +31,8 @@ public class Fachada extends Observable {
         subsistemaAcceso.loginCliente(dispositivo, username, password );
     }
 
-    public void loginGestor(String username, String password) throws PolloException {
-        subsistemaAcceso.loginGestor(username, password);
+    public Gestor loginGestor(String username, String password) throws PolloException {
+        return subsistemaAcceso.loginGestor(username, password);
     }
         
     public void logoutCliente(Dispositivo dispositivo, Cliente cliente){
