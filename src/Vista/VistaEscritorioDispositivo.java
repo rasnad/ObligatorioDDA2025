@@ -8,7 +8,7 @@ import Modelo.EstadosDePedido.Pedido;
 import Modelo.Item;
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
@@ -248,7 +248,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         textMonto.setEditable(false);
 
-        jLabel6.setText("Monto $");
+        jLabel6.setText(" Monto ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -257,12 +257,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -384,7 +384,9 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
         // TODO add your handling code here:
         int fila = tablaPedidosHechos.getSelectedRow();
-        controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
+        if(fila != -1) {
+            controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
+        }
     }//GEN-LAST:event_btnEliminarPedidoActionPerformed
     
     private String devolverComentarioPlaceholder(){
@@ -459,53 +461,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     @Override //Muestra el monto del servicio hasta el momento
     public void mostrarMonto(float monto) {
-        textMonto.setText(monto + "");
+     textMonto.setText(monto + "");
     }
-    
-//    @Override //Muestra los pedidos del servicio
-//    public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
-//
-//        DefaultTableModel datos = new DefaultTableModel();
-//        datos.addColumn("Item");
-//        datos.addColumn("Estado");
-//        datos.addColumn("Unidad Procesadora");
-//        datos.addColumn("Gestor");
-//        datos.addColumn("Precio");
-//        datos.addColumn("Comentario");
-//        datos.setRowCount(pedidos.size());
-//
-//        int fila = 0;
-//
-//        //MUCHA LÓGICA - PASAR ESTO A CONTROLADOR!!!!!!!!!!!! ?????
-//        for (Pedido p : pedidos){
-//            datos.setValueAt(p.getItem().getNombre(), fila, 0);
-//            if("NO_CONFIRMADO".equals(p.getEstado())){
-//                datos.setValueAt("SIN CONFIRMAR", fila, 1);
-//            } else {
-//                datos.setValueAt(p.getEstado(), fila, 1);
-//            }
-//            if("CONFIRMADO".equals(p.getEstado())){
-//                datos.setValueAt(p.getItem().getUnidadProcesadora().getNombre(), fila, 2);
-//            }
-//            if(p.getGestor() != null){
-//                datos.setValueAt(p.getGestor().getNombreCompleto(), fila, 3);
-//            } else {
-//                datos.setValueAt("ESPERANDO GESTOR LIBRE", fila, 3);
-//            }
-//            datos.setValueAt(p.getItem().getPrecioUnitario(), fila, 4);
-//            datos.setValueAt(p.getComentario(), fila, 5);
-//            datos.setValueAt(p, fila, 6);
-//            tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
-//            tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
-//            tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
-//            fila++;
-//        }
-//        tablaPedidosHechos.setModel(datos);
-//        tablaPedidosHechos.setDefaultEditor(Object.class, null); //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable ChatGPT es un poroto al lado de StackOverflow
-//
-//
-//    }
-
 
     @Override
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
@@ -518,10 +475,13 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         modelo.addColumn("Precio");
         modelo.addColumn("Comentario");
         modelo.addColumn("Pedido"); // columna oculta
+        float monto = 0;
 
         for (Pedido p : pedidos) {
             Object[] fila = new Object[7];
             String comentario = p.getComentario();
+            monto += p.getItem().getPrecioUnitario();
+
 
             fila[0] = p.getItem().getNombre();
             fila[1] = getEstadoFormateado(p);
@@ -542,7 +502,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
-
+        mostrarMonto(monto);
         /*
         Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
