@@ -40,6 +40,17 @@ public class SubsistemaServicio {
         return pedido;
     }
     
+    protected void eliminarPedido(Pedido pedido) {
+        if (pedido == null) {
+            //acá un throw, ver si la letra no tiene un CA específico
+        }
+
+        pedido.getServicio().removerPedido(pedido);
+        pedidos.remove(pedido);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoEliminado);
+        //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
+    }
+    
     protected Menu devolverMenuPorNombre(String nombreMenu) {
         for (Menu m : menues){
             if (m.getNombre().equals(nombreMenu)){

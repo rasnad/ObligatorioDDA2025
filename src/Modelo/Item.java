@@ -9,6 +9,10 @@ public class Item {
     String nombre;
     float precioUnitario;
 
+    public String getNombre(){
+        return nombre;
+    }
+    
     public float getPrecioUnitario() {
         return precioUnitario;
     }

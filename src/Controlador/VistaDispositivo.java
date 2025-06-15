@@ -10,9 +10,11 @@ public interface VistaDispositivo {
     
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos); //datos del servicio: pedidos
     
-    public void mostrarCategorias(ArrayList<String> nombresDeCategorias);
+    public void mostrarCategorias(ArrayList<CategoriaItem> categorias);
     
     public void mostrarItems(CategoriaItem categoria);
+    
+    public void mostrarMensajeDelSistema(String mensaje);
     
     public void mostrarError(String mensaje);
     

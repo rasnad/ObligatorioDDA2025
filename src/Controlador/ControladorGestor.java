@@ -21,7 +21,7 @@ public class ControladorGestor implements Observador {
             Gestor gestorLogueado = fachada.loginGestor(username, password);
             this.gestor = gestorLogueado;
             vista.dispose();
-            //
+            //abrir ventana nueva con gestor
         } catch (PolloException e) {
             vista.mostrarError(e.getMessage());
         }

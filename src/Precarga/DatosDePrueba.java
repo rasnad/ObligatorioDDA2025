@@ -46,15 +46,13 @@ public class DatosDePrueba {
 
 
         // Unidades procesadoras
-        UnidadProcesadora cocina = new UnidadProcesadora();
-        //UnidadProcesadora bar = new UnidadProcesadora("Bar");
+        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
+        UnidadProcesadora bar = new UnidadProcesadora("Bar");
         //UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
 
         // Gestores
         Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
         fachada.nuevoGestor(gestorCocina1);
-        fachada.nuevoCliente(cliente1);
-        fachada.nuevoCliente(cliente2);
         
         try {
             fachada.loginGestor("test", "test");

@@ -37,6 +37,18 @@ public class Pedido {
         this.estado = e;
     }
     
+    public String getEstado(){
+        return estado.toString();
+    }
+    
+    public String getComentario(){
+        return comentario;
+    }
+    
+    public Gestor getGestor(){
+        return gestor;
+    }
+    
     public void setGestor(Gestor gestor){
         this.gestor = gestor;
     }

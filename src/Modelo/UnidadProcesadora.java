@@ -10,8 +10,12 @@ public class UnidadProcesadora {
    ArrayList<Item> items = new ArrayList<>();
    String nombre;
 
-   public UnidadProcesadora() {
-
+   public UnidadProcesadora(String nombre) {
+       this.nombre = nombre;
+   }
+   
+   public String getNombre(){
+       return nombre;
    }
 
    public void cancelarPedido(Pedido pedido){

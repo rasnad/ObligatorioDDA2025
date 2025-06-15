@@ -13,6 +13,10 @@ public class CategoriaItem {
     public String getNombre() {
         return this.nombre;
     }
+    
+    public ArrayList<Item> getItems(){
+        return items;
+    }
 
     public void agregarItem(Item item) {
         this.items.add(item);

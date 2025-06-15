@@ -28,6 +28,10 @@ public class Servicio extends Observable {
         return dispositivo;
     }
     
+    public ArrayList<Pedido> getPedidos(){
+        return pedidos;
+    }
+    
     public void agregarPedido(Pedido pedido){
         pedidos.add(pedido);
     }

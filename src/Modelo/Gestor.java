@@ -19,6 +19,10 @@ public class Gestor extends Usuario {
         return unidadProcesadora;
     }
     
+    public String getNombreCompleto(){
+        return nombreCompleto;
+    }
+    
     public void tomarPedido(Pedido pedido){
         pedidosTomados.add(pedido);
     }

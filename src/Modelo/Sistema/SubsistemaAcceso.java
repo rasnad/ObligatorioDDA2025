@@ -43,10 +43,8 @@ public class SubsistemaAcceso {
         clientesLogueados.add(cliente);
         Fachada.getInstancia().crearServicio(dispositivo, cliente);
     }
-    
 
-
-    public void loginGestor(String username, String password) throws PolloException {
+    public Gestor loginGestor(String username, String password) throws PolloException {
         Gestor gestor = (Gestor) login(todosLosGestores, username, password);
 
         if (gestor == null) {
@@ -59,6 +57,7 @@ public class SubsistemaAcceso {
 
         gestoresLogueados.add(gestor);
         gestor.getUnidadProcesadora().loguearGestor(gestor);
+        return gestor;
     }
     
     private void logout(ArrayList<? extends Usuario> lista, Usuario usuario){
