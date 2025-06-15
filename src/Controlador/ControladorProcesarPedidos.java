@@ -1,5 +1,12 @@
 package Controlador;
 
-public class ControladorProcesarPedidos {
+import Observador.Observador;
+
+public class ControladorProcesarPedidos implements Observador {
+
+    @Override
+    public void actualizar(Object evento, Object origen) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

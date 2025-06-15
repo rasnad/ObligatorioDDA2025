@@ -19,7 +19,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         controlador = new ControladorDispositivo(this);
         setTitle("Dispositivo " + controlador.getDispositivoId());
-        
     }
         
 
