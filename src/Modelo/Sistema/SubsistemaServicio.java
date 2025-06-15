@@ -45,7 +45,7 @@ public class SubsistemaServicio {
     }
     
     protected void eliminarPedido(Pedido pedido){
-        if (pedido != null){
+        if (pedido == null){
             //acá un throw, ver si la letra no tiene un CA específico
         }
         

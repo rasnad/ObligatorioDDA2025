@@ -80,7 +80,7 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
-    public void eliminarPedido(Pedido pedido) {
+    public void eliminarPedido(Pedido pedido) throws PolloException {
         try {
             fachada.eliminarPedido(pedido);
         } catch (PolloException e){
@@ -93,6 +93,10 @@ public class ControladorDispositivo implements Observador {
     public void actualizar(Object evento, Object origen) {
         
         if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado)){
+            if (servicio != null){
+                vista.mostrarPedidosHechos(servicio.getPedidos());
+            }
+        } else if (evento.equals(Fachada.eventos.pedidoEliminado)){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
             }

@@ -142,6 +142,15 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         });
 
         btnEliminarPedido.setText("Eliminar Pedido");
+        btnEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnEliminarPedidoActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         jLabel4.setText("Items");
 
@@ -371,6 +380,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         Item item = (Item) listItems.getSelectedValue();
         controlador.agregarPedido(item, textComentarioPedido.getText());
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
+    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaPedidosHechos.getSelectedRow();
+        controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
+    }//GEN-LAST:event_btnEliminarPedidoActionPerformed
     
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
@@ -447,48 +462,99 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         textMonto.setText(monto + "");
     }
     
-    @Override //Muestra los pedidos del servicio
+//    @Override //Muestra los pedidos del servicio
+//    public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
+//
+//        DefaultTableModel datos = new DefaultTableModel();
+//        datos.addColumn("Item");
+//        datos.addColumn("Estado");
+//        datos.addColumn("Unidad Procesadora");
+//        datos.addColumn("Gestor");
+//        datos.addColumn("Precio");
+//        datos.addColumn("Comentario");
+//        datos.setRowCount(pedidos.size());
+//
+//        int fila = 0;
+//
+//        //MUCHA LÓGICA - PASAR ESTO A CONTROLADOR!!!!!!!!!!!! ?????
+//        for (Pedido p : pedidos){
+//            datos.setValueAt(p.getItem().getNombre(), fila, 0);
+//            if("NO_CONFIRMADO".equals(p.getEstado())){
+//                datos.setValueAt("SIN CONFIRMAR", fila, 1);
+//            } else {
+//                datos.setValueAt(p.getEstado(), fila, 1);
+//            }
+//            if("CONFIRMADO".equals(p.getEstado())){
+//                datos.setValueAt(p.getItem().getUnidadProcesadora().getNombre(), fila, 2);
+//            }
+//            if(p.getGestor() != null){
+//                datos.setValueAt(p.getGestor().getNombreCompleto(), fila, 3);
+//            } else {
+//                datos.setValueAt("ESPERANDO GESTOR LIBRE", fila, 3);
+//            }
+//            datos.setValueAt(p.getItem().getPrecioUnitario(), fila, 4);
+//            datos.setValueAt(p.getComentario(), fila, 5);
+//            datos.setValueAt(p, fila, 6);
+//            tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
+//            tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
+//            tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
+//            fila++;
+//        }
+//        tablaPedidosHechos.setModel(datos);
+//        tablaPedidosHechos.setDefaultEditor(Object.class, null); //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable ChatGPT es un poroto al lado de StackOverflow
+//
+//
+//    }
+
+
+    @Override
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
-        
-        DefaultTableModel datos = new DefaultTableModel();
-        datos.addColumn("Item");
-        datos.addColumn("Estado");
-        datos.addColumn("Unidad Procesadora");
-        datos.addColumn("Gestor");
-        datos.addColumn("Precio");
-        datos.addColumn("Comentario");
-        datos.setRowCount(pedidos.size());
-        
-        int fila = 0;
-        
-        //MUCHA LÓGICA - PASAR ESTO A CONTROLADOR!!!!!!!!!!!! ?????
-        for (Pedido p : pedidos){
-            datos.setValueAt(p.getItem().getNombre(), fila, 0);
-            if("NO_CONFIRMADO".equals(p.getEstado())){
-                datos.setValueAt("SIN CONFIRMAR", fila, 1);
-            } else {
-                datos.setValueAt(p.getEstado(), fila, 1);
-            }
-            if("CONFIRMADO".equals(p.getEstado())){
-                datos.setValueAt(p.getItem().getUnidadProcesadora().getNombre(), fila, 2);
-            }
-            if(p.getGestor() != null){
-                datos.setValueAt(p.getGestor().getNombreCompleto(), fila, 3);
-            } else {
-                datos.setValueAt("ESPERANDO GESTOR LIBRE", fila, 3);
-            }
-            datos.setValueAt(p.getItem().getPrecioUnitario(), fila, 4);
-            datos.setValueAt(p.getComentario(), fila, 5);
-            fila++;
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Item");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Unidad Procesadora");
+        modelo.addColumn("Gestor");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Comentario");
+        modelo.addColumn("Pedido"); // columna oculta
+
+        for (Pedido p : pedidos) {
+            Object[] fila = new Object[7];
+            String comentario = p.getComentario();
+
+            fila[0] = p.getItem().getNombre();
+            fila[1] = getEstadoFormateado(p);
+            fila[2] = p.getEstado().equals("CONFIRMADO") ? p.getItem().getUnidadProcesadora().getNombre() : "";
+            fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
+            fila[4] = p.getItem().getPrecioUnitario();
+            fila[5] = comentario.equals("¿Desea modificar algo sobre la preparación? Deje su comentario acá...") ? "" : comentario;
+            fila[6] = p; // objeto Pedido (será oculto)
+
+            modelo.addRow(fila);
         }
-        tablaPedidosHechos.setModel(datos);
-        tablaPedidosHechos.setDefaultEditor(Object.class, null); //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable ChatGPT es un poroto al lado de StackOverflow
-        
+
+        tablaPedidosHechos.setModel(modelo);
+        tablaPedidosHechos.setDefaultEditor(Object.class, null);
+        //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable
+
+        // Ocultar la columna de Pedido
+        tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
+        tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
+        tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
+
         /*
         Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
         pronto para retirar o está en elaboración o si esta entregado al cliente
         */
+    }
+
+    private String getEstadoFormateado(Pedido p) {
+        if ("NO_CONFIRMADO".equals(p.getEstado())) {
+            return "SIN CONFIRMAR";
+        }
+        return p.getEstado(); // ya formateado si no es "NO_CONFIRMADO"
     }
 
     @Override
