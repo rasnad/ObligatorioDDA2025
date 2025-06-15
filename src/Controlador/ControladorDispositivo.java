@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.*;
+import Modelo.EstadosDePedido.Pedido;
 import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
@@ -10,16 +11,16 @@ public class ControladorDispositivo implements Observador {
     
     private VistaDispositivo vista;
     private Servicio servicio;
-
     private Dispositivo dispositivo;
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
     private Menu menu;
-        
+    
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
         this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
+        fachada.agregarObservador(this);
         inicializarVista();
     }
     
@@ -31,20 +32,24 @@ public class ControladorDispositivo implements Observador {
         return dispositivo.getId() + "";
     }
     
-    //Eventos del usuario
-    
-    private void inicializarVista(ArrayList<String> categorias){
-        //Carga de información dinámica que necesita la vista
-        vista.mostrarMonto(0);
-        vista.mostrarCategorias(categorias); // Aca pasar lista de nombres categorias
+    public ArrayList<Item> getItemsPorCategoria(CategoriaItem categoria){
+        return categoria.getItems();
     }
     
-    private ArrayList<String> obtenerCategoriasDelMenu(Menu menu){
-        ArrayList<String> categorias = new ArrayList<>();
-        for (CategoriaItem categoria : menu.getCategorias()) {
-            categorias.add(categoria.getNombre());
+    public String getEstadoFormateado(Pedido p) {
+        if ("NO_CONFIRMADO".equals(p.getEstado())) {
+            return "SIN CONFIRMAR";
         }
-        return categorias;
+        return p.getEstado(); // ya formateado si no es "NO_CONFIRMADO"
+    }
+    
+    //Eventos del usuario
+    
+    private void inicializarVista(){
+        //Carga de información dinámica que necesita la vista
+        vista.mostrarMonto(0.00F);
+        vista.mostrarCategorias( menu.getCategorias() );
+        vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
     }
     
     public void loginCliente(String username, String password) {
@@ -72,18 +77,36 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
-    //Evento del modelo
-    @Override
-    public void actualizar(Object evento, Object origen) {
-        //Algún evento:
-        //vista.mostrarMonto();
+    public void agregarPedido(Item item, String comentario) {
+        try {
+            fachada.nuevoPedido(item, this.servicio, comentario);
+        } catch (PolloException e){
+            vista.mostrarError(e.getMessage());
+        }
     }
     
-    private void inicializarVista(){
-        //Carga de información dinámica que necesita la vista
-        vista.mostrarMonto(0);
-        vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
+    public void eliminarPedido(Pedido pedido) throws PolloException {
+        try {
+            fachada.eliminarPedido(pedido);
+        } catch (PolloException e){
+            vista.mostrarError(e.getMessage());
+        }
     }
-
+    
+    //Evento del modelo
+    
+    @Override
+    public void actualizar(Object evento, Object origen) {
+        
+        if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado)){
+            if (servicio != null){
+                vista.mostrarPedidosHechos(servicio.getPedidos());
+            }
+        }
+        //Algún evento:
+        //vista.mostrarPedidosHechos(); //evento estadoDePedidoActualizado
+        //vista.mostrarMonto(); //evento montoActualizado
+        //vista.mostrarMensaje(); //evento nuevoMensaje
+    }
 
 }

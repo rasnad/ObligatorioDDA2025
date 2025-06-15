@@ -4,24 +4,22 @@ import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
 import Modelo.CategoriaItem;
 import Modelo.Exception.PolloException;
-import Precarga.DatosDePrueba;
 import Modelo.EstadosDePedido.Pedido;
+import Modelo.Item;
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
     private final ControladorDispositivo controlador;
-    private DatosDePrueba datosDePrueba = new DatosDePrueba();
     
     public VistaEscritorioDispositivo() throws PolloException {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         controlador = new ControladorDispositivo(this);
         setTitle("Dispositivo " + controlador.getDispositivoId());
-        
     }
         
 
@@ -44,19 +42,19 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         btnLoginCliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listItems = new javax.swing.JList();
         btnAgregarPedido = new javax.swing.JButton();
         btnEliminarPedido = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listCategorias = new javax.swing.JList<>();
+        listCategorias = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
         textComentarioPedido = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableItems = new javax.swing.JTable();
+        tablaPedidosHechos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         btnFinalizarServicio = new javax.swing.JButton();
@@ -129,16 +127,40 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jList1);
+        listItems.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listItemsValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listItems);
 
         btnAgregarPedido.setText("Agregar Pedido");
+        btnAgregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPedidoActionPerformed(evt);
+            }
+        });
 
         btnEliminarPedido.setText("Eliminar Pedido");
+        btnEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnEliminarPedidoActionPerformed(evt);
+                } catch (PolloException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         jLabel4.setText("Items");
 
         jLabel5.setText("Categorias");
 
+        listCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listCategoriasValueChanged(evt);
+            }
+        });
         jScrollPane4.setViewportView(listCategorias);
 
         textComentarioPedido.setColumns(20);
@@ -210,26 +232,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        tableItems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Item", "Comentarios", "Estado", "Unidad", "Gestor", "Precio"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tableItems);
+        tablaPedidosHechos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(tablaPedidosHechos);
 
         jLabel3.setText("Pedidos de Servicio");
 
@@ -244,7 +248,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         textMonto.setEditable(false);
 
-        jLabel6.setText("Monto $");
+        jLabel6.setText(" Monto ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -253,12 +257,12 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -287,6 +291,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         );
 
         textSistema.setEditable(false);
+        textSistema.setBackground(new java.awt.Color(255, 255, 204));
         textSistema.setColumns(20);
         textSistema.setRows(5);
         textSistema.setText("Esperando mensajes del sistema...");
@@ -351,20 +356,41 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }//GEN-LAST:event_btnLoginClienteActionPerformed
 
     private void textComentarioPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textComentarioPedidoFocusLost
-        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
-        ponerComentarioPlaceholder(cajaDeComentarios);
+        ponerComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_textComentarioPedidoFocusLost
 
     private void textComentarioPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textComentarioPedidoKeyTyped
-        javax.swing.JTextArea cajaDeComentarios = (javax.swing.JTextArea)evt.getSource();
-        sacarComentarioPlaceholder(cajaDeComentarios);
+        sacarComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
         terminarServicio();
-        //System.out.println("btn presionado");
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
+    private void listItemsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listItemsValueChanged
+        textComentarioPedido.setText("");
+        ponerComentarioPlaceholder(textComentarioPedido);
+    }//GEN-LAST:event_listItemsValueChanged
+
+    private void listCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listCategoriasValueChanged
+       mostrarItems( (CategoriaItem) listCategorias.getSelectedValue() );
+    }//GEN-LAST:event_listCategoriasValueChanged
+
+    private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
+        Item item = (Item) listItems.getSelectedValue();
+        sacarComentarioPlaceholder(textComentarioPedido);
+        controlador.agregarPedido(item, textComentarioPedido.getText());
+        ponerComentarioPlaceholder(textComentarioPedido);
+    }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
+    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaPedidosHechos.getSelectedRow();
+        if(fila != -1) {
+            controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
+        }
+    }//GEN-LAST:event_btnEliminarPedidoActionPerformed
+    
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
     }
@@ -399,7 +425,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -411,16 +436,15 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
-    private javax.swing.JList<String> listCategorias;
-    private javax.swing.JTable tableItems;
+    private javax.swing.JList listCategorias;
+    private javax.swing.JList listItems;
+    private javax.swing.JTable tablaPedidosHechos;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
     private javax.swing.JTextArea textComentarioPedido;
     private javax.swing.JTextField textMonto;
     private javax.swing.JTextArea textSistema;
     // End of variables declaration//GEN-END:variables
-
-    
 
     @Override
     public void mostrarError(String mensaje) {
@@ -441,34 +465,64 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     public void mostrarMonto(float monto) {
         textMonto.setText(monto + "");
     }
-    
-    @Override //Muestra los pedidos del servicio
+
+    @Override
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Item");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Unidad Procesadora");
+        modelo.addColumn("Gestor");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Comentario");
+        modelo.addColumn("Pedido"); // columna oculta
+        float monto = 0;
+
+        for (Pedido p : pedidos) {
+            Object[] fila = new Object[7];
+            monto += p.getItem().getPrecioUnitario();
+
+            fila[0] = p.getItem().getNombre();
+            fila[1] = controlador.getEstadoFormateado(p);
+            fila[2] = p.getEstado().equals("CONFIRMADO") ? p.getItem().getUnidadProcesadora().getNombre() : "";
+            fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
+            fila[4] = p.getItem().getPrecioUnitario();
+            fila[5] = p.getComentario();
+            fila[6] = p; // objeto Pedido (será oculto)
+
+            modelo.addRow(fila);
+        }
+
+        tablaPedidosHechos.setModel(modelo);
+        tablaPedidosHechos.setDefaultEditor(Object.class, null);
+        //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable
+
+        // Ocultar la columna de Pedido
+        tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
+        tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
+        tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
+        mostrarMonto(monto);
         /*
-        Lista de los pedidos del servicio, mostrando para cada uno: 
-            -nombre del ítem
-            -comentario
-            -estado
-            -unidad procesadora
-            -nombre del gestor que lo está elaborando
-            -precio.
-        Para los pedidos no confirmados aún, muestra “Sin confirmar”.
         Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
         pronto para retirar o está en elaboración o si esta entregado al cliente
         */
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mostrarCategorias(ArrayList<String> nombreCategorias) {
-        listCategorias.setListData(nombreCategorias.toArray(new String[0]));
+    public void mostrarCategorias(ArrayList<CategoriaItem> categorias) {
+        listCategorias.setListData(categorias.toArray());
     }
 
     @Override
     public void mostrarItems(CategoriaItem categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        listItems.setListData(categoria.getItems().toArray());
     }
-   
-    
+
+    @Override
+    public void mostrarMensajeDelSistema(String mensaje) {
+        textSistema.setText(mensaje);
+    }
+
 }
