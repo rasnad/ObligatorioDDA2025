@@ -15,8 +15,9 @@ public class SubsistemaServicio {
     ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
     ArrayList<Insumo> insumos = new ArrayList<>();
     DatosDePrueba datosDePrueba = new DatosDePrueba();
-
+    
     protected SubsistemaServicio(){}
+    
     
     protected void crearServicio(Dispositivo dispositivo, Cliente cliente){
         Servicio servicio = new Servicio(cliente, dispositivo);
@@ -26,8 +27,8 @@ public class SubsistemaServicio {
     }
     
     protected Pedido generarPedido(Item item, Servicio servicio, String comentario) throws PolloException {
-
-        if (servicio.getCliente() == null) {
+        
+        if (servicio == null || servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de realizar pedidos.");
         }
 
@@ -37,7 +38,21 @@ public class SubsistemaServicio {
 
         Pedido pedido = new Pedido(item, servicio, comentario);
         servicio.agregarPedido(pedido);
+        
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoAgregado);
+        
         return pedido;
+    }
+    
+    protected void eliminarPedido(Pedido pedido){
+        if (pedido != null){
+            //acá un throw, ver si la letra no tiene un CA específico
+        }
+        
+        pedido.getServicio().removerPedido(pedido);
+        pedidos.remove(pedido);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoEliminado);
+        //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
     }
     
     protected Menu devolverMenuPorNombre(String nombreMenu) {

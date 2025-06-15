@@ -49,8 +49,8 @@ public class DatosDePrueba {
 
 
         // Unidades procesadoras
-        UnidadProcesadora cocina = new UnidadProcesadora();
-        //UnidadProcesadora bar = new UnidadProcesadora("Bar");
+        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
+        UnidadProcesadora bar = new UnidadProcesadora("Bar");
         //UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
 
         // Gestores

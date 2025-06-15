@@ -29,8 +29,20 @@ public class Pedido {
         return item;
     }
     
+    public String getComentario(){
+        return comentario;
+    }
+    
     public Servicio getServicio() {
         return servicio;
+    }
+    
+    public Gestor getGestor(){
+        return gestor;
+    }
+    
+    public String getEstado(){
+        return estado.toString();
     }
     
     protected void setEstado(EstadoPedido e){

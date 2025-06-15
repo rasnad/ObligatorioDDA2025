@@ -14,6 +14,10 @@ public abstract class Usuario {
     public String getUsername() {
         return username;
     }
+    
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
 
     public boolean login(String username, String password) {
         return this.username.equals(username) && this.password.equals(password);

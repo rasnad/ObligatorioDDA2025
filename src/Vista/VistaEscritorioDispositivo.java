@@ -9,6 +9,7 @@ import Modelo.Item;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class VistaEscritorioDispositivo extends javax.swing.JFrame implements VistaDispositivo {
 
@@ -53,7 +54,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableItems = new javax.swing.JTable();
+        tablaPedidosHechos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         btnFinalizarServicio = new javax.swing.JButton();
@@ -134,6 +135,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         jScrollPane1.setViewportView(listItems);
 
         btnAgregarPedido.setText("Agregar Pedido");
+        btnAgregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPedidoActionPerformed(evt);
+            }
+        });
 
         btnEliminarPedido.setText("Eliminar Pedido");
 
@@ -217,26 +223,8 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        tableItems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Item", "Comentarios", "Estado", "Unidad", "Gestor", "Precio"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tableItems);
+        tablaPedidosHechos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(tablaPedidosHechos);
 
         jLabel3.setText("Pedidos de Servicio");
 
@@ -294,6 +282,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         );
 
         textSistema.setEditable(false);
+        textSistema.setBackground(new java.awt.Color(255, 255, 204));
         textSistema.setColumns(20);
         textSistema.setRows(5);
         textSistema.setText("Esperando mensajes del sistema...");
@@ -377,6 +366,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private void listCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listCategoriasValueChanged
        mostrarItems( (CategoriaItem) listCategorias.getSelectedValue() );
     }//GEN-LAST:event_listCategoriasValueChanged
+
+    private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
+        Item item = (Item) listItems.getSelectedValue();
+        controlador.agregarPedido(item, textComentarioPedido.getText());
+    }//GEN-LAST:event_btnAgregarPedidoActionPerformed
     
     private String devolverComentarioPlaceholder(){
         return "¿Desea modificar algo sobre la preparación? Deje su comentario acá...";
@@ -425,15 +419,13 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     private javax.swing.JTable jTable1;
     private javax.swing.JList listCategorias;
     private javax.swing.JList listItems;
-    private javax.swing.JTable tableItems;
+    private javax.swing.JTable tablaPedidosHechos;
     private javax.swing.JTextField textClienteId;
     private javax.swing.JPasswordField textClientePassword;
     private javax.swing.JTextArea textComentarioPedido;
     private javax.swing.JTextField textMonto;
     private javax.swing.JTextArea textSistema;
     // End of variables declaration//GEN-END:variables
-
-    
 
     @Override
     public void mostrarError(String mensaje) {
@@ -457,20 +449,46 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     
     @Override //Muestra los pedidos del servicio
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos) {
+        
+        DefaultTableModel datos = new DefaultTableModel();
+        datos.addColumn("Item");
+        datos.addColumn("Estado");
+        datos.addColumn("Unidad Procesadora");
+        datos.addColumn("Gestor");
+        datos.addColumn("Precio");
+        datos.addColumn("Comentario");
+        datos.setRowCount(pedidos.size());
+        
+        int fila = 0;
+        
+        //MUCHA LÓGICA - PASAR ESTO A CONTROLADOR!!!!!!!!!!!! ?????
+        for (Pedido p : pedidos){
+            datos.setValueAt(p.getItem().getNombre(), fila, 0);
+            if("NO_CONFIRMADO".equals(p.getEstado())){
+                datos.setValueAt("SIN CONFIRMAR", fila, 1);
+            } else {
+                datos.setValueAt(p.getEstado(), fila, 1);
+            }
+            if("CONFIRMADO".equals(p.getEstado())){
+                datos.setValueAt(p.getItem().getUnidadProcesadora().getNombre(), fila, 2);
+            }
+            if(p.getGestor() != null){
+                datos.setValueAt(p.getGestor().getNombreCompleto(), fila, 3);
+            } else {
+                datos.setValueAt("ESPERANDO GESTOR LIBRE", fila, 3);
+            }
+            datos.setValueAt(p.getItem().getPrecioUnitario(), fila, 4);
+            datos.setValueAt(p.getComentario(), fila, 5);
+            fila++;
+        }
+        tablaPedidosHechos.setModel(datos);
+        tablaPedidosHechos.setDefaultEditor(Object.class, null); //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable ChatGPT es un poroto al lado de StackOverflow
+        
         /*
-        Lista de los pedidos del servicio, mostrando para cada uno: 
-            -nombre del ítem
-            -comentario
-            -estado
-            -unidad procesadora
-            -nombre del gestor que lo está elaborando
-            -precio.
-        Para los pedidos no confirmados aún, muestra “Sin confirmar”.
         Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
         pronto para retirar o está en elaboración o si esta entregado al cliente
         */
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -481,6 +499,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     @Override
     public void mostrarItems(CategoriaItem categoria) {
         listItems.setListData(categoria.getItems().toArray());
+    }
+
+    @Override
+    public void mostrarMensajeDelSistema(String mensaje) {
+        textSistema.setText(mensaje);
     }
 
 }

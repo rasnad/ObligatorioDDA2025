@@ -7,11 +7,15 @@ import java.util.ArrayList;
 public class UnidadProcesadora {
    ArrayList<Gestor> gestores = new ArrayList<>();
    ArrayList<Pedido> pedidos = new ArrayList<>();
-   ArrayList<Item> items = new ArrayList<>();
+   
    String nombre;
 
-   public UnidadProcesadora() {
-
+   public UnidadProcesadora(String nombre) {
+       this.nombre = nombre;
+   }
+   
+   public String getNombre(){
+       return nombre;
    }
 
    public void cancelarPedido(Pedido pedido){
@@ -27,10 +31,4 @@ public class UnidadProcesadora {
        gestores.remove(g);
    }
 
-   public UnidadProcesadora(String nombre, ArrayList<Gestor> gestores, ArrayList<Pedido> pedidos, ArrayList<Item> items) {
-      this.nombre = nombre;
-      this.gestores = gestores;
-      this.pedidos = pedidos;
-      this.items = items;
-   }
 }

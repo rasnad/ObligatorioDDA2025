@@ -20,6 +20,10 @@ public class Servicio extends Observable {
         this.dispositivo = dispositivo;
     }
     
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+    
     public Cliente getCliente(){
         return cliente;
     }

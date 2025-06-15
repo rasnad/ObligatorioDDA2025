@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.*;
+import Modelo.EstadosDePedido.Pedido;
 import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
@@ -20,6 +21,7 @@ public class ControladorDispositivo implements Observador {
         this.vista = vista;
         this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
+        fachada.agregarObservador(this);
         inicializarVista();
     }
     
@@ -31,16 +33,17 @@ public class ControladorDispositivo implements Observador {
         return dispositivo.getId() + "";
     }
     
+    public ArrayList<Item> getItemsPorCategoria(CategoriaItem categoria){
+        return categoria.getItems();
+    }
+    
     //Eventos del usuario
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
         vista.mostrarMonto(0);
-        vista.mostrarCategorias( obtenerCategoriasDelMenu(menu) );
-    }
-    
-    public ArrayList<CategoriaItem> obtenerCategoriasDelMenu(Menu menu){
-            return menu.getCategorias();
+        vista.mostrarCategorias( menu.getCategorias() );
+        vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
     }
     
     public void loginCliente(String username, String password) {
@@ -68,18 +71,36 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
+    public void agregarPedido(Item item, String comentario) {
+        try {
+            fachada.nuevoPedido(item, this.servicio, comentario);
+            System.out.println("Pedido agregado");
+        } catch (PolloException e){
+            vista.mostrarError(e.getMessage());
+        }
+    }
+    
+    public void eliminarPedido(Pedido pedido) {
+        try {
+            fachada.eliminarPedido(pedido);
+        } catch (PolloException e){
+            vista.mostrarError(e.getMessage());
+        }
+    }
+    
     //Evento del modelo
     @Override
     public void actualizar(Object evento, Object origen) {
+        
+        if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado)){
+            if (servicio != null){
+                vista.mostrarPedidosHechos(servicio.getPedidos());
+            }
+        }
         //Algún evento:
-        //vista.mostrarMonto();
+        //vista.mostrarPedidosHechos(); //evento estadoDePedidoActualizado
+        //vista.mostrarMonto(); //evento montoActualizado
+        //vista.mostrarMensaje(); //evento nuevoMensaje
     }
-    
-    
-    public ArrayList<Item> getItemsPorCategoria(CategoriaItem categoria){
-        return categoria.getItems();
-    }
-    
-
 
 }

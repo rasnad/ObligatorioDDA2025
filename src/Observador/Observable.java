@@ -16,7 +16,7 @@ public abstract class Observable {
         observadores.remove(observador);
     }
 
-    public void notificarObservadores(Object evento, Object origen) {
+    public void notificarObservadores(Object evento) {
         ArrayList<Observador> copia = new ArrayList(observadores);
         for (Observador obs : copia) {
             obs.actualizar(evento, this);

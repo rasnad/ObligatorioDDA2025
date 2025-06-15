@@ -35,4 +35,9 @@ public abstract class EstadoPedido {
     public abstract void finalizarPedido() throws PolloException;;
     
     public abstract void entregarPedido() throws PolloException;;
+    
+    @Override
+    public String toString(){
+        return this.tipoDeEstado.toString();
+    }
 }

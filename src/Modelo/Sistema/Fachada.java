@@ -24,6 +24,8 @@ public class Fachada extends Observable {
     public static Fachada getInstancia(){
         return instancia;
     }
+    
+    public static enum eventos{pedidoAgregado, pedidoEliminado, pedidosConfirmados, estadoDepedidoActualizado, nuevoMensaje};
 
     public void loginCliente(Dispositivo dispositivo, String username, String password) throws PolloException {
         subsistemaAcceso.loginCliente(dispositivo, username, password );
@@ -53,14 +55,17 @@ public class Fachada extends Observable {
         subsistemaAcceso.nuevoDispositivo(dispositivo);
     }
 
-    public Pedido nuevoPedido(Item item, UnidadProcesadora unidadProcesadora, Servicio servicio, String comentario) throws PolloException {
+    public Pedido nuevoPedido(Item item, Servicio servicio, String comentario) throws PolloException {
         return subsistemaServicio.generarPedido(item, servicio, comentario);
+    }
+    
+     public void eliminarPedido(Pedido pedido) throws PolloException {
+        subsistemaServicio.eliminarPedido(pedido);
     }
     
     public void crearServicio(Dispositivo dispositivo, Cliente cliente){
         subsistemaServicio.crearServicio(dispositivo, cliente);
     }
-    
     
     public Dispositivo devolverDispositivo(){
         return subsistemaAcceso.devolverDispositivo();
