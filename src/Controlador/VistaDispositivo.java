@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public interface VistaDispositivo {
     
+    public void cambiarTitulo(String titulo);
+            
     public void mostrarMonto(float monto); //datos del servicio: monto
     
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos); //datos del servicio: pedidos

@@ -51,7 +51,6 @@ public class ControladorDispositivo implements Observador {
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
-        vista.limpiar();
         vista.mostrarMonto(0.00F);
         vista.mostrarCategorias( menu.getCategorias() );
         vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
@@ -63,6 +62,7 @@ public class ControladorDispositivo implements Observador {
             fachada.loginCliente(dispositivo, username, password);
             servicio = dispositivo.getServicio();
             cliente = dispositivo.getCliente();
+            vista.cambiarTitulo( "Le damos la bienvenida " + cliente.getNombreCompleto() + "!" );
         } catch (PolloException e){
             vista.mostrarError(e.getMessage());
         }
