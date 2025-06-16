@@ -85,6 +85,17 @@ public class SubsistemaServicio {
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
     }
 
+    public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+
+        if(pedido == null) {
+            throw new PolloException("Para tomar un pedido debes seleccionar uno.");
+        }
+
+        pedido.procesarPedido(gestor);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+
+    }
+
 
 
     /* Implementar con State y Experto

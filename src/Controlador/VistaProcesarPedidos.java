@@ -22,5 +22,8 @@ public interface VistaProcesarPedidos {
     public void FinalizarPedido();
     
     public void EntregarPedido();
-    
+
+    public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados);
+
+    public void mostrarError(String mensaje);
 }

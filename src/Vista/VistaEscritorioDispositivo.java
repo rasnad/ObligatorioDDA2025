@@ -465,6 +465,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         mostrarPedidosHechos( new ArrayList<Pedido>() );
     }
 
+    @Override
+    public void obtenerCategoriaSeleccionadaYActualizarItems() {
+        mostrarItems( (CategoriaItem) listCategorias.getSelectedValue() );
+    }
+
     @Override //Muestra el monto del servicio hasta el momento
     public void mostrarMonto(float monto) {
      textMonto.setText(monto + "");
@@ -487,7 +492,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
             fila[0] = p.getItem().getNombre();
             fila[1] = controlador.getEstadoFormateado(p);
-            fila[2] = p.getEstado().equals("CONFIRMADO") ? p.getItem().getUnidadProcesadora().getNombre() : "";
+            fila[2] = p.getEstado().equals("NO_CONFIRMADO") ? "" : p.getItem().getUnidadProcesadora().getNombre();
             fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
             fila[4] = p.getItem().getPrecioUnitario();
             fila[5] = p.getComentario();
@@ -518,7 +523,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     @Override
     public void mostrarItems(CategoriaItem categoria) {
-        listItems.setListData(categoria.getItems().toArray());
+        listItems.setListData(categoria.getItemsConStock().toArray());
     }
 
     @Override

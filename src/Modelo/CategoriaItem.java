@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class CategoriaItem {
     String nombre;
@@ -28,6 +29,10 @@ public class CategoriaItem {
     
     public ArrayList<Item> getItems(){
         return this.items;
+    }
+
+    public ArrayList<Item> getItemsConStock(){
+        return items.stream().filter(item -> item.tieneStock()).collect(Collectors.toCollection(ArrayList::new));
     }
     
     @Override

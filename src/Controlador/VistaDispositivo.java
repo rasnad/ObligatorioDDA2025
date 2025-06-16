@@ -23,5 +23,7 @@ public interface VistaDispositivo {
     public void terminarServicio();
     
     public void limpiar();
+
+    public void obtenerCategoriaSeleccionadaYActualizarItems();
     
 }

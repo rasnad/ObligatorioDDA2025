@@ -96,15 +96,17 @@ public class DatosDePrueba {
         //fachada.getClientes();
 
         // Insumos
-        Insumo aceituna = new Insumo("Aceituna", 100, 500);
-        Insumo tomate = new Insumo("Tomate", 50, 200);
-        Insumo papa = new Insumo("Papa", 100, 500);
-        Insumo carne = new Insumo("Carne", 20, 100);
-        Insumo ginebra = new Insumo("Ginebra", 10, 50);
-        Insumo tonico = new Insumo("Tónico", 20, 100);
-        Insumo arroz = new Insumo("Arroz", 50, 200);
-        Insumo salmón = new Insumo("Salmón", 15, 75);
-        Insumo alga = new Insumo("Alga", 100, 500);
+        Insumo aceituna = new Insumo("Aceituna", 10, 20);
+        Insumo tomate = new Insumo("Tomate", 10, 20);
+        Insumo papa = new Insumo("Papa", 10, 20);
+        Insumo carne = new Insumo("Carne", 10, 20);
+        Insumo ginebra = new Insumo("Ginebra", 10, 20);
+        Insumo tonico = new Insumo("Tónico", 10, 20);
+        Insumo arroz = new Insumo("Arroz", 10, 20);
+        Insumo salmón = new Insumo("Salmón", 10, 20);
+        Insumo alga = new Insumo("Alga", 10, 20);
+        Insumo aguacate = new Insumo("Aguacate", 10, 20);
+        Insumo hierbas = new Insumo("Hierbas", 10, 20);
 
         // Categorías
         CategoriaItem entrada = new CategoriaItem("Entrada");
@@ -124,14 +126,34 @@ public class DatosDePrueba {
         
         // Ítems del menú
 
-        Ingrediente ingredienteCarne = new Ingrediente(1,carne);
-        Ingrediente ingredienteArroz = new Ingrediente(1,arroz);
+        Ingrediente ingredienteCarne = new Ingrediente(10,carne);
+        Ingrediente ingredienteArroz = new Ingrediente(5,arroz);
+
+        Ingrediente ingredienteAguacateInsuficiente = new Ingrediente(11,aguacate);
+        Ingrediente ingredienteHierbasSuficiente = new Ingrediente(10,hierbas);
+        Ingrediente ingredienteAguacateSuficiente = new Ingrediente(9,aguacate);
+
         ArrayList<Ingrediente> ingredientesMilanesas = new ArrayList<>();
         ingredientesMilanesas.add(ingredienteCarne);
         ingredientesMilanesas.add(ingredienteArroz);
 
+        ArrayList<Ingrediente> ingredienteDeComidaConInsumoInsuficiente = new ArrayList<>();
+        ingredienteDeComidaConInsumoInsuficiente.add(ingredienteAguacateInsuficiente);
+
+        ArrayList<Ingrediente> ingredienteDeComidaConInsumoInsuficienteYUnoSuficiente = new ArrayList<>();
+        ingredienteDeComidaConInsumoInsuficienteYUnoSuficiente.add(ingredienteAguacateInsuficiente);
+        ingredienteDeComidaConInsumoInsuficienteYUnoSuficiente.add(ingredienteHierbasSuficiente);
+
+        ArrayList<Ingrediente> ingredienteDeComidaConAmbosSuficientes = new ArrayList<>();
+        ingredienteDeComidaConAmbosSuficientes.add(ingredienteAguacateSuficiente);
+        ingredienteDeComidaConAmbosSuficientes.add(ingredienteHierbasSuficiente);
+
         Item milanesaConArroz = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa Con Arroz", 250);
         Item pureZapalloFideo = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Puré de zapallo con fideos", 250);
+
+        Item plato1 = new Item(ingredienteDeComidaConInsumoInsuficiente, cocina, platoPrincipal, "Plato 1", 250); // No deberia verse.
+        Item plato2 = new Item(ingredienteDeComidaConInsumoInsuficienteYUnoSuficiente, cocina, platoPrincipal, "Plato 2", 250); // No deberia verse.
+        Item plato3 = new Item(ingredienteDeComidaConAmbosSuficientes, cocina, platoPrincipal, "Plato 3", 250);  // Deberia verse.
 
         // Agregando ítems a categorías
 

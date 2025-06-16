@@ -12,10 +12,22 @@ public class Insumo {
     }
 
     public boolean tieneStock(){
-        return cantidadActual >= cantidadMinima; // Verificar el mayor o igual.
+        return cantidadActual >= cantidadMinima;
     }
+    
+    /*
+    CREO que esto NO es necesario según la letra, pero lo dejo por acá por las dudas
+    public boolean tieneStockPara(Ingrediente ingrediente){
+        int stockRestante = cantidadActual - ingrediente.cantidad;
+        return stockRestante >= cantidadMinima;
+    }
+    */
 
     public void restarStock(int cantidad){
         cantidadActual -= cantidad;
+    }
+    
+    public void agregarStock(int cantidad){
+        cantidadActual += cantidad;
     }
 }

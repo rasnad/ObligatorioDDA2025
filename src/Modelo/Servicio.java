@@ -57,6 +57,7 @@ public class Servicio extends Observable {
     public void confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
         for (Pedido p : pedidosSinConfirmar){
             p.confirmarPedido();
+            p.restarStockDeItem();
         }
     }
 

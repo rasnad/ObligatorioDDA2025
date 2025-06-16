@@ -39,12 +39,23 @@ public class Item {
     }
 
     public boolean tieneStock(){
-        return false;
+        for (Ingrediente ingrediente : ingredientes){
+            if (!ingrediente.tieneStock()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void restarStockDeInsumos(){
         for(Ingrediente ingrediente : ingredientes){
             ingrediente.restarStockDeInsumo();
+        }
+    }
+    
+    public void devolverStockDeInsumos(){
+        for(Ingrediente ingrediente : ingredientes){
+            ingrediente.devolverStockDeInsumo();
         }
     }
 
