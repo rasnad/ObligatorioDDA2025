@@ -11,7 +11,6 @@ public class ControladorDispositivo implements Observador {
     
     private VistaDispositivo vista;
     private Servicio servicio;
-
     private Dispositivo dispositivo;
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
@@ -111,7 +110,6 @@ public class ControladorDispositivo implements Observador {
     //Evento del modelo
     @Override
     public void actualizar(Object evento, Object origen) {
-        
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
