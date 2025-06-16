@@ -54,6 +54,7 @@ public class Pedido {
     }
     
     protected void hacerEliminarPedido(){
+        this.item.devolverStockDeInsumos();
         servicio.removerPedido(this);
         this.servicio = null;
         this.getItem().getUnidadProcesadora().eliminarPedido(this);

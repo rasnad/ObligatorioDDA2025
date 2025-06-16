@@ -49,11 +49,18 @@ public class SubsistemaServicio {
         if (pedido == null) {
             //acá un throw, ver si la letra no tiene un CA específico
         }
-
-        pedido.getServicio().removerPedido(pedido);
-        pedidos.remove(pedido);
-        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
-        //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
+        
+        try {
+            pedido.eliminarPedido(); //se pone en null en el servicio, pone su servicio en null y se saca de la unidadprocesadora
+            pedidos.remove(pedido);
+            Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+        } catch (PolloException e) {
+            
+            
+            System.out.println("que loco che, no se pudo eliminar el pedido");
+            System.out.println("cambiar este mensaje en eliminarpedido subsistemaservicio");
+            
+        }
     }
 
     protected Menu devolverMenuPorNombre(String nombreMenu) {

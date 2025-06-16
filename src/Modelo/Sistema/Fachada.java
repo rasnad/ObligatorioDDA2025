@@ -25,11 +25,11 @@ public class Fachada extends Observable {
         return instancia;
     }
 
+    public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};
+    
     public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
         subsistemaServicio.tomarPedido(pedido, gestor);
     }
-
-    public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};
 
     public void loginCliente(Dispositivo dispositivo, String username, String password) throws PolloException {
         subsistemaAcceso.loginCliente(dispositivo, username, password );
