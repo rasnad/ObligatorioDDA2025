@@ -56,9 +56,16 @@ public class DatosDePrueba {
         // Gestores
         Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
         fachada.nuevoGestor(gestorCocina1);
-        fachada.nuevoCliente(cliente1);
-        fachada.nuevoCliente(cliente2);
-        
+        Gestor gestorBar1 = new Gestor("PuntoExtraPorfa", "queBuenProfeTuvimos!", "12345", bar);
+        fachada.nuevoGestor(gestorBar1);
+        Gestor gestorCocina2 = new Gestor("Don Diego de la Vega", "a", "1", cocina);
+        fachada.nuevoGestor(gestorCocina2);
+        Gestor gestorBar2 = new Gestor("Batman Rodriguez", "b", "1", bar);
+        fachada.nuevoGestor(gestorBar2);
+        Gestor gestorCocina3 = new Gestor("Pickle Riiick", "c", "1", cocina);
+        fachada.nuevoGestor(gestorCocina3);
+        Gestor gestorBar3 = new Gestor("Iron Maiden", "d", "1", bar);
+        fachada.nuevoGestor(gestorBar3);
 
         
         /*try {

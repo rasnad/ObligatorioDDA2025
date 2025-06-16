@@ -10,6 +10,8 @@ package Controlador;
  */
 public interface VistaProcesarPedidos {
     
+    public void mostrarInfoGestor(String nombre, String unidadProcesadora);
+    
     public void mostrarPedidosConfirmador();
     
     public void tomarPedido();
