@@ -51,7 +51,7 @@ public class ControladorDispositivo implements Observador {
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
-        vista.mostrarMonto(0.00F);
+        vista.mostrarMonto(0);
         vista.mostrarCategorias( menu.getCategorias() );
         vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
     }

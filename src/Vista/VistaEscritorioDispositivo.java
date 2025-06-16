@@ -472,7 +472,7 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
 
     @Override //Muestra el monto del servicio hasta el momento
     public void mostrarMonto(float monto) {
-     textMonto.setText(monto + "");
+        textMonto.setText(monto + "");
     }
 
     @Override
