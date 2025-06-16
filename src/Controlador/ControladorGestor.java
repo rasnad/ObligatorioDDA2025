@@ -5,25 +5,36 @@ import Modelo.Exception.PolloException;
 import Modelo.Sistema.Fachada;
 import Observador.Observador;
 
-import java.util.Observer;
-
 public class ControladorGestor implements Observador {
 
-    private VistaLoginGestor vista;
+    private VistaLoginGestor vistaLogin;
+    private VistaProcesarPedidos vistaProcesar;
     private Fachada fachada = Fachada.getInstancia();
+    private Gestor gestor;
 
     public ControladorGestor(VistaLoginGestor vista) {
-        this.vista = vista;
+        this.vistaLogin = vista;
         fachada.agregarObservador(this);
     }
+    
+    public void setVistaProcesar(VistaProcesarPedidos vistaNueva){
+        vistaProcesar = vistaNueva;
+        vistaLogin = null;
+    }
+    
+    //Eventos del usuario
+    
+    public void salir(){
+        fachada.quitarObservador(this);
+    }
 
-    public Gestor loginGestor(String username, String password) throws PolloException {
+    public void loginGestor(String username, String password) {
         try {
-            return fachada.loginGestor(username, password);
+            Gestor gestorLogueado = fachada.loginGestor(username, password);
+            this.gestor = gestorLogueado;
         } catch (PolloException e) {
-            vista.mostrarError(e.getMessage());
+            vistaLogin.mostrarError(e.getMessage());
         }
-        return null;
     }
 
     @Override

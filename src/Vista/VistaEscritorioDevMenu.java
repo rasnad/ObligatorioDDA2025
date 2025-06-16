@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.VistaDevMenu;
-import Modelo.Exception.PolloException;
 
 public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaDevMenu {
 
@@ -21,37 +20,29 @@ public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaD
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        btnCliente = new javax.swing.JMenuItem();
+        btnGestor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Desarrollador");
 
         jMenu1.setText("Ingresar");
 
-        jMenuItem1.setText("Cliente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnCliente.setText("Cliente");
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jMenuItem1ActionPerformed(evt);
-                } catch (PolloException e) {
-                    throw new RuntimeException(e);
-                }
+                btnClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(btnCliente);
 
-        jMenuItem2.setText("Gestor");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        btnGestor.setText("Gestor");
+        btnGestor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jMenuItem2ActionPerformed(evt);
-                } catch (PolloException e) {
-                    throw new RuntimeException(e);
-                }
+                btnGestorActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(btnGestor);
 
         jMenuBar2.add(jMenu1);
 
@@ -71,25 +62,22 @@ public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaD
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+    private void btnGestorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestorActionPerformed
         VistaEscritorioLoginGestor vista = new VistaEscritorioLoginGestor();
         vista.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_btnGestorActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         VistaEscritorioDispositivo vista = new VistaEscritorioDispositivo();
         vista.setVisible(true);
-        // this.setVisible(false);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnCliente;
+    private javax.swing.JMenuItem btnGestor;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 
 

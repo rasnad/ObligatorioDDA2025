@@ -37,6 +37,17 @@ public class ControladorDispositivo implements Observador {
         return categoria.getItems();
     }
     
+    public String getEstadoFormateado(Pedido p){
+        if ("NO_CONFIRMADO".equals(p.getEstado())){
+            return "SIN CONFIRMAR";
+        }
+        return p.getEstado();
+    }
+    
+    public String devolverComentarioPlaceholder() {
+        return "Desea modificar algo sobre la preparación? Deje su comentario acá...";
+    }
+    
     //Eventos del usuario
     
     private void inicializarVista(){
@@ -57,6 +68,7 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
+    //Este Salir / QuitarObservador NO se usa porque esta ventana no debería poder cerrarse, por tanto, el controller siempre observa
     public void salir(){
         servicio.quitarObservador(this);
     }
@@ -64,7 +76,6 @@ public class ControladorDispositivo implements Observador {
     public void terminarServicioEnDispositivo(){
         if (servicio != null){
             fachada.logoutCliente(dispositivo, cliente);
-            servicio.quitarObservador(this);
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
             servicio = null;
@@ -74,13 +85,12 @@ public class ControladorDispositivo implements Observador {
     public void agregarPedido(Item item, String comentario) {
         try {
             fachada.nuevoPedido(item, this.servicio, comentario);
-            System.out.println("Pedido agregado");
         } catch (PolloException e){
             vista.mostrarError(e.getMessage());
         }
     }
     
-    public void eliminarPedido(Pedido pedido) throws PolloException {
+    public void eliminarPedido(Pedido pedido) {
         try {
             fachada.eliminarPedido(pedido);
         } catch (PolloException e){
@@ -88,7 +98,7 @@ public class ControladorDispositivo implements Observador {
         }
     }
 
-    public void confirmarPedido() throws PolloException {
+    public void confirmarPedidos() {
         try {
             fachada.confirmarPedidos(servicio);
         } catch (PolloException e){
@@ -100,20 +110,12 @@ public class ControladorDispositivo implements Observador {
     @Override
     public void actualizar(Object evento, Object origen) {
         
-        if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado)){
+        if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado) || evento.equals(Fachada.eventos.pedidosConfirmados) ){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
             }
-        } else if (evento.equals(Fachada.eventos.pedidoEliminado)){
-            if (servicio != null){
-                vista.mostrarPedidosHechos(servicio.getPedidos());
-            }
-        } else if (evento.equals(Fachada.eventos.pedidosConfirmados)){
-                vista.mostrarPedidosHechos(servicio.getPedidos());
-        }
-        //Algún evento:
-        //vista.mostrarPedidosHechos(); //evento estadoDePedidoActualizado
         //vista.mostrarMonto(); //evento montoActualizado
         //vista.mostrarMensaje(); //evento nuevoMensaje
+        }
     }
 }

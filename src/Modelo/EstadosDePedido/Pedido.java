@@ -14,15 +14,13 @@ public class Pedido {
     Servicio servicio;
     String comentario;
     Date fechaYHora;    
-    EstadoPedido estado;
+    EstadoPedido estado = new PedidoNoConfirmado(this);
 
     public Pedido(Item item, Servicio servicio, String comentario) {
         this.item = item;
         this.unidadProcesadora = item.getUnidadProcesadora();
         this.servicio = servicio;
         this.comentario = comentario;
-        estado = new PedidoNoConfirmado();
-        estado.setPedido(this);
         fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
     }
     
@@ -48,6 +46,7 @@ public class Pedido {
     
     protected void setEstado(EstadoPedido e){
         this.estado = e;
+        e.setPedido(this);
     }
     
     public void setGestor(Gestor gestor){

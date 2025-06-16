@@ -3,7 +3,6 @@ package Vista;
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
 import Modelo.CategoriaItem;
-import Modelo.Exception.PolloException;
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.Item;
 import java.awt.Color;
@@ -15,7 +14,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     private final ControladorDispositivo controlador;
     
-    public VistaEscritorioDispositivo() throws PolloException {
+    public VistaEscritorioDispositivo() {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         controlador = new ControladorDispositivo(this);
@@ -144,11 +143,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         btnEliminarPedido.setText("Eliminar Pedido");
         btnEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnEliminarPedidoActionPerformed(evt);
-                } catch (PolloException e) {
-                    throw new RuntimeException(e);
-                }
+                btnEliminarPedidoActionPerformed(evt);
             }
         });
 
@@ -240,11 +235,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         btnConfirmarPedido.setText("Confirmar Pedidos");
         btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnConfirmarPedidoActionPerformed(evt);
-                } catch (PolloException e) {
-                    throw new RuntimeException(e);
-                }
+                btnConfirmarPedidoActionPerformed(evt);
             }
         });
 
@@ -387,28 +378,24 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
     private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
         Item item = (Item) listItems.getSelectedValue();
+        sacarComentarioPlaceholder(textComentarioPedido);
         controlador.agregarPedido(item, textComentarioPedido.getText());
+        ponerComentarioPlaceholder(textComentarioPedido);
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
 
-    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
-        // TODO add your handling code here:
+    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
+        controlador.confirmarPedidos();
+    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
+
+    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
         int fila = tablaPedidosHechos.getSelectedRow();
         if(fila != -1) {
             controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
         }
     }//GEN-LAST:event_btnEliminarPedidoActionPerformed
-
-    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
-        // TODO add your handling code here:
-            controlador.confirmarPedido();
-    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
-    
-    private String devolverComentarioPlaceholder(){
-        return "¿Desea modificar algo sobre la preparación?\n\nDeje su comentario acá...";
-    }
-    
+        
     private void ponerComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
-        String placeholderComentario = devolverComentarioPlaceholder();
+        String placeholderComentario = controlador.devolverComentarioPlaceholder();
         if ("".equals(cajaDeComentarios.getText())){
             cajaDeComentarios.setText(placeholderComentario);
             cajaDeComentarios.setForeground(Color.gray);
@@ -416,7 +403,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }
     
     private void sacarComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
-        String placeholderComentario = devolverComentarioPlaceholder();
+        String placeholderComentario = controlador.devolverComentarioPlaceholder();
         if ( placeholderComentario.equals( cajaDeComentarios.getText() ) ) {
             cajaDeComentarios.setText("");
         }
@@ -493,16 +480,14 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
         for (Pedido p : pedidos) {
             Object[] fila = new Object[7];
-            String comentario = p.getComentario();
             monto += p.getItem().getPrecioUnitario();
 
-
             fila[0] = p.getItem().getNombre();
-            fila[1] = getEstadoFormateado(p);
+            fila[1] = controlador.getEstadoFormateado(p);
             fila[2] = p.getEstado().equals("CONFIRMADO") ? p.getItem().getUnidadProcesadora().getNombre() : "";
             fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
             fila[4] = p.getItem().getPrecioUnitario();
-            fila[5] = comentario.equals("¿Desea modificar algo sobre la preparación?\n\nDeje su comentario acá...") ? "" : comentario;
+            fila[5] = p.getComentario();
             fila[6] = p; // objeto Pedido (será oculto)
 
             modelo.addRow(fila);
@@ -522,13 +507,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
         pronto para retirar o está en elaboración o si esta entregado al cliente
         */
-    }
-
-    private String getEstadoFormateado(Pedido p) {
-        if ("NO_CONFIRMADO".equals(p.getEstado())) {
-            return "SIN CONFIRMAR";
-        }
-        return p.getEstado(); // ya formateado si no es "NO_CONFIRMADO"
     }
 
     @Override

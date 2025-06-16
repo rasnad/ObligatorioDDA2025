@@ -2,8 +2,7 @@ package Vista;
 
 import Controlador.ControladorGestor;
 import Controlador.VistaLoginGestor;
-import Modelo.Exception.PolloException;
-import Modelo.Gestor;
+import javax.swing.JOptionPane;
 
 
 public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements VistaLoginGestor {
@@ -11,7 +10,7 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
 
     private final ControladorGestor controladorGestor;
 
-    public VistaEscritorioLoginGestor() throws PolloException {
+    public VistaEscritorioLoginGestor() {
         initComponents();
         controladorGestor = new ControladorGestor(this);
     }
@@ -41,11 +40,7 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         btnLoginGestor.setText("Ingresar");
         btnLoginGestor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnLoginGestorActionPerformed(evt);
-                } catch (PolloException e) {
-                    throw new RuntimeException(e);
-                }
+                btnLoginGestorActionPerformed(evt);
             }
         });
 
@@ -84,16 +79,8 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginGestorActionPerformed(java.awt.event.ActionEvent evt) throws PolloException {//GEN-FIRST:event_btnLoginGestorActionPerformed
-        try {
-            Gestor gestorLogueado = loginGestor();
-            if(gestorLogueado != null){
-                VistaEscritorioProcesarPedidos vista = new VistaEscritorioProcesarPedidos();
-                vista.setVisible(true);
-            }
-        } catch (PolloException e) {
-            throw new PolloException(e.getMessage());
-        }
+    private void btnLoginGestorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginGestorActionPerformed
+        loginGestor();
     }//GEN-LAST:event_btnLoginGestorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -105,16 +92,15 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public Gestor loginGestor() throws PolloException {
-        try {
-            return controladorGestor.loginGestor(textGestorUser.getText(), textGestorPwd.getText());
-        } catch (PolloException e) {
-            throw new PolloException(e.getMessage());
-        }
+    public void loginGestor() {
+        controladorGestor.loginGestor(textGestorUser.getText(), new String(textGestorPwd.getPassword()) );
+        controladorGestor.setVistaProcesar( new VistaEscritorioProcesarPedidos() );
+        this.dispose();
     }
 
     @Override
     public void mostrarError(String mensaje) {
-
+        JOptionPane.showMessageDialog(this, mensaje, "ERROR DE LOGIN", JOptionPane.ERROR_MESSAGE);
     }
+    
 }
