@@ -4,6 +4,9 @@
  */
 package Controlador;
 
+import Modelo.EstadosDePedido.Pedido;
+import java.util.ArrayList;
+
 /**
  *
  * @author lucas
@@ -12,7 +15,7 @@ public interface VistaProcesarPedidos {
     
     public void mostrarInfoGestor(String nombre, String unidadProcesadora);
     
-    public void mostrarPedidosConfirmador();
+    public void mostrarPedidosConfirmados(ArrayList<Pedido> pedidosConfirmados);
     
     public void tomarPedido();
     

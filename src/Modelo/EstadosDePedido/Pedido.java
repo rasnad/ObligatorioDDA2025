@@ -56,13 +56,16 @@ public class Pedido {
     protected void hacerEliminarPedido(){
         servicio.removerPedido(this);
         this.servicio = null;
+        this.getItem().getUnidadProcesadora().eliminarPedido(this);
     }
     
-    /*
+    protected void hacerConfirmarPedido(){
+        this.getItem().getUnidadProcesadora().agregarPedido(this);
+    }
+
     protected boolean hacerCobrarPedido(){
         return true;
     }
-    */
     
     protected void hacerProcesarPedido(Gestor gestor){
         gestor.tomarPedido(this);
@@ -86,9 +89,8 @@ public class Pedido {
         estado.eliminarPedido();
     }
     
-    public boolean cobrarPedido() throws PolloException{
+    public void cobrarPedido() throws PolloException{
         estado.cobrarPedido();
-        return true;
     }
     
     public void finalizarPedido() throws PolloException{
@@ -97,5 +99,10 @@ public class Pedido {
     
     public void entregarPedido() throws PolloException{
         estado.entregarPedido();
+    }
+    
+    @Override
+    public String toString(){
+        return estado.getTipoDeEstado().toString() + " " + item.getNombre() + " " + servicio.getCliente().getNombreCompleto() + " " + fechaYHora + " " + comentario;
     }
 }

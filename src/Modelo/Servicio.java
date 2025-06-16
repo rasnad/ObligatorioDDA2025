@@ -45,10 +45,10 @@ public class Servicio extends Observable {
     }
     
     public void confirmarPedidos() throws PolloException {
-        confirmarPedidos(obetenerPedidosSinConfirmar());
+        confirmarPedidos(obtenerPedidosSinConfirmar());
     }
 
-    public ArrayList<Pedido> obetenerPedidosSinConfirmar() {
+    public ArrayList<Pedido> obtenerPedidosSinConfirmar() {
         return pedidos.stream()
                 .filter(pedido -> Objects.equals(pedido.getEstado(), "NO_CONFIRMADO"))
                 .collect(Collectors.toCollection(ArrayList::new));

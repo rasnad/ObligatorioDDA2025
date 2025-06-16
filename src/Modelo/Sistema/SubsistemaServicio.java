@@ -40,7 +40,7 @@ public class SubsistemaServicio {
         Pedido pedido = new Pedido(item, servicio, comentario);
         servicio.agregarPedido(pedido);
 
-        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoAgregado);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
 
         return pedido;
     }
@@ -52,7 +52,7 @@ public class SubsistemaServicio {
 
         pedido.getServicio().removerPedido(pedido);
         pedidos.remove(pedido);
-        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidoEliminado);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
         //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
     }
 
@@ -75,13 +75,14 @@ public class SubsistemaServicio {
             throw new PolloException("Debe identificarse antes de confirmar el servicio");
         }
 
-        if (servicio.obetenerPedidosSinConfirmar().isEmpty()) {
+        if (servicio.obtenerPedidosSinConfirmar().isEmpty()) {
             throw new PolloException("No hay pedidos nuevos.");
         }
 
         // Queda implementar caso de Stock !!!
         servicio.confirmarPedidos();
-        Fachada.getInstancia().notificarObservadores(Fachada.eventos.pedidosConfirmados);
+        
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
     }
 
 

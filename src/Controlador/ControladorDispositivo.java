@@ -52,6 +52,7 @@ public class ControladorDispositivo implements Observador {
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
+        vista.limpiar();
         vista.mostrarMonto(0.00F);
         vista.mostrarCategorias( menu.getCategorias() );
         vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
@@ -79,6 +80,7 @@ public class ControladorDispositivo implements Observador {
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
             servicio = null;
+            vista.limpiar();
         }
     }
     
@@ -110,12 +112,12 @@ public class ControladorDispositivo implements Observador {
     @Override
     public void actualizar(Object evento, Object origen) {
         
-        if (evento.equals(Fachada.eventos.pedidoAgregado) || evento.equals(Fachada.eventos.pedidoEliminado) || evento.equals(Fachada.eventos.pedidosConfirmados) ){
+        if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
+                //vista.mostrarMonto(); //evento montoActualizado
+                //vista.mostrarMensaje(); //evento nuevoMensaje
             }
-        //vista.mostrarMonto(); //evento montoActualizado
-        //vista.mostrarMensaje(); //evento nuevoMensaje
         }
     }
 }

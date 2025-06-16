@@ -13,7 +13,7 @@ public class PedidoEntregado extends EstadoPedido{
     
     @Override
     public void cobrarPedido() throws PolloException {
-        //this.getPedido().hacerCobrarPedido();
+        this.getPedido().hacerCobrarPedido();
     }
     
     //Acciones inválidas

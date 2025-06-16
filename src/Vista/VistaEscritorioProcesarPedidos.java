@@ -2,7 +2,9 @@ package Vista;
 
 import Controlador.ControladorProcesarPedidos;
 import Controlador.VistaProcesarPedidos;
+import Modelo.EstadosDePedido.Pedido;
 import Modelo.Gestor;
+import java.util.ArrayList;
 
 public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
 
@@ -24,9 +26,9 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         jLabel5 = new javax.swing.JLabel();
         btnTomarPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pedidosTomados = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        pedidosDisponibles = new javax.swing.JList();
         labelUnidadProcesadora = new javax.swing.JLabel();
         textUnidadProcesadora = new javax.swing.JTextField();
         textNombreGestor = new javax.swing.JTextField();
@@ -48,7 +50,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
 
         btnTomarPedido.setText("Tomar Pedido");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        pedidosTomados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -67,9 +69,9 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(pedidosTomados);
 
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(pedidosDisponibles);
 
         textUnidadProcesadora.setEditable(false);
 
@@ -147,6 +149,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controlador.logoutGestor();
         controlador.salir();
     }//GEN-LAST:event_formWindowClosing
 
@@ -159,11 +162,11 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelUnidadProcesadora;
+    private javax.swing.JList pedidosDisponibles;
+    private javax.swing.JTable pedidosTomados;
     private javax.swing.JTextField textNombreGestor;
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
@@ -175,8 +178,8 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     }
     
     @Override
-    public void mostrarPedidosConfirmador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarPedidosConfirmados(ArrayList<Pedido> pedidosConfirmados) {
+        pedidosDisponibles.setListData(pedidosConfirmados.toArray());
     }
 
     @Override

@@ -1,8 +1,6 @@
 package Vista;
 
-import Controlador.VistaDevMenu;
-
-public class VistaEscritorioDevMenu extends javax.swing.JFrame implements VistaDevMenu {
+public class VistaEscritorioDevMenu extends javax.swing.JFrame {
 
     public VistaEscritorioDevMenu() {
         initComponents();

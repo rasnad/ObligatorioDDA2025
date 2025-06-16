@@ -459,6 +459,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     public void terminarServicio() {
         controlador.terminarServicioEnDispositivo();
     }
+    
+    @Override
+    public void limpiar(){
+        mostrarPedidosHechos( new ArrayList<Pedido>() );
+    }
 
     @Override //Muestra el monto del servicio hasta el momento
     public void mostrarMonto(float monto) {

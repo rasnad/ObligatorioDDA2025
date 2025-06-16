@@ -15,6 +15,7 @@ public class PedidoNoConfirmado extends EstadoPedido{
     @Override
     public void confirmarPedido() throws PolloException {
         this.getPedido().setEstado( new PedidoConfirmado() );
+        this.getPedido().hacerConfirmarPedido();
     }
 
     @Override

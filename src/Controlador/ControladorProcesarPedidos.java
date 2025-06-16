@@ -21,17 +21,27 @@ public class ControladorProcesarPedidos implements Observador {
     
     public void inicializarVista(){
         vista.mostrarInfoGestor(gestor.getNombreCompleto(), gestor.getUnidadProcesadora().getNombre());
+        vista.mostrarPedidosConfirmados(gestor.getUnidadProcesadora().getPedidos());
     }
     
     public void salir(){
         fachada.quitarObservador(this);
     }
     
+    public void logoutGestor(){
+        fachada.logoutGestor(gestor);
+    }
+    
     //Eventos del Modelo
     
     @Override
     public void actualizar(Object evento, Object origen) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        
+        if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
+            vista.mostrarPedidosConfirmados(gestor.getUnidadProcesadora().getPedidos());
+        }
+        //vista.mostrarMonto(); //evento montoActualizado
+        //vista.mostrarMensaje(); //evento nuevoMensaje
+        }
     
 }

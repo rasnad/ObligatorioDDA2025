@@ -17,9 +17,17 @@ public class UnidadProcesadora {
    public String getNombre(){
        return nombre;
    }
+   
+   public ArrayList<Pedido> getPedidos(){
+       return pedidos;
+   }
+   
+   public void agregarPedido(Pedido pedido){
+       pedidos.add(pedido);
+   }
 
-   public void cancelarPedido(Pedido pedido){
-
+   public void eliminarPedido(Pedido pedido){
+       pedidos.remove(pedido);
    }
    public void tomarPedido(Pedido pedido){
 

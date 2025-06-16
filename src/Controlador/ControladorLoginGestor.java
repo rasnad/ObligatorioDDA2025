@@ -3,9 +3,8 @@ package Controlador;
 import Modelo.*;
 import Modelo.Exception.PolloException;
 import Modelo.Sistema.Fachada;
-import Observador.Observador;
 
-public class ControladorLoginGestor implements Observador {
+public class ControladorLoginGestor {
 
     private VistaLoginGestor vistaLogin;
     private final Fachada fachada = Fachada.getInstancia();
@@ -27,8 +26,4 @@ public class ControladorLoginGestor implements Observador {
         }
     }
 
-    @Override
-    public void actualizar(Object evento, Object origen) {
-
-    }
 }
