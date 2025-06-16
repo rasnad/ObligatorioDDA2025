@@ -23,6 +23,7 @@ public class PedidoConfirmado extends EstadoPedido{
     
     @Override //Gestor toma pedido
     public void procesarPedido(Gestor gestor) {
+        this.getPedido().setGestor(gestor);
         this.getPedido().hacerProcesarPedido(gestor);
         this.getPedido().setEstado( new PedidoEnProceso() );
     }

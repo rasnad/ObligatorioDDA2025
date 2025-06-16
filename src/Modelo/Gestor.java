@@ -19,7 +19,7 @@ public class Gestor extends Usuario {
         return unidadProcesadora;
     }
     
-    public void tomarPedido(Pedido pedido){
+    public void tomarPedido(Pedido pedido) {
         pedidosTomados.add(pedido);
     }
     
@@ -31,4 +31,7 @@ public class Gestor extends Usuario {
         pedido.entregarPedido();
     }
 
+    public ArrayList<Pedido> getPedidosTomados() {
+        return pedidosTomados;
+    }
 }

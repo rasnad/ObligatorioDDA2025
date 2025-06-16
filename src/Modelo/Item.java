@@ -39,7 +39,7 @@ public class Item {
     }
 
     public boolean tieneStock(){
-        return false;
+        return ingredientes.stream().allMatch(ingrediente -> ingrediente.insumo.tieneStock(ingrediente.getCantidad()));
     }
 
     public void restarStockDeInsumos(){

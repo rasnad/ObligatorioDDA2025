@@ -4,7 +4,12 @@ import Controlador.ControladorProcesarPedidos;
 import Controlador.VistaProcesarPedidos;
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.Gestor;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
 
@@ -26,7 +31,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         jLabel5 = new javax.swing.JLabel();
         btnTomarPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        pedidosTomados = new javax.swing.JTable();
+        tablePedidosTomado = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         pedidosDisponibles = new javax.swing.JList();
         labelUnidadProcesadora = new javax.swing.JLabel();
@@ -49,8 +54,13 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         jLabel5.setText("|");
 
         btnTomarPedido.setText("Tomar Pedido");
+        btnTomarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTomarPedidoActionPerformed(evt);
+            }
+        });
 
-        pedidosTomados.setModel(new javax.swing.table.DefaultTableModel(
+        tablePedidosTomado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -69,7 +79,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(pedidosTomados);
+        jScrollPane1.setViewportView(tablePedidosTomado);
 
         jScrollPane2.setViewportView(pedidosDisponibles);
 
@@ -153,6 +163,13 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         controlador.salir();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
+        // TODO add your handling code here:
+        Pedido pedido = (Pedido) pedidosDisponibles.getSelectedValue();
+        controlador.tomarPedido(pedido);
+    }//GEN-LAST:event_btnTomarPedidoActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTomarPedido;
     private javax.swing.JButton jButton1;
@@ -166,7 +183,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelUnidadProcesadora;
     private javax.swing.JList pedidosDisponibles;
-    private javax.swing.JTable pedidosTomados;
+    private javax.swing.JTable tablePedidosTomado;
     private javax.swing.JTextField textNombreGestor;
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
@@ -195,5 +212,45 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     @Override
     public void EntregarPedido() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados) {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Nombre del Item");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Fecha y Hora");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Pedido"); // columna oculta
+
+        for (Pedido p : pedidosTomados) {
+            Object[] fila = new Object[6];
+
+            fila[0] = p.getItem().getNombre();
+            fila[1] = p.getComentario();
+            fila[2] = p.getServicio().getCliente().getUsername();
+            fila[3] = LocalDateTime.now().toString();
+            fila[4] = p.getEstado();
+            fila[5] = p; // objeto Pedido (será oculto)
+
+            modelo.addRow(fila);
+        }
+
+        tablePedidosTomado.setModel(modelo);
+        tablePedidosTomado.setDefaultEditor(Object.class, null);
+        //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable
+
+        // Ocultar la columna de Pedido
+        tablePedidosTomado.getColumnModel().getColumn(5).setMinWidth(0);
+        tablePedidosTomado.getColumnModel().getColumn(5).setMaxWidth(0);
+        tablePedidosTomado.getColumnModel().getColumn(5).setWidth(0);
+
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "ERROR TOMAR PEDIDO", JOptionPane.ERROR_MESSAGE);
     }
 }
