@@ -39,12 +39,23 @@ public class Item {
     }
 
     public boolean tieneStock(){
-        return ingredientes.stream().allMatch(ingrediente -> ingrediente.insumo.tieneStock(ingrediente.getCantidad()));
+        for (Ingrediente ingrediente : ingredientes){
+            if (!ingrediente.tieneStock()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void restarStockDeInsumos(){
         for(Ingrediente ingrediente : ingredientes){
             ingrediente.restarStockDeInsumo();
+        }
+    }
+    
+    public void devolverStockDeInsumos(){
+        for(Ingrediente ingrediente : ingredientes){
+            ingrediente.devolverStockDeInsumo();
         }
     }
 

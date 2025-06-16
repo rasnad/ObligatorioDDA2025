@@ -96,17 +96,17 @@ public class DatosDePrueba {
         //fachada.getClientes();
 
         // Insumos
-        Insumo aceituna = new Insumo("Aceituna", 100);
-        Insumo tomate = new Insumo("Tomate", 50);
-        Insumo papa = new Insumo("Papa", 100);
-        Insumo carne = new Insumo("Carne", 20);
-        Insumo ginebra = new Insumo("Ginebra", 10);
-        Insumo tonico = new Insumo("Tónico", 20);
-        Insumo arroz = new Insumo("Arroz", 50);
-        Insumo salmón = new Insumo("Salmón", 15);
-        Insumo alga = new Insumo("Alga", 100);
-        Insumo aguacate = new Insumo("Aguacate", 10);
-        Insumo hierbas = new Insumo("Hierbas", 10);
+        Insumo aceituna = new Insumo("Aceituna", 10, 20);
+        Insumo tomate = new Insumo("Tomate", 10, 20);
+        Insumo papa = new Insumo("Papa", 10, 20);
+        Insumo carne = new Insumo("Carne", 10, 20);
+        Insumo ginebra = new Insumo("Ginebra", 10, 20);
+        Insumo tonico = new Insumo("Tónico", 10, 20);
+        Insumo arroz = new Insumo("Arroz", 10, 20);
+        Insumo salmón = new Insumo("Salmón", 10, 20);
+        Insumo alga = new Insumo("Alga", 10, 20);
+        Insumo aguacate = new Insumo("Aguacate", 10, 20);
+        Insumo hierbas = new Insumo("Hierbas", 10, 20);
 
         // Categorías
         CategoriaItem entrada = new CategoriaItem("Entrada");
