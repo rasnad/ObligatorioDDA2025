@@ -492,7 +492,7 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
 
             fila[0] = p.getItem().getNombre();
             fila[1] = controlador.getEstadoFormateado(p);
-            fila[2] = p.getItem().getUnidadProcesadora().getNombre();
+            fila[2] = p.getEstado().equals("NO_CONFIRMADO") ? "" : p.getItem().getUnidadProcesadora().getNombre();
             fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
             fila[4] = p.getItem().getPrecioUnitario();
             fila[5] = p.getComentario();
