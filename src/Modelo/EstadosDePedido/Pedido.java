@@ -60,7 +60,7 @@ public class Pedido {
         this.getItem().getUnidadProcesadora().eliminarPedido(this);
     }
     
-    protected void hacerConfirmarPedido(){
+    protected void hacerConfirmarPedido() throws PolloException {
         this.getItem().getUnidadProcesadora().agregarPedido(this);
     }
 

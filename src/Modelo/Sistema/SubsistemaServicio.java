@@ -86,10 +86,13 @@ public class SubsistemaServicio {
             throw new PolloException("No hay pedidos nuevos.");
         }
 
-        // Queda implementar caso de Stock !!!
-        servicio.confirmarPedidos();
+        String errores = servicio.confirmarPedidos(); //este método ya se encarga de limpiar los problemas de stock
         
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+        
+        if (!errores.isEmpty()){
+            throw new PolloException(errores);
+        }
     }
 
     public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {

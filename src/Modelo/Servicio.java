@@ -44,8 +44,8 @@ public class Servicio extends Observable {
         pedidos.remove(pedido);
     }
     
-    public void confirmarPedidos() throws PolloException {
-        confirmarPedidos(obtenerPedidosSinConfirmar());
+    public String confirmarPedidos() throws PolloException {
+        return confirmarPedidos(obtenerPedidosSinConfirmar());
     }
 
     public ArrayList<Pedido> obtenerPedidosSinConfirmar() {
@@ -54,13 +54,33 @@ public class Servicio extends Observable {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
+    private String confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
+        ArrayList<Pedido> pedidosBorrados = new ArrayList<>();
+        
         for (Pedido p : pedidosSinConfirmar){
+            Item item = p.getItem();
+            if ( ! item.tieneStock() ){
+                pedidosBorrados.add(p);
+                p.eliminarPedido();
+            }
             p.confirmarPedido();
             p.restarStockDeItem();
         }
+        
+        if (!pedidosBorrados.isEmpty()){
+            return reportarProblemasDeStock(pedidosBorrados);
+        }
+        
+        return "";
     }
-
+    
+    private String reportarProblemasDeStock(ArrayList<Pedido> pedidosBorrados) throws PolloException{
+        String borrados = "";
+        for (Pedido p : pedidosBorrados){
+            borrados += ", " + p.getItem().getNombre();
+        }
+        return "Lo sentimos, nos hemos quedado sin stock de" + borrados + "; por lo que lo hemos quitado esos pedidos del servicio. Perdón. Disculpe!! Noo por favor no se vaya!! Noooooooooo";
+    }
 
     public float calcularSubtotal(){
         float subtotal = 0;
