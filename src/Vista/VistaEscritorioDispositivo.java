@@ -481,11 +481,9 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         modelo.addColumn("Precio");
         modelo.addColumn("Comentario");
         modelo.addColumn("Pedido"); // columna oculta
-        float monto = 0;
 
         for (Pedido p : pedidos) {
             Object[] fila = new Object[7];
-            monto += p.getItem().getPrecioUnitario();
 
             fila[0] = p.getItem().getNombre();
             fila[1] = controlador.getEstadoFormateado(p);
@@ -506,7 +504,6 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
         tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
-        mostrarMonto(monto);
         /*
         Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
         indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está

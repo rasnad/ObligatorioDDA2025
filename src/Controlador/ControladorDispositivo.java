@@ -115,7 +115,7 @@ public class ControladorDispositivo implements Observador {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
-                //vista.mostrarMonto(); //evento montoActualizado
+                vista.mostrarMonto( servicio.calcularSubtotal() );
                 //vista.mostrarMensaje(); //evento nuevoMensaje
             }
         }
