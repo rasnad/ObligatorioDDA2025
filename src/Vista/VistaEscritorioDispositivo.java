@@ -462,6 +462,7 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     @Override
     public void limpiar(){
         mostrarPedidosHechos( new ArrayList<>() );
+        mostrarMonto(0);
         setTitle("Dispositivo " + controlador.getDispositivoId());
     }
 
