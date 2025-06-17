@@ -10,13 +10,13 @@ import Precarga.DatosDePrueba;
 import java.util.ArrayList;
 
 public class SubsistemaAcceso {
-
-    ArrayList<Dispositivo> todosLosDispositivos = new ArrayList<>();
-    ArrayList<Cliente> todosLosClientes = new ArrayList<>();
-    ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
-    ArrayList<Cliente> clientesLogueados = new ArrayList<>();
-    ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
-    DatosDePrueba datosDePrueba = new DatosDePrueba();
+    private static int ultimoDispositivoAbierto = 0;
+    private ArrayList<Dispositivo> todosLosDispositivos = new ArrayList<>();
+    private ArrayList<Cliente> todosLosClientes = new ArrayList<>();
+    private ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
+    private ArrayList<Cliente> clientesLogueados = new ArrayList<>();
+    private ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
+    private DatosDePrueba datosDePrueba = new DatosDePrueba();
     
     protected SubsistemaAcceso(){}
 
@@ -94,26 +94,15 @@ public class SubsistemaAcceso {
     //MÉTODO TEMPORAL PARA TESTING, BORRAR LUEGO DE IMPLEMENTAR SOLUCIÓN FINAL
     public Dispositivo devolverDispositivo(){
         
-        if (todosLosDispositivos.isEmpty()){  //si no hay dispositivos, devuelve uno nuevo
-            Dispositivo d = new Dispositivo();
-            nuevoDispositivo(d);
-            return d;
+        //devuelve el primer dispositivo cuya GUI no ha iniciado
+        int i = ultimoDispositivoAbierto;
+        while (i < todosLosDispositivos.size()){
+            ultimoDispositivoAbierto++;
+            return todosLosDispositivos.get(i);
         }
         
-        //devuelve uno random libre
-        Dispositivo disp = todosLosDispositivos.get((int)(Math.random() * todosLosDispositivos.size()));
-        if (!disp.getEstaOcupado()){
-            return disp;
-        }
-        
-        for (Dispositivo libre : todosLosDispositivos){ //devuelve primer disp libre
-            if (!libre.getEstaOcupado()){
-                return libre;
-            }
-        }
-        
-        return todosLosDispositivos.getFirst(); //devuelve disp 0 si están todos ocupados
-        
+        //devuelve un dispositivo random si ya se abrieron todos los dispositivos
+        return todosLosDispositivos.get((int)(Math.random() * todosLosDispositivos.size()));
     }
     
 }

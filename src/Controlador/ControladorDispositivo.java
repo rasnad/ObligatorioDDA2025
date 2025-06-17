@@ -74,13 +74,23 @@ public class ControladorDispositivo implements Observador {
     }
     
     public void terminarServicioEnDispositivo(){
+        String errorSinCliente = "Debe identificarse antes de finalizar el servicio";
+        
         if (servicio != null){
+            
+            //Esto nunca debería pasar acá, pero por las dudas..
+            if (servicio.getCliente() == null || cliente == null) {
+                vista.mostrarError("Error de login", errorSinCliente);
+            }
+            //NOTA: DECIRLE AL SERVICIO Y AL DISPOSITIVO QUE TERMINEN, ES LÓGICA DE NEGOCIO, PASAR A LOGOUTCLIENTE EN SUBSISTEMA
             fachada.logoutCliente(dispositivo, cliente);
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
             this.servicio = null;
             this.cliente = null;
             vista.limpiar();
+        } else {
+            vista.mostrarError("Error de login", errorSinCliente);
         }
     }
     

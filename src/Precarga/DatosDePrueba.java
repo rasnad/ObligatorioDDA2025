@@ -46,9 +46,12 @@ public class DatosDePrueba {
         // Dispositivos
         Dispositivo dispositivo1 = new Dispositivo();
         Dispositivo dispositivo2 = new Dispositivo();
-        fachada.nuevoDispositivo(dispositivo2);
+        Dispositivo dispositivo3 = new Dispositivo();
+        Dispositivo dispositivo4 = new Dispositivo();
         fachada.nuevoDispositivo(dispositivo1);
-
+        fachada.nuevoDispositivo(dispositivo2);
+        fachada.nuevoDispositivo(dispositivo3);
+        fachada.nuevoDispositivo(dispositivo4);
 
 
         // Unidades procesadoras
