@@ -15,6 +15,10 @@ public abstract class EstadoPedido {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
+    
+    public TipoDeEstado getTipo(){
+        return tipoDeEstado;
+    }
 
     public Pedido getPedido(){
         return pedido;

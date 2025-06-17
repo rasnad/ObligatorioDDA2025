@@ -5,7 +5,7 @@ import Modelo.Dispositivo;
 import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Item;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Modelo.Menu;
 import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
@@ -23,6 +23,14 @@ public class Fachada extends Observable {
     //Retorno de Instancia
     public static Fachada getInstancia(){
         return instancia;
+    }
+
+    public void stockDeItemsSinConfirmar(Servicio servicio) {
+        for (Pedido p : servicio.getPedidos() ){
+            if (p.getTipoDeEstado() == EstadoPedido.TipoDeEstado.NO_CONFIRMADO){
+                
+            }
+        }
     }
 
     public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};

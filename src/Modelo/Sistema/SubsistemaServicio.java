@@ -51,7 +51,7 @@ public class SubsistemaServicio {
         }
         
         if (pedido == null) {
-            throw new PolloException(cliente.getNombreCompleto() + "Debe seleccionar un pedido.");
+            throw new PolloException("Debe seleccionar un pedido.");
         }
         
         pedido.eliminarPedido(); //se pone en null en el servicio, pone su servicio en null y se saca de la unidadprocesadora

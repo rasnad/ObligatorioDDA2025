@@ -50,7 +50,7 @@ public class Servicio extends Observable {
 
     public ArrayList<Pedido> obtenerPedidosSinConfirmar() {
         return pedidos.stream()
-                .filter(pedido -> Objects.equals(pedido.getEstado(), "NO_CONFIRMADO"))
+                .filter(pedido -> Objects.equals(pedido.getTipoDeEstado(), EstadoPedido.TipoDeEstado.NO_CONFIRMADO))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -77,9 +77,9 @@ public class Servicio extends Observable {
     private String reportarProblemasDeStock(ArrayList<Pedido> pedidosBorrados) throws PolloException{
         String borrados = "";
         for (Pedido p : pedidosBorrados){
-            borrados += ", " + p.getItem().getNombre();
+            borrados += "Nos hemos quedado sin stock de " + p.getItem().getNombre() + " y no pudimos avisarte antes!! Lo siento mucho...\n";
         }
-        return "Lo sentimos, nos hemos quedado sin stock de" + borrados + "; por lo que lo hemos quitado esos pedidos del servicio. Perdón. Disculpe!! Noo por favor no se vaya!! Noooooooooo";
+        return borrados;
     }
 
     public float calcularSubtotal(){

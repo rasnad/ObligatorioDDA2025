@@ -40,7 +40,7 @@ public class ControladorDispositivo implements Observador {
         if ("NO_CONFIRMADO".equals(p.getEstado())){
             return "SIN CONFIRMAR";
         }
-        return p.getEstado();
+        return p.getEstadoTexto();
     }
     
     public String devolverComentarioPlaceholder() {
@@ -64,7 +64,7 @@ public class ControladorDispositivo implements Observador {
             cliente = dispositivo.getCliente();
             vista.cambiarTitulo( "Le damos la bienvenida " + cliente.getNombreCompleto() + "!" );
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error de login", e.getMessage());
         }
     }
     
@@ -88,7 +88,7 @@ public class ControladorDispositivo implements Observador {
         try {
             fachada.nuevoPedido(item, this.servicio, comentario);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al agregar pedido", e.getMessage());
         }
     }
     
@@ -96,7 +96,7 @@ public class ControladorDispositivo implements Observador {
         try {
             fachada.eliminarPedido(pedido, cliente);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al eliminar pedido", e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class ControladorDispositivo implements Observador {
         try {
             fachada.confirmarPedidos(servicio);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al confirmar pedido", e.getMessage());
         }
     }
     
@@ -117,6 +117,7 @@ public class ControladorDispositivo implements Observador {
                 vista.mostrarMonto( servicio.calcularSubtotal());
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
+                fachada.stockDeItemsSinConfirmar(servicio);
             }
         }
     }

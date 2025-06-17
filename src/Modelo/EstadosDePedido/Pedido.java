@@ -40,8 +40,16 @@ public class Pedido {
         return gestor;
     }
     
-    public String getEstado(){
+    public EstadoPedido getEstado(){
+        return estado;
+    }
+    
+    public String getEstadoTexto(){
         return estado.toString();
+    }
+    
+    public EstadoPedido.TipoDeEstado getTipoDeEstado(){
+        return estado.getTipo();
     }
     
     protected void setEstado(EstadoPedido e){

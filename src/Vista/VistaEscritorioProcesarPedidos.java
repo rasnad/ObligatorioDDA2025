@@ -232,7 +232,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
             fila[1] = p.getComentario();
             fila[2] = p.getServicio().getCliente().getUsername();
             fila[3] = LocalDateTime.now().toString();
-            fila[4] = p.getEstado();
+            fila[4] = p.getEstadoTexto();
             fila[5] = p; // objeto Pedido (será oculto)
 
             modelo.addRow(fila);

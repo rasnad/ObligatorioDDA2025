@@ -18,7 +18,7 @@ public interface VistaDispositivo {
     
     public void mostrarItems(CategoriaItem categoria);
     
-    public void mostrarError(String mensaje);
+    public void mostrarError(String titulo, String mensaje);
     
     public void loginCliente();
     

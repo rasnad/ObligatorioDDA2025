@@ -3,7 +3,7 @@ package Vista;
 import Controlador.ControladorDispositivo;
 import Controlador.VistaDispositivo;
 import Modelo.CategoriaItem;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Modelo.Item;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -447,8 +447,8 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     }
     
     @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "ERROR DE LOGIN", JOptionPane.ERROR_MESSAGE);
+    public void mostrarError(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
@@ -495,7 +495,7 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
 
             fila[0] = p.getItem().getNombre();
             fila[1] = controlador.getEstadoFormateado(p);
-            fila[2] = p.getEstado().equals("NO_CONFIRMADO") ? "" : p.getItem().getUnidadProcesadora().getNombre();
+            fila[2] = p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : p.getItem().getUnidadProcesadora().getNombre();
             fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
             fila[4] = p.getItem().getPrecioUnitario();
             fila[5] = p.getComentario();
