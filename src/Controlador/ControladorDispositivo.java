@@ -78,7 +78,8 @@ public class ControladorDispositivo implements Observador {
             fachada.logoutCliente(dispositivo, cliente);
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
-            servicio = null;
+            this.servicio = null;
+            this.cliente = null;
             vista.limpiar();
         }
     }
@@ -93,7 +94,7 @@ public class ControladorDispositivo implements Observador {
     
     public void eliminarPedido(Pedido pedido) {
         try {
-            fachada.eliminarPedido(pedido);
+            fachada.eliminarPedido(pedido, cliente);
         } catch (PolloException e){
             vista.mostrarError(e.getMessage());
         }

@@ -385,6 +385,8 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
         int fila = tablaPedidosHechos.getSelectedRow();
         if(fila != -1) {
             controlador.eliminarPedido((Pedido) tablaPedidosHechos.getValueAt(fila, 6));
+        } else {
+            controlador.eliminarPedido(null); //mandamos null para que lo pare el subsistema y muestre el error del CA 4 por null
         }
     }//GEN-LAST:event_btnEliminarPedidoActionPerformed
         

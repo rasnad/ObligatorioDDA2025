@@ -63,8 +63,8 @@ public class Fachada extends Observable {
         return subsistemaServicio.generarPedido(item, servicio, comentario);
     }
     
-     public void eliminarPedido(Pedido pedido) throws PolloException {
-        subsistemaServicio.eliminarPedido(pedido);
+     public void eliminarPedido(Pedido pedido, Cliente cliente) throws PolloException {
+        subsistemaServicio.eliminarPedido(pedido, cliente);
     }
     
     public void crearServicio(Dispositivo dispositivo, Cliente cliente){

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class SubsistemaServicio {
     ArrayList<Gestor> gestores = new ArrayList<>();
-    ArrayList<Pedido> pedidos = new ArrayList<>();
     ArrayList<Item> items = new ArrayList<>();
     ArrayList<Servicio> servicios = new ArrayList<>();
     ArrayList<Menu> menues = new ArrayList<>();
@@ -45,22 +44,18 @@ public class SubsistemaServicio {
         return pedido;
     }
 
-    protected void eliminarPedido(Pedido pedido) {
-        if (pedido == null) {
-            //acá un throw, ver si la letra no tiene un CA específico
+    protected void eliminarPedido(Pedido pedido, Cliente cliente) throws PolloException {
+        
+        if (cliente == null) {
+            throw new PolloException("Debe identificarse antes de eliminar un pedido.");
         }
         
-        try {
-            pedido.eliminarPedido(); //se pone en null en el servicio, pone su servicio en null y se saca de la unidadprocesadora
-            pedidos.remove(pedido);
-            Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
-        } catch (PolloException e) {
-            
-            
-            System.out.println("que loco che, no se pudo eliminar el pedido");
-            System.out.println("cambiar este mensaje en eliminarpedido subsistemaservicio");
-            
+        if (pedido == null) {
+            throw new PolloException(cliente.getNombreCompleto() + "Debe seleccionar un pedido.");
         }
+        
+        pedido.eliminarPedido(); //se pone en null en el servicio, pone su servicio en null y se saca de la unidadprocesadora
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
     }
 
     protected Menu devolverMenuPorNombre(String nombreMenu) {
@@ -105,22 +100,5 @@ public class SubsistemaServicio {
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
 
     }
-
-
-
-    /* Implementar con State y Experto
-    public ArrayList<Pedido> confirmarPedido(Servicio servicio) {
-        return servicio.pedidos.stream() // Recorremos la lista de pedidos del servicio,
-                .filter(pedido -> pedido.getEstadoPedido() == EstadoPedido.PEDIDO_NO_CONFIRMADO)  // y nos quedamos con lo aun no confirmado
-                .peek(pedido -> pedido.confirmarPedido()) // y lo confirmamos.
-                .collect(Collectors.toCollection(ArrayList::new)); // Nos quedamos con dicha lista.
-    }
-
-    public ArrayList<Pedido> cancelarPedido(Servicio servicio) {
-        return servicio.pedidos.stream() // Recorremos la lista de pedidos del servicio,
-                .filter(pedido -> pedido.getEstadoPedido() == EstadoPedido.PEDIDO_NO_CONFIRMADO)  // y nos quedamos con lo aun no confirmado
-                .peek(pedido -> pedido.eliminar())// y lo confirmamos.
-                .collect(Collectors.toCollection(ArrayList::new)); // Nos quedamos con dicha lista.
-    }
-    */
+    
 }
