@@ -18,7 +18,7 @@ public class ControladorDispositivo implements Observador {
     
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
-        this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");
+        this.menu = fachada.devolverMenuPorNombre("Menu1");
         dispositivo = fachada.devolverDispositivo(); //tomar un dispositivo random de la fachada
         fachada.agregarObservador(this);
         inicializarVista();

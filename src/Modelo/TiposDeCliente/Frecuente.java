@@ -1,17 +1,25 @@
 package Modelo.TiposDeCliente;
 
+import Modelo.Ingrediente;
+import Modelo.Insumo;
+import Modelo.Item;
+import Modelo.Menu;
+import Modelo.Sistema.Fachada;
+import Modelo.UnidadProcesadora;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Frecuente extends TipoCliente{
     public Frecuente(){
         
-        //this.agregarItemConDescuento( fachada.obtenerItem("Agua") );
+        Menu menu = Fachada.getInstancia().devolverMenuPorNombre("Menu1");
+        UnidadProcesadora bar = Fachada.getInstancia().devolverUnidadProcesadoraPorNombre("Bar");
+        Insumo granosDeCafeInsumo = new Insumo("Granos de Café", 100, 1500);
+        Ingrediente granosDeCafeIngrediente = new Ingrediente(100, granosDeCafeInsumo);
+        Item cafe = new Item(new ArrayList<>(List.of(granosDeCafeIngrediente)), bar, menu.devolverCategoriaPorNombre("Bebida"), "Café", 120);
         
-        //Insumo insumo = new Insumo("Agüita mineral sin gas", 10, 20);
-        //Ingrediente ingrediente = new Ingrediente(1, insumo);
-        //UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario
-        //Item item = new Item(ingrediente);
+        this.agregarItemConDescuento( cafe );
         
-        //hacer un fachada . buscar item y luego pasarlo acá:
-        //this.agregarItemConDescuento(item);
     }
     
     @Override

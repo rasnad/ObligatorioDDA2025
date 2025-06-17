@@ -29,7 +29,7 @@ public class SubsistemaAcceso {
         return null;
     }
     
-    public void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
+    protected void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
         
         dispositivo.puedeLoguearseCliente();
         
@@ -47,9 +47,7 @@ public class SubsistemaAcceso {
         Fachada.getInstancia().crearServicio(dispositivo, cliente);
     }
     
-
-
-    public Gestor loginGestor(String username, String password) throws PolloException {
+    protected Gestor loginGestor(String username, String password) throws PolloException {
         Gestor gestor = (Gestor) login(todosLosGestores, username, password);
 
         if (gestor == null) {
@@ -71,7 +69,7 @@ public class SubsistemaAcceso {
         }
     }
     
-    public void logoutCliente(Dispositivo dispositivo, Cliente cliente) throws PolloException {
+    protected void logoutCliente(Dispositivo dispositivo, Cliente cliente) throws PolloException {
         if (cliente == null) {
             throw new PolloException("Debe identificarse antes de finalizar el servicio");
         }
@@ -81,25 +79,25 @@ public class SubsistemaAcceso {
         logout(clientesLogueados, cliente);
     }
         
-    public void logoutGestor(Gestor gestor) {
+    protected void logoutGestor(Gestor gestor) {
         gestor.getUnidadProcesadora().desloguearGestor(gestor);
         logout(gestoresLogueados, gestor);
     }
 
-    public void nuevoCliente(Cliente cliente) {
+    protected void nuevoCliente(Cliente cliente) {
         todosLosClientes.add(cliente);
     }
 
-    public void nuevoGestor(Gestor gestor) {
+    protected void nuevoGestor(Gestor gestor) {
         todosLosGestores.add(gestor);
     }
     
-    public void nuevoDispositivo(Dispositivo dispositivo) {
+    protected void nuevoDispositivo(Dispositivo dispositivo) {
         todosLosDispositivos.add(dispositivo);
     }
     
     //MÉTODO TEMPORAL PARA TESTING, BORRAR LUEGO DE IMPLEMENTAR SOLUCIÓN FINAL
-    public Dispositivo devolverDispositivo(){
+    protected Dispositivo devolverDispositivo(){
         
         //devuelve el primer dispositivo cuya GUI no ha iniciado
         int i = ultimoDispositivoAbierto;

@@ -9,29 +9,27 @@ import java.util.*;
 
 public class DatosDePrueba {
 
-    public Menu obtenerMenuPorNombre(String nombre) {
+    public static void cargarDatos() throws PolloException {
 
-        Menu menu = new Menu("Menu De Invierno");
-
+        Fachada fachada = Fachada.getInstancia();
+        
+        // Unidades procesadoras
+        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
+        UnidadProcesadora bar = new UnidadProcesadora("Bar");
+        UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
+        fachada.nuevaUnidadProcesadora(cocina);
+        fachada.nuevaUnidadProcesadora(bar);
+        fachada.nuevaUnidadProcesadora(barraDeSushi);
+        
+        // Categorías de menú
         CategoriaItem entrada = new CategoriaItem("Entrada");
         CategoriaItem platoPrincipal = new CategoriaItem("Plato Principal");
         CategoriaItem bebida = new CategoriaItem("Bebida");
         CategoriaItem sushi = new CategoriaItem("Sushi");
 
+        Menu menu = new Menu("Menu1");
         menu.setCategoriaItems(new ArrayList<>(List.of(entrada, platoPrincipal, bebida, sushi)));
-        menu.setNombreMenu("Menu de invierno");
-
-        if(menu.getNombre().equals(nombre)) {
-            return menu;
-        }
-        return null;
-    }
-
-
-
-    public static void cargarDatos() throws PolloException {
-
-        Fachada fachada = Fachada.getInstancia();
+        fachada.agregarMenu(menu);
         
         // Insumos
         Insumo aceituna = new Insumo("Aceituna", 10, 20);
@@ -45,23 +43,17 @@ public class DatosDePrueba {
         Insumo alga = new Insumo("Alga", 10, 20);
         Insumo aguacate = new Insumo("Aguacate", 10, 200);
         Insumo hierbas = new Insumo("Hierbas", 10, 200);
-
-        // Categorías
-        CategoriaItem entrada = new CategoriaItem("Entrada");
-        CategoriaItem platoPrincipal = new CategoriaItem("Plato Principal");
-        CategoriaItem bebida = new CategoriaItem("Bebida");
-        CategoriaItem sushi = new CategoriaItem("Sushi");
-
+        Insumo pan = new Insumo("Pan", 10, 20);
+        Insumo pasta = new Insumo("Pasta", 20, 30);
         
-        // Ítems del menú
-
         Ingrediente ingredienteCarne = new Ingrediente(10,carne);
         Ingrediente ingredienteArroz = new Ingrediente(5,arroz);
-
         Ingrediente ingredienteAguacateInsuficiente = new Ingrediente(11,aguacate);
         Ingrediente ingredienteHierbasSuficiente = new Ingrediente(10,hierbas);
         Ingrediente ingredienteAguacateSuficiente = new Ingrediente(9,aguacate);
 
+        
+        // Ítems del menú
         ArrayList<Ingrediente> ingredientesMilanesas = new ArrayList<>();
         ingredientesMilanesas.add(ingredienteCarne);
         ingredientesMilanesas.add(ingredienteArroz);
@@ -77,77 +69,37 @@ public class DatosDePrueba {
         ingredienteDeComidaConAmbosSuficientes.add(ingredienteAguacateSuficiente);
         ingredienteDeComidaConAmbosSuficientes.add(ingredienteHierbasSuficiente);
 
-
-        // Unidades procesadoras
-
-        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
-        UnidadProcesadora bar = new UnidadProcesadora("Bar");
-        UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
-
-
         Item milanesa = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa con Arroz", 250);
         Item platoCaro = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Plato Caro Especial", 2100);
 
-        
-        //Frecuente, Preferencial, Café y agua mineral, mover a algún subsistema
-        //Y evaluar usar métodos estáticos para agregar items al subtipo de cliente para no tener que instanciarlos por separado
-        Item cafe = new Item(new ArrayList<>(), bar, bebida, "Café", 120);
-        Item aguaMineral = new Item(new ArrayList<>(), bar, bebida, "Agua Mineral", 100);
-        Frecuente frecuente = new Frecuente();
-        frecuente.setItemsConDescuento(new ArrayList<> (List.of(cafe)));
-        Preferencial preferencial = new Preferencial();
-        preferencial.setItemsConDescuento(new ArrayList<> (List.of(aguaMineral)));
-        DeLaCasa deLaCasa = new DeLaCasa(); // No requiere items específicos, tiene crédito global
+        //Tipos de cliente
+        Frecuente frecuente = new Frecuente(); // Café gratis
+        Preferencial preferencial = new Preferencial();  // Agua gratis y 5% de descuento si la factura es más de 2000
+        DeLaCasa deLaCasa = new DeLaCasa(); // 500 pesos de descuento siempre
         Comun comun = new Comun(); // Sin beneficios
 
-        Cliente clienteFrecuente = new Cliente(1, frecuente, "1", "Juan Café");
-        Cliente clientePreferencial = new Cliente(2, preferencial, "1", "Ana Agua");
-        Cliente clienteDeLaCasa = new Cliente(3, deLaCasa, "1", "Carlos VIP");
-        Cliente clienteComun = new Cliente(4, comun, "1", "Luisa Sin Beneficio");
+        fachada.nuevoCliente( new Cliente(1, frecuente, "1", "Juan Frecuenta Cafés") );
+        fachada.nuevoCliente( new Cliente(2, preferencial, "1", "Ana Prefiere Agua") );
+        fachada.nuevoCliente( new Cliente(3, deLaCasa, "1", "Carlos el hijo del dueño") );
+        fachada.nuevoCliente( new Cliente(4, comun, "1", "Luisa La Plebeya Sin Beneficios") );
+        //Cambio de tipo de cliente (Strategy)
+        Cliente clientePromovido = new Cliente(5, comun, "1", "Diego Armando Programas");
+        fachada.nuevoCliente(clientePromovido);
+        clientePromovido.setTipo(deLaCasa);
 
         // Dispositivos
-        Dispositivo dispositivo1 = new Dispositivo();
-        Dispositivo dispositivo2 = new Dispositivo();
-        Dispositivo dispositivo3 = new Dispositivo();
-        Dispositivo dispositivo4 = new Dispositivo();
-        
-        fachada.nuevoDispositivo(dispositivo1);
-        fachada.nuevoDispositivo(dispositivo2);
-        fachada.nuevoDispositivo(dispositivo3);
-        fachada.nuevoDispositivo(dispositivo4);
-
-        //Menú
-
-        fachada.crearMenu("Menu de Invierno");
-        Menu menu = fachada.devolverMenuPorNombre("Menu de Invierno");
-
-        //Añadir categorías
-        menu.agregarCategoria(entrada);
-        menu.agregarCategoria(platoPrincipal);
-        menu.agregarCategoria(bebida);
-        menu.agregarCategoria(sushi);
-
-        // Clientes
-
-        fachada.nuevoCliente(clienteFrecuente);
-        fachada.nuevoCliente(clientePreferencial);
-        fachada.nuevoCliente(clienteDeLaCasa);
-        fachada.nuevoCliente(clienteComun);
-
+        fachada.nuevoDispositivo(new Dispositivo());
+        fachada.nuevoDispositivo(new Dispositivo());
+        fachada.nuevoDispositivo(new Dispositivo());
+        fachada.nuevoDispositivo(new Dispositivo());
 
         // Gestores
-        Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
-        fachada.nuevoGestor(gestorCocina1);
-        Gestor gestorBar1 = new Gestor("PuntoExtraPorfa", "queBuenProfeTuvimos!", "12345", bar);
-        fachada.nuevoGestor(gestorBar1);
-        Gestor gestorCocina2 = new Gestor("Don Diego de la Vega", "a", "1", cocina);
-        fachada.nuevoGestor(gestorCocina2);
-        Gestor gestorBar2 = new Gestor("Batman Rodriguez", "b", "1", bar);
-        fachada.nuevoGestor(gestorBar2);
-        Gestor gestorCocina3 = new Gestor("Pickle Riiick", "c", "1", cocina);
-        fachada.nuevoGestor(gestorCocina3);
-        Gestor gestorBar3 = new Gestor("Iron Maiden", "d", "1", bar);
-        fachada.nuevoGestor(gestorBar3);
+        fachada.nuevoGestor( new Gestor("Pedro López", "gestor1", "12345", cocina) );
+        fachada.nuevoGestor( new Gestor("PuntoExtraPorfa", "queBuenProfeTuvimos!", "12345", bar) );
+        fachada.nuevoGestor( new Gestor("Don Diego de la Vega", "a", "1", cocina) );
+        fachada.nuevoGestor( new Gestor("Batman Rodriguez", "b", "1", bar) );
+        fachada.nuevoGestor( new Gestor("Pickle Riiick", "c", "1", cocina) );
+        fachada.nuevoGestor(new Gestor("Iron Maiden", "d", "1", bar) );
 
     }
 }

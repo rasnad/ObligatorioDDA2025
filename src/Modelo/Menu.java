@@ -7,8 +7,13 @@ package Modelo;
 import java.util.ArrayList;
 
 public class Menu {
+    
     String nombreMenu;
     ArrayList<CategoriaItem> categoriaItems = new ArrayList<>();
+    
+    public Menu(String nombreMenu){
+        this.nombreMenu = nombreMenu;
+    }
 
     public ArrayList<CategoriaItem> getCategorias() {
         return categoriaItems;
@@ -29,9 +34,14 @@ public class Menu {
     public void agregarCategoria(CategoriaItem categoriaItem){
         this.categoriaItems.add(categoriaItem);
     }
-
-    public Menu(String nombreMenu){
-        this.nombreMenu = nombreMenu;
-    }
     
+    public CategoriaItem devolverCategoriaPorNombre(String nombre){
+        for (CategoriaItem c : categoriaItems){
+            if (nombre.equals(c.getNombre())){
+                return c;
+            }
+        }
+        return null;
+    }
+
 }

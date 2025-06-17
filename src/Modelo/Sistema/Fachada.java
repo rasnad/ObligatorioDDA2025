@@ -8,6 +8,7 @@ import Modelo.Item;
 import Modelo.EstadosDePedido.*;
 import Modelo.Menu;
 import Modelo.Servicio;
+import Modelo.UnidadProcesadora;
 import Observador.Observable;
 
 public class Fachada extends Observable {
@@ -81,6 +82,10 @@ public class Fachada extends Observable {
     public void crearMenu(String nombre){
         subsistemaServicio.crearMenu(nombre);
     }
+    
+    public void agregarMenu(Menu menu){
+        subsistemaServicio.agregarMenu(menu);
+    }
 
     public void confirmarPedidos(Servicio servicio) throws PolloException { // Verifica los pedidos pednientes, los confirma y los devuelve
          subsistemaServicio.confirmarPedidos(servicio);
@@ -93,6 +98,13 @@ public class Fachada extends Observable {
     public void calcularMontoTotal(Servicio servicio){
         subsistemaServicio.calcularMontoTotal(servicio);
     }
-
+    
+    public void nuevaUnidadProcesadora(UnidadProcesadora unidad){
+        subsistemaServicio.nuevaUnidadProcesadora(unidad);
+    }
+    
+    public UnidadProcesadora devolverUnidadProcesadoraPorNombre(String nombre){
+        return subsistemaServicio.devolverUnidadProcesadoraPorNombre(nombre);
+    }
 
 }

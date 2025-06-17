@@ -11,7 +11,6 @@ public class SubsistemaServicio {
     private ArrayList<Servicio> servicios = new ArrayList<>();
     private ArrayList<Menu> menues = new ArrayList<>();
     private ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
-    private ArrayList<Insumo> insumos = new ArrayList<>();
 
     protected SubsistemaServicio() {}
 
@@ -55,6 +54,27 @@ public class SubsistemaServicio {
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
     }
 
+    protected void nuevaUnidadProcesadora(UnidadProcesadora unidad){
+        unidadesProcesadoras.add(unidad);
+    }
+    
+    protected UnidadProcesadora devolverUnidadProcesadoraPorNombre(String nombre){
+        for (UnidadProcesadora u : unidadesProcesadoras) {
+            if (u.getNombre().equals(nombre)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    protected void crearMenu(String nombre) {
+        menues.add(new Menu(nombre));
+    }
+    
+    protected void agregarMenu(Menu menu){
+        menues.add(menu);
+    }
+    
     protected Menu devolverMenuPorNombre(String nombreMenu) {
         for (Menu m : menues) {
             if (m.getNombre().equals(nombreMenu)) {
@@ -64,11 +84,7 @@ public class SubsistemaServicio {
         return null;
     }
 
-    protected void crearMenu(String nombre) {
-        menues.add(new Menu(nombre));
-    }
-
-    public void confirmarPedidos(Servicio servicio) throws PolloException {
+    protected void confirmarPedidos(Servicio servicio) throws PolloException {
 
         if (servicio == null || servicio.getCliente() == null) {
             throw new PolloException("Debe identificarse antes de confirmar el servicio");
@@ -87,7 +103,7 @@ public class SubsistemaServicio {
         }
     }
 
-    public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+    protected void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
 
         if(pedido == null) {
             throw new PolloException("Para tomar un pedido debes seleccionar uno.");
@@ -98,14 +114,13 @@ public class SubsistemaServicio {
 
     }
     
-    public void calcularMontoTotal(Servicio servicio){
+    protected void calcularMontoTotal(Servicio servicio){
         if (servicio != null && !servicio.getPedidos().isEmpty()){
             servicio.calcularCuenta(); //setea la cuenta en el servicio
         }
     }
-        
     
-    public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
+    protected void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
         ArrayList<Pedido> eliminados = new ArrayList<>();
         ArrayList<Pedido> copiaDelServicio = new ArrayList<>(servicio.getPedidos());
         

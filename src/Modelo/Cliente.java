@@ -23,6 +23,10 @@ public class Cliente extends Usuario {
     public TipoCliente getTipo(){
         return tipoCliente;
     }
+    
+    public void setTipo(TipoCliente t){
+        this.tipoCliente = t;
+    }
 
     public void asignarDispositivo (Dispositivo dispositivo, Servicio servicio){
         this.dispositivo = dispositivo;
