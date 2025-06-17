@@ -6,6 +6,7 @@ import Modelo.CategoriaItem;
 import Modelo.Cuenta;
 import Modelo.EstadosDePedido.*;
 import Modelo.Item;
+import Modelo.TiposDeCliente.*;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -83,6 +84,12 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
         textClienteId.setToolTipText("");
 
         jLabel1.setText("Password");
+
+        textClientePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textClientePasswordActionPerformed(evt);
+            }
+        });
 
         btnLoginCliente.setText("Iniciar Sesión");
         btnLoginCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -359,29 +366,6 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
-        
-        Cuenta cuenta = controlador.getCuenta();
-        
-        if (cuenta != null){ 
-            ArrayList<String> itemsCortesia = controlador.itemsDeCortesia();
-
-            StringBuilder itemsStr = new StringBuilder();
-            for (String item : itemsCortesia) {
-                itemsStr.append("<span style='color:green'>").append(item).append("</span><br>");
-            }
-            itemsStr.append("Total ahorrado en items de cortesía: $").append(controlador.montoAhorradoEnItemsDeCortesia());
-
-            String mensaje = "<html>"
-                    + "<h2>Factura:</h2>"
-                    + "<b>Descuentos por ser: " + controlador.getCliente().getTipo() + "</b><br>"
-                    + "Items de cortesía:<br>" + itemsStr.toString() + "<br>"
-                    + "Descuentos sobre el servicio: " + "<span style='color:green'>$" + String.format("%.2f", cuenta.descuentosHechosAlServicio()) + "</span><br><br>"
-                    + "<b>Total a pagar:</b> $" + String.format("%.2f", cuenta.getServicioConDescuento())
-                    + "</html>";
-
-            JOptionPane.showMessageDialog(this, mensaje, "CUENTA", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
         controlador.terminarServicioEnDispositivo(); //LOGOUT
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
@@ -413,6 +397,10 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
             controlador.eliminarPedido(null); //mandamos null para que lo pare el subsistema y muestre el error del CA 4 por null
         }
     }//GEN-LAST:event_btnEliminarPedidoActionPerformed
+
+    private void textClientePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textClientePasswordActionPerformed
+        loginCliente();
+    }//GEN-LAST:event_textClientePasswordActionPerformed
         
     private void ponerComentarioPlaceholder(javax.swing.JTextArea cajaDeComentarios){
         String placeholderComentario = controlador.devolverComentarioPlaceholder();
@@ -559,5 +547,23 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     public void mostrarMensajeDelSistema(String mensaje) {
         textSistema.setText(mensaje);
     }
+    
+    @Override
+    public void mostrarFactura(ArrayList<String> itemsDeCortesia, String descuentosEnServicio,  String averigueBeneficios, String tipoCliente, Cuenta cuenta) {
+        
+        String itemsDeCortesiaFormateados = String.join("<br>", itemsDeCortesia);
+        
+        String mensaje = "<html>"
+            + "<h2>Factura:</h2>"
+            + "<b>" + tipoCliente + "</b><br>"
+            + "<span style='color:green'>" + itemsDeCortesiaFormateados + "</span><br>"            
+            + "<span style='color:green'>" + descuentosEnServicio + "</span><br><br>"
+            + "<b>Total a pagar:</b> $" + String.format("%.2f", cuenta.getServicioConDescuento())
+            + averigueBeneficios
+            + "</html>";
 
+        JOptionPane.showMessageDialog(this, mensaje, "CUENTA", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
 }
+

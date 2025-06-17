@@ -134,6 +134,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="textClientePassword">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textClientePasswordActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLoginCliente">
           <Properties>

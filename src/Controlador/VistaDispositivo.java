@@ -18,6 +18,8 @@ public interface VistaDispositivo {
     
     public void mostrarItems(CategoriaItem categoria);
     
+    public void mostrarFactura(ArrayList<String> itemsDeCortesia, String descuentosEnServicio, String averigueBeneficios, String tipoCliente, Cuenta cuenta);
+    
     public void mostrarError(String titulo, String mensaje);
     
     public void loginCliente();

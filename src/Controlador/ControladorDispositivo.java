@@ -84,6 +84,7 @@ public class ControladorDispositivo implements Observador {
     }
     
     public void terminarServicioEnDispositivo(){
+        crearFactura();
         try{
             fachada.logoutCliente(dispositivo, cliente);
             if (servicio != null){
@@ -143,9 +144,39 @@ public class ControladorDispositivo implements Observador {
         }
         return total;
     }
+    
+    public void crearFactura(){
+        Cuenta cuenta = getCuenta();
+        String itemsDeCortesia = "";
+        String descuentosEnServicio = "";
+        String averigueBeneficios = "";
+        
+        if (cuenta != null){
+            
+            String tipoCliente = getCliente().getTipo().toString();
+            ArrayList<String> itemsCortesia = itemsDeCortesia();
+            
+            if ( !itemsCortesia.isEmpty() ) {
+                itemsCortesia.addFirst("Items de cortesía:");
+                itemsCortesia.addLast("Total ahorrado en items de cortesía: $" + montoAhorradoEnItemsDeCortesia() );
+            }
+            
+            boolean huboDescuentosAlServicio = cuenta.descuentosHechosAlServicio() > 0;
 
-    public Cuenta obtenerCuenta(){
-        return servicio.getCuenta();
+            if ( huboDescuentosAlServicio ){
+                descuentosEnServicio = "Descuentos sobre el servicio: " + cuenta.descuentosHechosAlServicio();
+            }
+            
+            if ("Cliente Común".equals(tipoCliente)){
+                averigueBeneficios = "Oh no! Ud. no es elegible para ninguno de nuestros beneficios!\nSi es cliente regular, puede averiguar sobre nuestros beneficios tomándose el 192 Manga y caminando hasta la casa de nuestro barman en Villa García.\n";
+            } else if ( ! itemsDeCortesia.isEmpty() || huboDescuentosAlServicio ) {
+                tipoCliente = "Descuentos por ser: " + tipoCliente;
+            } else {
+                tipoCliente = "Gracias por ser " + tipoCliente + "!";
+            }
+        
+            vista.mostrarFactura(itemsCortesia, descuentosEnServicio, averigueBeneficios, tipoCliente, getCuenta());
+        }
     }
 
     //Evento del modelo
