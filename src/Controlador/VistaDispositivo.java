@@ -25,5 +25,7 @@ public interface VistaDispositivo {
     public void limpiar();
 
     public void obtenerCategoriaSeleccionadaYActualizarItems();
+
+    public void mostrarPagoDelCliente(float monto);
     
 }

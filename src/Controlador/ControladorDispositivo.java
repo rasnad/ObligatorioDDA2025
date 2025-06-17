@@ -6,6 +6,8 @@ import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControladorDispositivo implements Observador {
     
@@ -15,7 +17,7 @@ public class ControladorDispositivo implements Observador {
     private Cliente cliente;
     private Fachada fachada = Fachada.getInstancia();
     private Menu menu;
-    
+
     public ControladorDispositivo(VistaDispositivo vista){
         this.vista = vista;
         this.menu = fachada.devolverMenuPorNombre("Menu de Invierno");
@@ -53,7 +55,7 @@ public class ControladorDispositivo implements Observador {
         //Carga de información dinámica que necesita la vista
         vista.limpiar();
         vista.mostrarMonto(0.00F);
-        vista.mostrarCategorias( menu.getCategorias() );
+        vista.mostrarCategorias( menu.getCategorias());
         vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
     }
     
@@ -79,8 +81,32 @@ public class ControladorDispositivo implements Observador {
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
             servicio = null;
+            // vista.mostrarPagoDelCliente(servicio.calcularSubtotal());
             vista.limpiar();
         }
+    }
+
+    public float calcularDescuento() {
+        return servicio.calcularDescuentos();
+    }
+
+    public float calcularSubtotal() {
+        return servicio.calcularSubtotal();
+    }
+
+    public float calcularTotal() {
+       return calcularSubtotal() - calcularDescuento();
+    }
+
+    public ArrayList<String> itemsConDescuentoAplicados() {
+        ArrayList<String> nombreItems = new ArrayList<>();
+        for (Map.Entry<Item, Integer> entry : servicio.itemsConBeneficioAplicadosEnElServicio().entrySet()) {
+            Item item = entry.getKey();
+            for(int i = 0; i < entry.getValue(); i++){
+                nombreItems.add(item.getNombre());
+            }
+        }
+        return nombreItems;
     }
     
     public void agregarPedido(Item item, String comentario) {
@@ -113,7 +139,7 @@ public class ControladorDispositivo implements Observador {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
                 vista.mostrarPedidosHechos(servicio.getPedidos());
-                vista.mostrarMonto( servicio.calcularSubtotal());
+                vista.mostrarMonto(servicio.calcularSubtotal());
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
             }

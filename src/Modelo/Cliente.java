@@ -4,6 +4,8 @@ import Modelo.EstadosDePedido.Pedido;
 import Modelo.Exception.PolloException;
 import Modelo.TiposDeCliente.TipoCliente;
 
+import java.util.ArrayList;
+
 public class Cliente extends Usuario {
     int id;
     TipoCliente tipoCliente;
@@ -33,11 +35,11 @@ public class Cliente extends Usuario {
         servicio = null;
         dispositivo = null;
     }
-    
-    public float calcularBeneficioItem(Item item) {
-        return tipoCliente.aplicarBeneficioItem(item);
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
     }
-    
+
     public float calcularBeneficioServicio(float subTotal) {
         return tipoCliente.aplicarBeneficioServicio(subTotal);
     }

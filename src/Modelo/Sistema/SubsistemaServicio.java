@@ -45,13 +45,17 @@ public class SubsistemaServicio {
         return pedido;
     }
 
-    protected void eliminarPedido(Pedido pedido) {
+    protected void eliminarPedido(Pedido pedido) throws PolloException {
+
         if (pedido == null) {
-            //acá un throw, ver si la letra no tiene un CA específico
+            throw new PolloException("Debes seleccionar un pedido para eliminarlo.");
+        }
+
+        if(pedido.getServicio().getCliente() == null) {
+            throw new PolloException("Debes estar logueado para eliminar un pedido.");
         }
 
         pedido.getServicio().removerPedido(pedido);
-        pedidos.remove(pedido);
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
         //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
     }

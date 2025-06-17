@@ -364,7 +364,26 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
-        terminarServicio();
+        float subtotal = controlador.calcularSubtotal(); // Calcula sin descuentos !
+        float descuento = controlador.calcularDescuento(); // -950
+        float totalAPagar = subtotal - descuento; // total menos descuento
+        ArrayList<String> itemsCortesia = controlador.itemsConDescuentoAplicados(); // lista de items que estamos descontado.
+
+        StringBuilder itemsStr = new StringBuilder();
+        for (String item : itemsCortesia) {
+            itemsStr.append("<span style='color:green'>").append(item).append("</span><br>");
+        }
+
+        String mensaje = "<html>"
+                + "<h2>Pago Realizado con Éxito</h2>"
+                + "<b>Sub Total:</b> $" + String.format("%.2f", subtotal) + "<br><br>"
+                + "<b>Descuentos:</b> <span style='color:green'>$" + String.format("%.2f", descuento) + "</span><br><br>"
+                + "<b>Items de cortesía:</b><br>" + itemsStr.toString() + "<br>"
+                + "<b>Total a pagar:</b> $" + String.format("%.2f", totalAPagar)
+                + "</html>";
+
+        JOptionPane.showMessageDialog(this, mensaje, "CUENTA", JOptionPane.INFORMATION_MESSAGE);
+        controlador.terminarServicioEnDispositivo();
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
     private void listItemsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listItemsValueChanged
@@ -468,6 +487,11 @@ public class VistaEscritorioDispositivo extends javax.swing.JFrame implements Vi
     @Override
     public void obtenerCategoriaSeleccionadaYActualizarItems() {
         mostrarItems( (CategoriaItem) listCategorias.getSelectedValue() );
+    }
+
+    @Override
+    public void mostrarPagoDelCliente(float monto) {
+        textSistema.setText("PAGO REALIZADO");
     }
 
     @Override //Muestra el monto del servicio hasta el momento

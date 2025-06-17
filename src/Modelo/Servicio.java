@@ -8,8 +8,11 @@ import Modelo.EstadosDePedido.EstadoPedido;
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.EstadosDePedido.PedidoNoConfirmado;
 import Modelo.Exception.PolloException;
+import Modelo.TiposDeCliente.TipoCliente;
 import Observador.Observable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -61,12 +64,35 @@ public class Servicio extends Observable {
         }
     }
 
+    public float calcularDescuentos(){
+        float descuento = 0;
+        for (Map.Entry<Item, Integer> entry : itemsConBeneficioAplicadosEnElServicio().entrySet()) {
+            Item itemConDescuentoAplicado = entry.getKey();
+            descuento += (itemConDescuentoAplicado.getPrecioUnitario() * entry.getValue()) * -1;
+        }
+
+        return descuento;
+    }
+
+    public HashMap<Item, Integer> itemsConBeneficioAplicadosEnElServicio(){
+        HashMap<Item, Integer> itemsDescontados = new HashMap<>();
+        int total = 0;
+        for (Pedido p : pedidos){
+            if(cliente.getTipoCliente().getItemsConDescuento().contains(p.getItem())){
+                itemsDescontados.put(p.getItem(), ++total);
+            }
+        }
+        return itemsDescontados;
+    }
+
+
+
 
     public float calcularSubtotal(){
         float subtotal = 0;
         //calcular descuento de cada pedido
         for (Pedido pedido : pedidos){
-            subtotal += cliente.calcularBeneficioItem( pedido.getItem() );
+            subtotal += pedido.getItem().getPrecioUnitario();
         }
         //calcular descuentos sobre el total del servicio
         return cliente.calcularBeneficioServicio(subtotal);
