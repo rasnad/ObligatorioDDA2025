@@ -6,6 +6,11 @@ import Modelo.Gestor;
 import Modelo.Sistema.Fachada;
 import Observador.Observador;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static Modelo.EstadosDePedido.EstadoPedido.TipoDeEstado.CONFIRMADO;
+
 public class ControladorProcesarPedidos implements Observador {
 
     VistaProcesarPedidos vista;
@@ -23,7 +28,14 @@ public class ControladorProcesarPedidos implements Observador {
 
     public void inicializarVista() {
         vista.mostrarInfoGestor(gestor.getNombreCompleto(), gestor.getUnidadProcesadora().getNombre());
-        vista.mostrarPedidosConfirmados(gestor.getUnidadProcesadora().getPedidos());
+        vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
+    }
+
+    public ArrayList<Pedido> obtenerPedidosConfirmados() {
+        return gestor.getUnidadProcesadora().getPedidos()
+                .stream()
+                .filter(pedido -> pedido.getTipoDeEstado().equals(CONFIRMADO))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void salir() {
@@ -47,9 +59,8 @@ public class ControladorProcesarPedidos implements Observador {
 
     @Override
     public void actualizar(Object evento, Object origen) {
-
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado)) {
-            vista.mostrarPedidosConfirmados(gestor.getUnidadProcesadora().getPedidos());
+            vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
             vista.mostrarPedidosTomados(gestor.getPedidosTomados());
         }
         //vista.mostrarMonto(); //evento montoActualizado
