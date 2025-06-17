@@ -123,7 +123,7 @@ public class ControladorDispositivo implements Observador {
             if (servicio != null){
                 chequearItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
-                vista.mostrarMonto( servicio.calcularSubtotal());
+                //vista.mostrarMonto( servicio.calcularSubtotal()); //usar subtotal con descuentos aplicados de clase Cuenta
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
             }
