@@ -9,21 +9,17 @@
             <file>file:/C:/Users/lucas/Desktop/Diseño_aplicaciones/Obligatorio/ObligatorioProyecto/src/Modelo/Sistema/SubsistemaAcceso.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/SubsistemaServicio.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/ControladorProcesarPedidos.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/Fachada.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/VistaLoginGestor.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDevMenu.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/PedidoFinalizado.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/PedidoEntregado.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/Pedido.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/PedidoNoConfirmado.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/PedidoConfirmado.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioProcesarPedidos.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/SubsistemaServicio.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/ControladorDispositivo.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/EstadoPedido.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/SubsistemaAcceso.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/EstadosDePedido/Pedido.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDispositivo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Sistema/SubsistemaAcceso.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Precarga/DatosDePrueba.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/TiposDeCliente/Frecuente.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Servicio.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Cliente.java</file>
         </group>
     </open-files>
 </project-private>
