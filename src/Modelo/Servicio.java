@@ -82,14 +82,26 @@ public class Servicio extends Observable {
         return borrados;
     }
 
-    public float calcularSubtotal(){
+    public Cuenta calcularSubtotal(){
+
         float subtotal = 0;
+        ArrayList<Item> itemsDescontados = new ArrayList<>();
+        Cuenta cuenta = new Cuenta();
+    
         //calcular descuento de cada pedido
         for (Pedido pedido : pedidos){
-            subtotal += cliente.calcularBeneficioItem( pedido.getItem() );
+            float beneficioDelItem = cliente.calcularBeneficioItem( pedido.getItem() );
+            if (beneficioDelItem != pedido.getItem().getPrecioUnitario()){
+                itemsDescontados.add(pedido.getItem());
+            }
+            subtotal += beneficioDelItem;
         }
+        cuenta.setItemsDescontados(itemsDescontados);
         //calcular descuentos sobre el total del servicio
-        return cliente.calcularBeneficioServicio(subtotal);
+        cuenta.setServicioConDescuento( cliente.calcularBeneficioServicio(subtotal) );
+        cuenta.setServicioSinDescuento(subtotal);
+        
+        return cuenta;
     }
 
 }
