@@ -83,7 +83,7 @@ public class Servicio extends Observable {
     }
 
     public Cuenta calcularSubtotal(){
-        
+
         float subtotal = 0;
         ArrayList<Item> itemsDescontados = new ArrayList<>();
         Cuenta cuenta = new Cuenta();
