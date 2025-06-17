@@ -51,7 +51,45 @@ public class DatosDePrueba {
         Ingrediente ingredienteAguacateInsuficiente = new Ingrediente(11,aguacate);
         Ingrediente ingredienteHierbasSuficiente = new Ingrediente(10,hierbas);
         Ingrediente ingredienteAguacateSuficiente = new Ingrediente(9,aguacate);
-
+        
+        //posibles ingredientes
+        //carne
+        //arroz
+        //papa
+        //huevos
+        //lechuga
+        //tomate
+        //masa
+        //queso
+        
+        //posibles comidas
+        
+        //Entradas 
+        //porción de fritas (papa)
+        //croquetas de arroz (arroz)
+        //croquetas de papa (papa)
+        //ensalada mixta (tomate, lechuga)
+        
+        //Principal
+        //milanesa con arroz (carne, arroz)
+        //milanesa con puré (carne, papa)
+        //milanesa con fritas (carne, papa)
+        //milanesa napolitana (carne, tomate, queso)
+        //fritas con huevo frito (papa, huevo)
+        //lehmeyun de carne (carne, masa)
+        //lehmeyun vegetariano (tomate, lechuga, queso, masa)
+        //lehmeyun vegeno (tomate, lechuga, masa)
+        //empanada (carne, masa)
+        //pizza (masa, tomate, queso)
+        
+        //Bebidas
+        //coca-cola
+        //sprite
+        //pepsi
+        //yougurt añejado
+        
+        //Sushi
+        //ver restaurant de sushi
         
         // Ítems del menú
         ArrayList<Ingrediente> ingredientesMilanesas = new ArrayList<>();
