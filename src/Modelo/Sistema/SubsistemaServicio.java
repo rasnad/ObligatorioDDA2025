@@ -2,7 +2,7 @@ package Modelo.Sistema;
 
 import Modelo.*;
 import Modelo.Exception.PolloException;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Precarga.DatosDePrueba;
 import java.util.ArrayList;
 
@@ -101,4 +101,29 @@ public class SubsistemaServicio {
 
     }
     
+    public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
+        ArrayList<Pedido> eliminados = new ArrayList<>();
+        ArrayList<Pedido> copiaDelServicio = new ArrayList<>(servicio.getPedidos());
+        
+        for (Pedido p : copiaDelServicio ){
+            if (p.getTipoDeEstado() == EstadoPedido.TipoDeEstado.NO_CONFIRMADO){
+                if ( !p.getItem().tieneStock() ){
+                    eliminados.add(p);
+                    p.eliminarPedido();
+                }
+            }
+        }
+        
+        if ( !eliminados.isEmpty()){
+            String error = "";
+            for (Pedido p : eliminados){
+                error += "Lo sentimos, nos hemos quedado sin stock de " + p.getItem().getNombre() + ", por lo que hemos quitado el pedido del servicio.\n";
+            }
+            if ( eliminados.size() > 3){ //Manejo de dEcepciones
+                error += "Perdón. Disculpe!! Noo, por favor no se vaya!! Noooooooooo!";
+            }
+            
+            throw new PolloException(error);
+        }
+    }
 }

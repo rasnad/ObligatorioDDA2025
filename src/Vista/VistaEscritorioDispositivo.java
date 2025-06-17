@@ -526,7 +526,9 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
 
     @Override
     public void mostrarItems(CategoriaItem categoria) {
-        listItems.setListData(categoria.getItemsConStock().toArray());
+        if (categoria != null){
+            listItems.setListData(categoria.getItemsConStock().toArray());
+        }
     }
 
     @Override

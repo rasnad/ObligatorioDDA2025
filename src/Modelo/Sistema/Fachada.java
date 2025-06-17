@@ -8,7 +8,6 @@ import Modelo.Item;
 import Modelo.EstadosDePedido.*;
 import Modelo.Menu;
 import Modelo.Servicio;
-import Modelo.UnidadProcesadora;
 import Observador.Observable;
 
 public class Fachada extends Observable {
@@ -24,15 +23,7 @@ public class Fachada extends Observable {
     public static Fachada getInstancia(){
         return instancia;
     }
-
-    public void stockDeItemsSinConfirmar(Servicio servicio) {
-        for (Pedido p : servicio.getPedidos() ){
-            if (p.getTipoDeEstado() == EstadoPedido.TipoDeEstado.NO_CONFIRMADO){
-                
-            }
-        }
-    }
-
+    
     public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};
     
     public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
@@ -94,5 +85,10 @@ public class Fachada extends Observable {
     public void confirmarPedidos(Servicio servicio) throws PolloException { // Verifica los pedidos pednientes, los confirma y los devuelve
          subsistemaServicio.confirmarPedidos(servicio);
     }
+    
+    public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
+        subsistemaServicio.stockDeItemsSinConfirmar(servicio);
+    }
+
 
 }

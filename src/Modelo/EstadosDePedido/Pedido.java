@@ -62,10 +62,12 @@ public class Pedido {
     }
     
     protected void hacerEliminarPedido(){
-        this.item.devolverStockDeInsumos();
+        if (estado.getTipo() != EstadoPedido.TipoDeEstado.NO_CONFIRMADO) {
+            this.item.devolverStockDeInsumos();            
+            this.getItem().getUnidadProcesadora().eliminarPedido(this);
+        }
         servicio.removerPedido(this);
         this.servicio = null;
-        this.getItem().getUnidadProcesadora().eliminarPedido(this);
     }
     
     protected void hacerConfirmarPedido() throws PolloException {

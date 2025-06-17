@@ -1,7 +1,7 @@
 package Controlador;
 
 import Modelo.*;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
@@ -37,7 +37,7 @@ public class ControladorDispositivo implements Observador {
     }
     
     public String getEstadoFormateado(Pedido p){
-        if ("NO_CONFIRMADO".equals(p.getEstado())){
+        if (EstadoPedido.TipoDeEstado.NO_CONFIRMADO.equals(p.getTipoDeEstado())){
             return "SIN CONFIRMAR";
         }
         return p.getEstadoTexto();
@@ -108,16 +108,24 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
+    public void chequearItemsSinConfirmar(){
+        try{
+            fachada.stockDeItemsSinConfirmar(servicio);
+        } catch (PolloException e){
+            vista.mostrarError("Oops!!! Perdón! Sowwy", e.getMessage());
+        }
+    }
+    
     //Evento del modelo
     @Override
     public void actualizar(Object evento, Object origen) {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
+                chequearItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
                 vista.mostrarMonto( servicio.calcularSubtotal());
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
-                fachada.stockDeItemsSinConfirmar(servicio);
             }
         }
     }

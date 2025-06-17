@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Servicio extends Observable {
-    float montoTotal;
+    float montoTotal; // OJO, ¿¿Se necesita??
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
     Dispositivo dispositivo;
