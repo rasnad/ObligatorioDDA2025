@@ -9,4 +9,9 @@ public class DeLaCasa extends TipoCliente {
         }
         return subtotal - 500;
     }
+    
+    @Override
+    public String toString(){
+        return "Cliente de la Casa";
+    }
 }

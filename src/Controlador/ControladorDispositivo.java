@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class ControladorDispositivo implements Observador {
     
-    private VistaDispositivo vista;
+    private final VistaDispositivo vista;
+    private final Dispositivo dispositivo;
+    private final Fachada fachada = Fachada.getInstancia();
     private Servicio servicio;
-    private Dispositivo dispositivo;
     private Cliente cliente;
-    private Fachada fachada = Fachada.getInstancia();
     private Menu menu;
     
     public ControladorDispositivo(VistaDispositivo vista){
@@ -26,6 +26,10 @@ public class ControladorDispositivo implements Observador {
     
     public Servicio getServicio() {
         return servicio;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
     }
     
     public String getDispositivoId(){
@@ -58,7 +62,6 @@ public class ControladorDispositivo implements Observador {
     
     public void loginCliente(String username, String password) {
         try {
-            dispositivo.puedeLoguearseCliente();
             fachada.loginCliente(dispositivo, username, password);
             servicio = dispositivo.getServicio();
             cliente = dispositivo.getCliente();
@@ -73,24 +76,23 @@ public class ControladorDispositivo implements Observador {
         servicio.quitarObservador(this);
     }
     
-    public void terminarServicioEnDispositivo(){
-        String errorSinCliente = "Debe identificarse antes de finalizar el servicio";
-        
+    public Cuenta getCuenta(){
         if (servicio != null){
-            
-            //Esto nunca debería pasar acá, pero por las dudas..
-            if (servicio.getCliente() == null || cliente == null) {
-                vista.mostrarError("Error de login", errorSinCliente);
-            }
-            //NOTA: DECIRLE AL SERVICIO Y AL DISPOSITIVO QUE TERMINEN, ES LÓGICA DE NEGOCIO, PASAR A LOGOUTCLIENTE EN SUBSISTEMA
+            return servicio.getCuenta();
+        }
+        return null;
+    }
+    
+    public void terminarServicioEnDispositivo(){
+        try{
             fachada.logoutCliente(dispositivo, cliente);
-            servicio.getCliente().terminarServicioEnDispositivo();
-            dispositivo.liberarClienteDelServicio();
-            this.servicio = null;
-            this.cliente = null;
-            vista.limpiar();
-        } else {
-            vista.mostrarError("Error de login", errorSinCliente);
+            if (servicio != null){
+                this.servicio = null;
+                this.cliente = null;
+                vista.limpiar();
+            }
+        } catch (PolloException p){
+            vista.mostrarError("Error de login",p.getMessage());
         }
     }
     
@@ -125,25 +127,25 @@ public class ControladorDispositivo implements Observador {
             vista.mostrarError("Oops!!! Perdón! Sowwy", e.getMessage());
         }
     }
-
-    public void obtenerCuentaAlFinalizarServicio() {
-        servicio.calcularCuenta();
-    }
-
-    public ArrayList<String> obtenerItemsConDescuento(){
+    
+    public ArrayList<String> itemsDeCortesia(){
         ArrayList<String> itemsCortesia = new ArrayList<>();
         for (Item item : servicio.getCuenta().getItemsDescontados()) {
-            itemsCortesia.add(item.getNombre());
+            itemsCortesia.add(item.getNombre() + " de regalo! valor: $" + item.getPrecioUnitario() );
         }
         return itemsCortesia;
     }
-
-    public float obtenerSubTotal(){
-        return servicio.getCuenta().getServicioSinDescuentos();
+    
+    public float montoAhorradoEnItemsDeCortesia(){
+        float total = 0;
+        for ( Item i : servicio.getCuenta().getItemsDescontados() ){
+            total += i.getPrecioUnitario();
+        }
+        return total;
     }
 
-    public float obtenerDescuento() {
-        return servicio.getCuenta().getServicioConDescuento();
+    public Cuenta obtenerCuenta(){
+        return servicio.getCuenta();
     }
 
     //Evento del modelo
@@ -153,7 +155,8 @@ public class ControladorDispositivo implements Observador {
             if (servicio != null){
                 chequearItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
-                //vista.mostrarMonto( servicio.calcularSubtotal()); //usar subtotal con descuentos aplicados de clase Cuenta
+                servicio.calcularCuenta();
+                vista.mostrarMonto( servicio.getCuenta().getServicioConDescuento() ); //usar subtotal con descuentos aplicados de clase Cuenta
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
             }

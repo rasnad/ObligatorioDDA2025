@@ -38,7 +38,7 @@ public class Fachada extends Observable {
         return subsistemaAcceso.loginGestor(username, password);
     }
         
-    public void logoutCliente(Dispositivo dispositivo, Cliente cliente){
+    public void logoutCliente(Dispositivo dispositivo, Cliente cliente) throws PolloException {
         subsistemaAcceso.logoutCliente(dispositivo, cliente);
     }
     
@@ -88,6 +88,10 @@ public class Fachada extends Observable {
     
     public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
         subsistemaServicio.stockDeItemsSinConfirmar(servicio);
+    }
+    
+    public void calcularMontoTotal(Servicio servicio){
+        subsistemaServicio.calcularMontoTotal(servicio);
     }
 
 

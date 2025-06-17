@@ -14,11 +14,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Servicio extends Observable {
-    float montoTotal; // OJO, ¿¿Se necesita??
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
     Dispositivo dispositivo;
-    Cuenta cuenta;
+    Cuenta cuenta = new Cuenta();
 
     public Servicio(Cliente cliente, Dispositivo dispositivo) {
         this.cliente = cliente;
@@ -87,10 +86,9 @@ public class Servicio extends Observable {
         return cuenta;
     }
 
-    public Cuenta calcularCuenta(){
+    public void calcularCuenta(){
         float subtotal = 0;
         ArrayList<Item> itemsDescontados = new ArrayList<>();
-        Cuenta cuenta = new Cuenta();
     
         //calcular descuento de cada pedido
         for (Pedido pedido : pedidos){
@@ -100,13 +98,10 @@ public class Servicio extends Observable {
             }
             subtotal += beneficioDelItem;
         }
+        
         cuenta.setItemsDescontados(itemsDescontados);
-        //calcular descuentos sobre el total del servicio
-        cuenta.setServicioConDescuento( subtotal - cliente.calcularBeneficioServicio(subtotal) );
-        cuenta.setServicioSinDescuento(subtotal);
-
-        this.cuenta = cuenta;
-        return cuenta;
+        cuenta.setServicioSinDescuento(subtotal); //total con items descontados PERO sin descuento del servicio
+        cuenta.setServicioConDescuento( cliente.calcularBeneficioServicio(subtotal) ); //monto final que se cobra al cliente
     }
 
 }

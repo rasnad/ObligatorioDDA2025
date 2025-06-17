@@ -30,6 +30,9 @@ public class SubsistemaAcceso {
     }
     
     public void loginCliente(Dispositivo dispositivo, String username, String password ) throws PolloException {
+        
+        dispositivo.puedeLoguearseCliente();
+        
         Cliente cliente = (Cliente) login(todosLosClientes, username, password);
         
         if (cliente == null) {
@@ -68,7 +71,11 @@ public class SubsistemaAcceso {
         }
     }
     
-    public void logoutCliente(Dispositivo dispositivo, Cliente cliente) {
+    public void logoutCliente(Dispositivo dispositivo, Cliente cliente) throws PolloException {
+        if (cliente == null) {
+            throw new PolloException("Debe identificarse antes de finalizar el servicio");
+        }
+        
         dispositivo.liberarClienteDelServicio();
         cliente.terminarServicioEnDispositivo();
         logout(clientesLogueados, cliente);

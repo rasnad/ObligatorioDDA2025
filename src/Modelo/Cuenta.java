@@ -32,4 +32,8 @@ public class Cuenta {
         this.servicioConDescuento = servicioConDescuento;
     }
     
+    public float descuentosHechosAlServicio(){
+        return getServicioSinDescuentos() - getServicioConDescuento();
+    }
+    
 }

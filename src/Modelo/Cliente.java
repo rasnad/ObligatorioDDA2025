@@ -15,6 +15,14 @@ public class Cliente extends Usuario {
         this.id = id;
         this.tipoCliente = tipo;
     }
+    
+    public Servicio getServicio(){
+        return servicio;
+    }
+    
+    public TipoCliente getTipo(){
+        return tipoCliente;
+    }
 
     public void asignarDispositivo (Dispositivo dispositivo, Servicio servicio){
         this.dispositivo = dispositivo;

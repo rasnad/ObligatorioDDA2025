@@ -98,6 +98,13 @@ public class SubsistemaServicio {
 
     }
     
+    public void calcularMontoTotal(Servicio servicio){
+        if (servicio != null && !servicio.getPedidos().isEmpty()){
+            servicio.calcularCuenta(); //setea la cuenta en el servicio
+        }
+    }
+        
+    
     public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
         ArrayList<Pedido> eliminados = new ArrayList<>();
         ArrayList<Pedido> copiaDelServicio = new ArrayList<>(servicio.getPedidos());
