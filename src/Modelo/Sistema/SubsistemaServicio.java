@@ -7,16 +7,14 @@ import Precarga.DatosDePrueba;
 import java.util.ArrayList;
 
 public class SubsistemaServicio {
-    ArrayList<Gestor> gestores = new ArrayList<>();
-    ArrayList<Item> items = new ArrayList<>();
-    ArrayList<Servicio> servicios = new ArrayList<>();
-    ArrayList<Menu> menues = new ArrayList<>();
-    ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
-    ArrayList<Insumo> insumos = new ArrayList<>();
-    DatosDePrueba datosDePrueba = new DatosDePrueba();
+    private ArrayList<Gestor> gestores = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Servicio> servicios = new ArrayList<>();
+    private ArrayList<Menu> menues = new ArrayList<>();
+    private ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
+    private ArrayList<Insumo> insumos = new ArrayList<>();
 
-    protected SubsistemaServicio() {
-    }
+    protected SubsistemaServicio() {}
 
 
     protected void crearServicio(Dispositivo dispositivo, Cliente cliente) {

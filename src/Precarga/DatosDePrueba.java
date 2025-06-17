@@ -31,9 +31,6 @@ public class DatosDePrueba {
 
     public static void cargarDatos() throws PolloException {
 
-
-
-        
         /*try {
             fachada.loginGestor("gestor1", "12345");
             System.out.println("Gestor logueado");
