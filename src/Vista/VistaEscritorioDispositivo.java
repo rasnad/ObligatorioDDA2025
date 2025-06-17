@@ -358,7 +358,27 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     }//GEN-LAST:event_textComentarioPedidoKeyTyped
 
     private void btnFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarServicioActionPerformed
-        terminarServicio();
+        controlador.obtenerCuentaAlFinalizarServicio();
+        ArrayList<String> itemsCortesia = controlador.obtenerItemsConDescuento();
+        float descuento = controlador.obtenerDescuento();
+        float subtotal = controlador.obtenerSubTotal();
+        float totalAPagar = subtotal - descuento;
+
+        StringBuilder itemsStr = new StringBuilder();
+        for (String item : itemsCortesia) {
+            itemsStr.append("<span style='color:green'>").append(item).append("</span><br>");
+        }
+
+        String mensaje = "<html>"
+                + "<h2>Pago Realizado con Éxito</h2>"
+                + "<b>Sub Total:</b> $" + String.format("%.2f", subtotal) + "<br><br>"
+                + "<b>Descuentos:</b> <span style='color:green'>$" + String.format("%.2f", descuento) + "</span><br><br>"
+                + "<b>Items de cortesía:</b><br>" + itemsStr.toString() + "<br>"
+                + "<b>Total a pagar:</b> $" + String.format("%.2f", totalAPagar)
+                + "</html>";
+
+        JOptionPane.showMessageDialog(this, mensaje, "CUENTA", JOptionPane.INFORMATION_MESSAGE);
+        controlador.terminarServicioEnDispositivo();
     }//GEN-LAST:event_btnFinalizarServicioActionPerformed
 
     private void listItemsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listItemsValueChanged

@@ -28,4 +28,8 @@ public abstract class TipoCliente {
     public void removerItemConDescuento(Item item){
         itemsConDescuento.remove(item);
     }
+
+    public void setItemsConDescuento(ArrayList<Item> itemsConDescuento) {
+        this.itemsConDescuento = itemsConDescuento;
+    }
 }

@@ -115,7 +115,27 @@ public class ControladorDispositivo implements Observador {
             vista.mostrarError("Oops!!! Perdón! Sowwy", e.getMessage());
         }
     }
-    
+
+    public void obtenerCuentaAlFinalizarServicio() {
+        servicio.calcularCuenta();
+    }
+
+    public ArrayList<String> obtenerItemsConDescuento(){
+        ArrayList<String> itemsCortesia = new ArrayList<>();
+        for (Item item : servicio.getCuenta().getItemsDescontados()) {
+            itemsCortesia.add(item.getNombre());
+        }
+        return itemsCortesia;
+    }
+
+    public float obtenerSubTotal(){
+        return servicio.getCuenta().getServicioSinDescuentos();
+    }
+
+    public float obtenerDescuento() {
+        return servicio.getCuenta().getServicioConDescuento();
+    }
+
     //Evento del modelo
     @Override
     public void actualizar(Object evento, Object origen) {

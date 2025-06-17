@@ -31,44 +31,7 @@ public class DatosDePrueba {
 
     public static void cargarDatos() throws PolloException {
 
-        Fachada fachada = Fachada.getInstancia();
 
-        // Clientes
-        Cliente cliente1 = new Cliente(1, new Frecuente(), "1", "Juan Nieve el Frecuente");
-        Cliente cliente2 = new Cliente(2, new DeLaCasa(), "1", "Maria Becerra de la Casa");
-        Cliente cliente3 = new Cliente(3, new Comun(), "1", "Pedro Comun Aristóteles");
-        Cliente cliente4 = new Cliente(4, new Preferencial(), "1", "Preferencialmente Fernando");
-        fachada.nuevoCliente(cliente1);
-        fachada.nuevoCliente(cliente2);
-        fachada.nuevoCliente(cliente3);
-        fachada.nuevoCliente(cliente4);
-
-        // Dispositivos
-        Dispositivo dispositivo1 = new Dispositivo();
-        Dispositivo dispositivo2 = new Dispositivo();
-        fachada.nuevoDispositivo(dispositivo2);
-        fachada.nuevoDispositivo(dispositivo1);
-
-
-
-        // Unidades procesadoras
-        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
-        UnidadProcesadora bar = new UnidadProcesadora("Bar");
-        //UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
-
-        // Gestores
-        Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
-        fachada.nuevoGestor(gestorCocina1);
-        Gestor gestorBar1 = new Gestor("PuntoExtraPorfa", "queBuenProfeTuvimos!", "12345", bar);
-        fachada.nuevoGestor(gestorBar1);
-        Gestor gestorCocina2 = new Gestor("Don Diego de la Vega", "a", "1", cocina);
-        fachada.nuevoGestor(gestorCocina2);
-        Gestor gestorBar2 = new Gestor("Batman Rodriguez", "b", "1", bar);
-        fachada.nuevoGestor(gestorBar2);
-        Gestor gestorCocina3 = new Gestor("Pickle Riiick", "c", "1", cocina);
-        fachada.nuevoGestor(gestorCocina3);
-        Gestor gestorBar3 = new Gestor("Iron Maiden", "d", "1", bar);
-        fachada.nuevoGestor(gestorBar3);
 
         
         /*try {
@@ -108,8 +71,8 @@ public class DatosDePrueba {
         Insumo arroz = new Insumo("Arroz", 10, 20);
         Insumo salmón = new Insumo("Salmón", 10, 20);
         Insumo alga = new Insumo("Alga", 10, 20);
-        Insumo aguacate = new Insumo("Aguacate", 10, 20);
-        Insumo hierbas = new Insumo("Hierbas", 10, 20);
+        Insumo aguacate = new Insumo("Aguacate", 10, 200);
+        Insumo hierbas = new Insumo("Hierbas", 10, 200);
 
         // Categorías
         CategoriaItem entrada = new CategoriaItem("Entrada");
@@ -117,15 +80,6 @@ public class DatosDePrueba {
         CategoriaItem bebida = new CategoriaItem("Bebida");
         CategoriaItem sushi = new CategoriaItem("Sushi");
 
-        //Menú
-        fachada.crearMenu("Menu de Invierno");
-        Menu menu = fachada.devolverMenuPorNombre("Menu de Invierno");
-
-        //Añadir categorías
-        menu.agregarCategoria(entrada);
-        menu.agregarCategoria(platoPrincipal);
-        menu.agregarCategoria(bebida);
-        menu.agregarCategoria(sushi);
         
         // Ítems del menú
 
@@ -151,30 +105,77 @@ public class DatosDePrueba {
         ingredienteDeComidaConAmbosSuficientes.add(ingredienteAguacateSuficiente);
         ingredienteDeComidaConAmbosSuficientes.add(ingredienteHierbasSuficiente);
 
-        Item milanesaConArroz = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa Con Arroz", 250);
-        Item pureZapalloFideo = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Puré de zapallo con fideos", 250);
 
-        Item plato1 = new Item(ingredienteDeComidaConInsumoInsuficiente, cocina, platoPrincipal, "Plato 1", 250); // No deberia verse.
-        Item plato2 = new Item(ingredienteDeComidaConInsumoInsuficienteYUnoSuficiente, cocina, platoPrincipal, "Plato 2", 250); // No deberia verse.
-        Item plato3 = new Item(ingredienteDeComidaConAmbosSuficientes, cocina, platoPrincipal, "Plato 3", 250);  // Deberia verse.
+        // Unidades procesadoras
 
-        // Agregando ítems a categorías
+        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
+        UnidadProcesadora bar = new UnidadProcesadora("Bar");
+        UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
 
-        //Gestor gestorCocina2 = new Gestor("Pedro López", "gestor1", "12345", cocina);
-        //Gestor gestorCocina3 = new Gestor("Pedro López", "gestor1", "12345", cocina);
 
-        // Agregando datos a la aplicación
-        // Aquí deberías agregar los datos a tu sistema de persistencia o estructura de datos
-        // Por ejemplo:
-        // Sistema.getInstance().agregarUnidadProcesadora(cocina);
-        // Sistema.getInstance().agregarUnidadProcesadora(bar);
-        // Sistema.getInstance().agregarUnidadProcesadora(barraDeSushi);
-        // Sistema.getInstance().agregarCliente(cliente1);
-        // Sistema.getInstance().agregarCliente(cliente2);
-        // Sistema.getInstance().agregarGestor(gestorCocina);
-        // Sistema.getInstance().agregarGestor(gestorBar);
-        // Sistema.getInstance().agregarGestor(gestorSushi);
-        // Sistema.getInstance().agregarDispositivo(dispositivo1);
-        // Sistema.getInstance().agregarDispositivo(dispositivo2);
+        Item cafe = new Item(new ArrayList<>(), bar, bebida, "Café", 120);
+        Item aguaMineral = new Item(new ArrayList<>(), bar, bebida, "Agua Mineral", 100);
+        Item milanesa = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa con Arroz", 250);
+        Item platoCaro = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Plato Caro Especial", 2100);
+
+        Frecuente frecuente = new Frecuente();
+        frecuente.setItemsConDescuento(new ArrayList<> (List.of(cafe)));
+
+        Preferencial preferencial = new Preferencial();
+        preferencial.setItemsConDescuento(new ArrayList<> (List.of(aguaMineral)));
+
+        DeLaCasa deLaCasa = new DeLaCasa(); // No requiere items específicos, tiene crédito global
+
+        Comun comun = new Comun(); // Sin beneficios
+
+        Cliente clienteFrecuente = new Cliente(1, frecuente, "1", "Juan Café");
+        Cliente clientePreferencial = new Cliente(2, preferencial, "1", "Ana Agua");
+        Cliente clienteDeLaCasa = new Cliente(3, deLaCasa, "1", "Carlos VIP");
+        Cliente clienteComun = new Cliente(4, comun, "1", "Luisa Sin Beneficio");
+
+        // Dispositivos
+        Dispositivo dispositivo1 = new Dispositivo();
+        Dispositivo dispositivo2 = new Dispositivo();
+
+        // FACHADA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        Fachada fachada = Fachada.getInstancia();
+
+        //Menú
+
+        fachada.crearMenu("Menu de Invierno");
+        Menu menu = fachada.devolverMenuPorNombre("Menu de Invierno");
+
+        //Añadir categorías
+        menu.agregarCategoria(entrada);
+        menu.agregarCategoria(platoPrincipal);
+        menu.agregarCategoria(bebida);
+        menu.agregarCategoria(sushi);
+
+        // Clientes
+
+        fachada.nuevoCliente(clienteFrecuente);
+        fachada.nuevoCliente(clientePreferencial);
+        fachada.nuevoCliente(clienteDeLaCasa);
+        fachada.nuevoCliente(clienteComun);
+
+        // Gestores
+        fachada.nuevoDispositivo(dispositivo2);
+        fachada.nuevoDispositivo(dispositivo1);
+
+        // Gestores
+        Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
+        fachada.nuevoGestor(gestorCocina1);
+        Gestor gestorBar1 = new Gestor("PuntoExtraPorfa", "queBuenProfeTuvimos!", "12345", bar);
+        fachada.nuevoGestor(gestorBar1);
+        Gestor gestorCocina2 = new Gestor("Don Diego de la Vega", "a", "1", cocina);
+        fachada.nuevoGestor(gestorCocina2);
+        Gestor gestorBar2 = new Gestor("Batman Rodriguez", "b", "1", bar);
+        fachada.nuevoGestor(gestorBar2);
+        Gestor gestorCocina3 = new Gestor("Pickle Riiick", "c", "1", cocina);
+        fachada.nuevoGestor(gestorCocina3);
+        Gestor gestorBar3 = new Gestor("Iron Maiden", "d", "1", bar);
+        fachada.nuevoGestor(gestorBar3);
+
     }
 }
