@@ -30,7 +30,7 @@ public class PedidoEnProceso extends EstadoPedido{
 
     @Override
     public void eliminarPedido() throws PolloException {
-        throw new PolloException("No se puede eliminar un pedido que ya se encuentra En Proceso.");
+        throw new PolloException("Un poco tarde... ¡¡¡YA ESTAMOS ELABORANDO ESTE PEDIDO!!!.");
     }
     
     @Override

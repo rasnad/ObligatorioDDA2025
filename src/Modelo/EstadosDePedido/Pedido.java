@@ -40,8 +40,16 @@ public class Pedido {
         return gestor;
     }
     
-    public String getEstado(){
+    public EstadoPedido getEstado(){
+        return estado;
+    }
+    
+    public String getEstadoTexto(){
         return estado.toString();
+    }
+    
+    public EstadoPedido.TipoDeEstado getTipoDeEstado(){
+        return estado.getTipo();
     }
     
     protected void setEstado(EstadoPedido e){
@@ -54,12 +62,15 @@ public class Pedido {
     }
     
     protected void hacerEliminarPedido(){
+        if (estado.getTipo() != EstadoPedido.TipoDeEstado.NO_CONFIRMADO) {
+            this.item.devolverStockDeInsumos();            
+            this.getItem().getUnidadProcesadora().eliminarPedido(this);
+        }
         servicio.removerPedido(this);
         this.servicio = null;
-        this.getItem().getUnidadProcesadora().eliminarPedido(this);
     }
     
-    protected void hacerConfirmarPedido(){
+    protected void hacerConfirmarPedido() throws PolloException {
         this.getItem().getUnidadProcesadora().agregarPedido(this);
     }
 

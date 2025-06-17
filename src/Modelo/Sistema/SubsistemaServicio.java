@@ -2,13 +2,12 @@ package Modelo.Sistema;
 
 import Modelo.*;
 import Modelo.Exception.PolloException;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Precarga.DatosDePrueba;
 import java.util.ArrayList;
 
 public class SubsistemaServicio {
     ArrayList<Gestor> gestores = new ArrayList<>();
-    ArrayList<Pedido> pedidos = new ArrayList<>();
     ArrayList<Item> items = new ArrayList<>();
     ArrayList<Servicio> servicios = new ArrayList<>();
     ArrayList<Menu> menues = new ArrayList<>();
@@ -45,15 +44,18 @@ public class SubsistemaServicio {
         return pedido;
     }
 
-    protected void eliminarPedido(Pedido pedido) {
-        if (pedido == null) {
-            //acá un throw, ver si la letra no tiene un CA específico
+    protected void eliminarPedido(Pedido pedido, Cliente cliente) throws PolloException {
+        
+        if (cliente == null) {
+            throw new PolloException("Debe identificarse antes de eliminar un pedido.");
         }
-
-        pedido.getServicio().removerPedido(pedido);
-        pedidos.remove(pedido);
+        
+        if (pedido == null) {
+            throw new PolloException("Debe seleccionar un pedido.");
+        }
+        
+        pedido.eliminarPedido(); //se pone en null en el servicio, pone su servicio en null y se saca de la unidadprocesadora
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
-        //si ya se envió al la unidad procesadora ? ? ? eliminarlo de ahí o no ?? ver letra
     }
 
     protected Menu devolverMenuPorNombre(String nombreMenu) {
@@ -79,10 +81,13 @@ public class SubsistemaServicio {
             throw new PolloException("No hay pedidos nuevos.");
         }
 
-        // Queda implementar caso de Stock !!!
-        servicio.confirmarPedidos();
+        String errores = servicio.confirmarPedidos(); //este método ya se encarga de limpiar los problemas de stock
         
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+        
+        if (!errores.isEmpty()){
+            throw new PolloException(errores);
+        }
     }
 
     public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
@@ -95,22 +100,30 @@ public class SubsistemaServicio {
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
 
     }
-
-
-
-    /* Implementar con State y Experto
-    public ArrayList<Pedido> confirmarPedido(Servicio servicio) {
-        return servicio.pedidos.stream() // Recorremos la lista de pedidos del servicio,
-                .filter(pedido -> pedido.getEstadoPedido() == EstadoPedido.PEDIDO_NO_CONFIRMADO)  // y nos quedamos con lo aun no confirmado
-                .peek(pedido -> pedido.confirmarPedido()) // y lo confirmamos.
-                .collect(Collectors.toCollection(ArrayList::new)); // Nos quedamos con dicha lista.
+    
+    public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
+        ArrayList<Pedido> eliminados = new ArrayList<>();
+        ArrayList<Pedido> copiaDelServicio = new ArrayList<>(servicio.getPedidos());
+        
+        for (Pedido p : copiaDelServicio ){
+            if (p.getTipoDeEstado() == EstadoPedido.TipoDeEstado.NO_CONFIRMADO){
+                if ( !p.getItem().tieneStock() ){
+                    eliminados.add(p);
+                    p.eliminarPedido();
+                }
+            }
+        }
+        
+        if ( !eliminados.isEmpty()){
+            String error = "";
+            for (Pedido p : eliminados){
+                error += "Lo sentimos, nos hemos quedado sin stock de " + p.getItem().getNombre() + ", por lo que hemos quitado el pedido del servicio.\n";
+            }
+            if ( eliminados.size() > 3){ //Manejo de dEcepciones
+                error += "Perdón. Disculpe!! Noo, por favor no se vaya!! Noooooooooo!";
+            }
+            
+            throw new PolloException(error);
+        }
     }
-
-    public ArrayList<Pedido> cancelarPedido(Servicio servicio) {
-        return servicio.pedidos.stream() // Recorremos la lista de pedidos del servicio,
-                .filter(pedido -> pedido.getEstadoPedido() == EstadoPedido.PEDIDO_NO_CONFIRMADO)  // y nos quedamos con lo aun no confirmado
-                .peek(pedido -> pedido.eliminar())// y lo confirmamos.
-                .collect(Collectors.toCollection(ArrayList::new)); // Nos quedamos con dicha lista.
-    }
-    */
 }
