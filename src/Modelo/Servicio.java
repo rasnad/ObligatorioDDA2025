@@ -18,6 +18,7 @@ public class Servicio extends Observable {
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
     Dispositivo dispositivo;
+    Cuenta cuenta;
 
     public Servicio(Cliente cliente, Dispositivo dispositivo) {
         this.cliente = cliente;
@@ -82,8 +83,11 @@ public class Servicio extends Observable {
         return borrados;
     }
 
-    public Cuenta calcularSubtotal(){
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
 
+    public Cuenta calcularCuenta(){
         float subtotal = 0;
         ArrayList<Item> itemsDescontados = new ArrayList<>();
         Cuenta cuenta = new Cuenta();
@@ -98,9 +102,10 @@ public class Servicio extends Observable {
         }
         cuenta.setItemsDescontados(itemsDescontados);
         //calcular descuentos sobre el total del servicio
-        cuenta.setServicioConDescuento( cliente.calcularBeneficioServicio(subtotal) );
+        cuenta.setServicioConDescuento( subtotal - cliente.calcularBeneficioServicio(subtotal) );
         cuenta.setServicioSinDescuento(subtotal);
-        
+
+        this.cuenta = cuenta;
         return cuenta;
     }
 
