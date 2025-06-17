@@ -97,8 +97,9 @@ public class SubsistemaAcceso {
         //devuelve el primer dispositivo cuya GUI no ha iniciado
         int i = ultimoDispositivoAbierto;
         while (i < todosLosDispositivos.size()){
+            Dispositivo d = todosLosDispositivos.get(i);
             ultimoDispositivoAbierto++;
-            return todosLosDispositivos.get(i);
+            return d;
         }
         
         //devuelve un dispositivo random si ya se abrieron todos los dispositivos

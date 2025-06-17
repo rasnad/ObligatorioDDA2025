@@ -31,33 +31,8 @@ public class DatosDePrueba {
 
     public static void cargarDatos() throws PolloException {
 
-        /*try {
-            fachada.loginGestor("gestor1", "12345");
-            System.out.println("Gestor logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }
+        Fachada fachada = Fachada.getInstancia();
         
-        try {
-            fachada.loginGestor("gestor1", "12345");
-            System.out.println("Gestor logueado");
-        } catch(PolloException p) {
-            System.out.println(p);
-        }/*
-        
-        //fachada.getGestores();
-        /*
-        fachada.loginCliente(dispositivo1, "1", "1234");
-        fachada.loginCliente(dispositivo1, "1", "1234");
-        fachada.loginCliente(dispositivo2, "1", "1234");
-        fachada.loginCliente(dispositivo2, "2", "1234");
-        fachada.loginCliente(dispositivo2, "1", "12345");
-        fachada.loginCliente(dispositivo2, "5", "1234");
-        */
-         
-        
-        //fachada.getClientes();
-
         // Insumos
         Insumo aceituna = new Insumo("Aceituna", 10, 20);
         Insumo tomate = new Insumo("Tomate", 10, 20);
@@ -110,19 +85,19 @@ public class DatosDePrueba {
         UnidadProcesadora barraDeSushi = new UnidadProcesadora("BarraDeSushi");
 
 
-        Item cafe = new Item(new ArrayList<>(), bar, bebida, "Café", 120);
-        Item aguaMineral = new Item(new ArrayList<>(), bar, bebida, "Agua Mineral", 100);
         Item milanesa = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Milanesa con Arroz", 250);
         Item platoCaro = new Item(ingredientesMilanesas, cocina, platoPrincipal, "Plato Caro Especial", 2100);
 
+        
+        //Frecuente, Preferencial, Café y agua mineral, mover a algún subsistema
+        //Y evaluar usar métodos estáticos para agregar items al subtipo de cliente para no tener que instanciarlos por separado
+        Item cafe = new Item(new ArrayList<>(), bar, bebida, "Café", 120);
+        Item aguaMineral = new Item(new ArrayList<>(), bar, bebida, "Agua Mineral", 100);
         Frecuente frecuente = new Frecuente();
         frecuente.setItemsConDescuento(new ArrayList<> (List.of(cafe)));
-
         Preferencial preferencial = new Preferencial();
         preferencial.setItemsConDescuento(new ArrayList<> (List.of(aguaMineral)));
-
         DeLaCasa deLaCasa = new DeLaCasa(); // No requiere items específicos, tiene crédito global
-
         Comun comun = new Comun(); // Sin beneficios
 
         Cliente clienteFrecuente = new Cliente(1, frecuente, "1", "Juan Café");
@@ -133,10 +108,13 @@ public class DatosDePrueba {
         // Dispositivos
         Dispositivo dispositivo1 = new Dispositivo();
         Dispositivo dispositivo2 = new Dispositivo();
-
-        // FACHADA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        Fachada fachada = Fachada.getInstancia();
+        Dispositivo dispositivo3 = new Dispositivo();
+        Dispositivo dispositivo4 = new Dispositivo();
+        
+        fachada.nuevoDispositivo(dispositivo1);
+        fachada.nuevoDispositivo(dispositivo2);
+        fachada.nuevoDispositivo(dispositivo3);
+        fachada.nuevoDispositivo(dispositivo4);
 
         //Menú
 
@@ -156,9 +134,6 @@ public class DatosDePrueba {
         fachada.nuevoCliente(clienteDeLaCasa);
         fachada.nuevoCliente(clienteComun);
 
-        // Gestores
-        fachada.nuevoDispositivo(dispositivo2);
-        fachada.nuevoDispositivo(dispositivo1);
 
         // Gestores
         Gestor gestorCocina1 = new Gestor("Pedro López", "gestor1", "12345", cocina);
