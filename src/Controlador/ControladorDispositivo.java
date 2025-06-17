@@ -51,6 +51,15 @@ public class ControladorDispositivo implements Observador {
         return "Desea modificar algo sobre la preparación? Deje su comentario acá...";
     }
     
+    public String devolverUnidadProcesadoraDelPedido(Pedido p){
+        return p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : p.getItem().getUnidadProcesadora().getNombre();
+    }
+    
+    public String devolverGestorDelPedido(Pedido p){
+        return p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR";
+    }
+    
+    
     //Eventos del usuario
     
     private void inicializarVista(){

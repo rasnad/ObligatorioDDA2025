@@ -507,8 +507,8 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
 
             fila[0] = p.getItem().getNombre();
             fila[1] = controlador.getEstadoFormateado(p);
-            fila[2] = p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : p.getItem().getUnidadProcesadora().getNombre();
-            fila[3] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR LIBRE";
+            fila[2] = controlador.devolverUnidadProcesadoraDelPedido(p);
+            fila[3] = controlador.devolverGestorDelPedido(p);
             fila[4] = p.getItem().getPrecioUnitario();
             fila[5] = p.getComentario();
             fila[6] = p; // objeto Pedido (será oculto)
