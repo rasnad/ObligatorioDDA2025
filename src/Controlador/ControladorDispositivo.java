@@ -1,7 +1,7 @@
 package Controlador;
 
 import Modelo.*;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Observador.Observador;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
@@ -37,10 +37,10 @@ public class ControladorDispositivo implements Observador {
     }
     
     public String getEstadoFormateado(Pedido p){
-        if ("NO_CONFIRMADO".equals(p.getEstado())){
+        if (EstadoPedido.TipoDeEstado.NO_CONFIRMADO.equals(p.getTipoDeEstado())){
             return "SIN CONFIRMAR";
         }
-        return p.getEstado();
+        return p.getEstadoTexto();
     }
     
     public String devolverComentarioPlaceholder() {
@@ -51,8 +51,7 @@ public class ControladorDispositivo implements Observador {
     
     private void inicializarVista(){
         //Carga de información dinámica que necesita la vista
-        vista.limpiar();
-        vista.mostrarMonto(0.00F);
+        vista.mostrarMonto(0);
         vista.mostrarCategorias( menu.getCategorias() );
         vista.mostrarMensajeDelSistema("Esperando mensajes del sistema...");
     }
@@ -63,8 +62,9 @@ public class ControladorDispositivo implements Observador {
             fachada.loginCliente(dispositivo, username, password);
             servicio = dispositivo.getServicio();
             cliente = dispositivo.getCliente();
+            vista.cambiarTitulo( "Le damos la bienvenida " + cliente.getNombreCompleto() + "!" );
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error de login", e.getMessage());
         }
     }
     
@@ -78,7 +78,8 @@ public class ControladorDispositivo implements Observador {
             fachada.logoutCliente(dispositivo, cliente);
             servicio.getCliente().terminarServicioEnDispositivo();
             dispositivo.liberarClienteDelServicio();
-            servicio = null;
+            this.servicio = null;
+            this.cliente = null;
             vista.limpiar();
         }
     }
@@ -87,15 +88,15 @@ public class ControladorDispositivo implements Observador {
         try {
             fachada.nuevoPedido(item, this.servicio, comentario);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al agregar pedido", e.getMessage());
         }
     }
     
     public void eliminarPedido(Pedido pedido) {
         try {
-            fachada.eliminarPedido(pedido);
+            fachada.eliminarPedido(pedido, cliente);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al eliminar pedido", e.getMessage());
         }
     }
 
@@ -103,7 +104,15 @@ public class ControladorDispositivo implements Observador {
         try {
             fachada.confirmarPedidos(servicio);
         } catch (PolloException e){
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al confirmar pedido", e.getMessage());
+        }
+    }
+    
+    public void chequearItemsSinConfirmar(){
+        try{
+            fachada.stockDeItemsSinConfirmar(servicio);
+        } catch (PolloException e){
+            vista.mostrarError("Oops!!! Perdón! Sowwy", e.getMessage());
         }
     }
     
@@ -112,8 +121,9 @@ public class ControladorDispositivo implements Observador {
     public void actualizar(Object evento, Object origen) {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
+                chequearItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
-                vista.mostrarMonto( servicio.calcularSubtotal());
+                //vista.mostrarMonto( servicio.calcularSubtotal()); //usar subtotal con descuentos aplicados de clase Cuenta
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
                 //vista.mostrarMensaje(); //evento nuevoMensaje
             }

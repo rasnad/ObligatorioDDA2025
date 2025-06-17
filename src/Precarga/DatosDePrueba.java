@@ -1,8 +1,7 @@
 package Precarga;
 
 import Modelo.*;
-import Modelo.TiposDeCliente.Frecuente;
-import Modelo.TiposDeCliente.DeLaCasa;
+import Modelo.TiposDeCliente.*;
 import Modelo.Sistema.Fachada;
 import Modelo.Exception.PolloException;
 
@@ -35,10 +34,14 @@ public class DatosDePrueba {
         Fachada fachada = Fachada.getInstancia();
 
         // Clientes
-        Cliente cliente1 = new Cliente(1, new Frecuente(), "1234", "Juan");
-        Cliente cliente2 = new Cliente(2, new DeLaCasa(), "1234", "Maria");
+        Cliente cliente1 = new Cliente(1, new Frecuente(), "1", "Juan Nieve el Frecuente");
+        Cliente cliente2 = new Cliente(2, new DeLaCasa(), "1", "Maria Becerra de la Casa");
+        Cliente cliente3 = new Cliente(3, new Comun(), "1", "Pedro Comun Aristóteles");
+        Cliente cliente4 = new Cliente(4, new Preferencial(), "1", "Preferencialmente Fernando");
         fachada.nuevoCliente(cliente1);
         fachada.nuevoCliente(cliente2);
+        fachada.nuevoCliente(cliente3);
+        fachada.nuevoCliente(cliente4);
 
         // Dispositivos
         Dispositivo dispositivo1 = new Dispositivo();

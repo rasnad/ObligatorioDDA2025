@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public interface VistaDispositivo {
     
+    public void cambiarTitulo(String titulo);
+            
     public void mostrarMonto(float monto); //datos del servicio: monto
     
     public void mostrarPedidosHechos(ArrayList<Pedido> pedidos); //datos del servicio: pedidos
@@ -16,7 +18,7 @@ public interface VistaDispositivo {
     
     public void mostrarItems(CategoriaItem categoria);
     
-    public void mostrarError(String mensaje);
+    public void mostrarError(String titulo, String mensaje);
     
     public void loginCliente();
     

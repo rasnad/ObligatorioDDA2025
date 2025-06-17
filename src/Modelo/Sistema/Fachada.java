@@ -5,10 +5,9 @@ import Modelo.Dispositivo;
 import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Item;
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Modelo.Menu;
 import Modelo.Servicio;
-import Modelo.UnidadProcesadora;
 import Observador.Observable;
 
 public class Fachada extends Observable {
@@ -24,12 +23,12 @@ public class Fachada extends Observable {
     public static Fachada getInstancia(){
         return instancia;
     }
-
+    
+    public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};
+    
     public void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
         subsistemaServicio.tomarPedido(pedido, gestor);
     }
-
-    public static enum eventos{estadoDePedidoActualizado, nuevoMensaje};
 
     public void loginCliente(Dispositivo dispositivo, String username, String password) throws PolloException {
         subsistemaAcceso.loginCliente(dispositivo, username, password );
@@ -63,8 +62,8 @@ public class Fachada extends Observable {
         return subsistemaServicio.generarPedido(item, servicio, comentario);
     }
     
-     public void eliminarPedido(Pedido pedido) throws PolloException {
-        subsistemaServicio.eliminarPedido(pedido);
+     public void eliminarPedido(Pedido pedido, Cliente cliente) throws PolloException {
+        subsistemaServicio.eliminarPedido(pedido, cliente);
     }
     
     public void crearServicio(Dispositivo dispositivo, Cliente cliente){
@@ -86,5 +85,10 @@ public class Fachada extends Observable {
     public void confirmarPedidos(Servicio servicio) throws PolloException { // Verifica los pedidos pednientes, los confirma y los devuelve
          subsistemaServicio.confirmarPedidos(servicio);
     }
+    
+    public void stockDeItemsSinConfirmar(Servicio servicio) throws PolloException {
+        subsistemaServicio.stockDeItemsSinConfirmar(servicio);
+    }
+
 
 }

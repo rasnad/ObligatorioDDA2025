@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Servicio extends Observable {
-    float montoTotal;
+    float montoTotal; // OJO, ¿¿Se necesita??
     ArrayList<Pedido> pedidos = new ArrayList<>();
     Cliente cliente;
     Dispositivo dispositivo;
@@ -44,32 +44,64 @@ public class Servicio extends Observable {
         pedidos.remove(pedido);
     }
     
-    public void confirmarPedidos() throws PolloException {
-        confirmarPedidos(obtenerPedidosSinConfirmar());
+    public String confirmarPedidos() throws PolloException {
+        return confirmarPedidos(obtenerPedidosSinConfirmar());
     }
 
     public ArrayList<Pedido> obtenerPedidosSinConfirmar() {
         return pedidos.stream()
-                .filter(pedido -> Objects.equals(pedido.getEstado(), "NO_CONFIRMADO"))
+                .filter(pedido -> Objects.equals(pedido.getTipoDeEstado(), EstadoPedido.TipoDeEstado.NO_CONFIRMADO))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
+    private String confirmarPedidos(ArrayList<Pedido> pedidosSinConfirmar) throws PolloException {
+        ArrayList<Pedido> pedidosBorrados = new ArrayList<>();
+        
         for (Pedido p : pedidosSinConfirmar){
+            Item item = p.getItem();
+            if ( ! item.tieneStock() ){
+                pedidosBorrados.add(p);
+                p.eliminarPedido();
+            }
             p.confirmarPedido();
             p.restarStockDeItem();
         }
+        
+        if (!pedidosBorrados.isEmpty()){
+            return reportarProblemasDeStock(pedidosBorrados);
+        }
+        
+        return "";
+    }
+    
+    private String reportarProblemasDeStock(ArrayList<Pedido> pedidosBorrados) throws PolloException{
+        String borrados = "";
+        for (Pedido p : pedidosBorrados){
+            borrados += "Nos hemos quedado sin stock de " + p.getItem().getNombre() + " y no pudimos avisarte antes!! Lo siento mucho...\n";
+        }
+        return borrados;
     }
 
+    public Cuenta calcularSubtotal(){
 
-    public float calcularSubtotal(){
         float subtotal = 0;
+        ArrayList<Item> itemsDescontados = new ArrayList<>();
+        Cuenta cuenta = new Cuenta();
+    
         //calcular descuento de cada pedido
         for (Pedido pedido : pedidos){
-            subtotal += cliente.calcularBeneficioItem( pedido.getItem() );
+            float beneficioDelItem = cliente.calcularBeneficioItem( pedido.getItem() );
+            if (beneficioDelItem != pedido.getItem().getPrecioUnitario()){
+                itemsDescontados.add(pedido.getItem());
+            }
+            subtotal += beneficioDelItem;
         }
+        cuenta.setItemsDescontados(itemsDescontados);
         //calcular descuentos sobre el total del servicio
-        return cliente.calcularBeneficioServicio(subtotal);
+        cuenta.setServicioConDescuento( cliente.calcularBeneficioServicio(subtotal) );
+        cuenta.setServicioSinDescuento(subtotal);
+        
+        return cuenta;
     }
 
 }
