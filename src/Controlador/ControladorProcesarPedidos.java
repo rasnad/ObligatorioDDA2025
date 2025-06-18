@@ -52,8 +52,26 @@ public class ControladorProcesarPedidos implements Observador {
         } catch (PolloException e) {
             vista.mostrarError(e.getMessage());
         }
+    }
+
+    public void finalizarPedido(Pedido pedido) {
+        try {
+            fachada.finalizarPedido(pedido, getGestor());
+        } catch (PolloException e) {
+            vista.mostrarError(e.getMessage());
+        }
+    }
+
+    public void entregarPedido(Pedido pedido) {
+        try {
+            fachada.entregarPedido(pedido, getGestor());
+        } catch (PolloException e) {
+            vista.mostrarError(e.getMessage());
+        }
 
     }
+
+
 
     //Eventos del Modelo
 
