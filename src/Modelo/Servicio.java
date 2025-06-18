@@ -58,12 +58,13 @@ public class Servicio extends Observable {
         
         for (Pedido p : pedidosSinConfirmar){
             Item item = p.getItem();
-            if ( ! item.tieneStock() ){
+            if ( item.tieneStock() ){
+                p.confirmarPedido();
+                p.restarStockDeItem();
+            } else {
                 pedidosBorrados.add(p);
                 p.eliminarPedido();
             }
-            p.confirmarPedido();
-            p.restarStockDeItem();
         }
         
         if (!pedidosBorrados.isEmpty()){
