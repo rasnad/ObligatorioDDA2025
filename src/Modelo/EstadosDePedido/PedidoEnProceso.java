@@ -40,7 +40,8 @@ public class PedidoEnProceso extends EstadoPedido{
 
     @Override
     public void entregarPedido() throws PolloException {
-        throw new PolloException("No se puede entregar un pedido que no haya sido finalizado.");
+        throw new PolloException("Debe finalizar el pedido.");
+        // Podría agregarse al throw para aclarle al gestor: "Claaro muchacho, la gente no come cosas crudas!"
     }
     
 }

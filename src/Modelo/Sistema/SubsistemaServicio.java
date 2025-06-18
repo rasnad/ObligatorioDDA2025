@@ -104,7 +104,7 @@ public class SubsistemaServicio {
     protected void tomarPedido(Pedido pedido, Gestor gestor) throws PolloException {
 
         if(pedido == null) {
-            throw new PolloException("Para tomar un pedido debes seleccionar uno.");
+            throw new PolloException("Debe seleccionar un pedido.");
         }
 
         pedido.procesarPedido(gestor);
@@ -123,6 +123,7 @@ public class SubsistemaServicio {
         }
 
         gestor.finalizarPedido(pedido);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.nuevoMensaje);
     }
 

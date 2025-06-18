@@ -40,7 +40,7 @@ public class PedidoFinalizado extends EstadoPedido{
 
     @Override
     public void finalizarPedido() throws PolloException {
-        throw new PolloException("No puede finalizarse un pedido ya Finalizado.");
+        throw new PolloException("El pedido ya está Finalizado.");
     }
 
     

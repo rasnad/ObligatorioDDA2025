@@ -41,7 +41,7 @@ public class PedidoEntregado extends EstadoPedido{
 
     @Override
     public void entregarPedido() throws PolloException {
-        throw new PolloException("No se puede entregar un pedido ya Entregado.");
+        throw new PolloException("El pedido ya está entregado.");
     }
     
 }
