@@ -11,9 +11,9 @@ public interface VistaProcesarPedidos {
     
     public void tomarPedido();
     
-    public void FinalizarPedido();
+    public void finalizarPedido();
     
-    public void EntregarPedido();
+    public void entregarPedido();
 
     public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados);
     

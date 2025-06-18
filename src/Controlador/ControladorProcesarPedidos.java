@@ -6,6 +6,7 @@ import Modelo.Gestor;
 import Modelo.Sistema.Fachada;
 import Modelo.UnidadProcesadora;
 import Observador.Observador;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ControladorProcesarPedidos implements Observador {
@@ -31,13 +32,43 @@ public class ControladorProcesarPedidos implements Observador {
 
     public void inicializarVista() {
         vista.mostrarInfoGestor(gestor.getNombreCompleto(), unidadProcesadora.getNombre());
-        vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
+        vista.mostrarPedidosConfirmados(unidadProcesadora.obtenerPedidosConfirmados());
         vista.mostrarPedidosTomados(gestor.getPedidosTomados());
     }
-
-    public ArrayList<Pedido> obtenerPedidosConfirmados() {
-        return unidadProcesadora.obtenerPedidosConfirmados();
+    
+    public String textoDeUnPedidoConfirmados(Pedido p){
+         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+         String pedidoFormateado = p.getTipoDeEstado().toString() + " - "
+                + p.getItem().getNombre() + " - "
+                + p.getServicio().getCliente().getNombreCompleto() + " - "
+                + sdf.format(p.getFecha());
+            
+            if (!"".equals(p.getComentario())) {
+                pedidoFormateado += " - " + p.getComentario();
+            }
+        
+        return pedidoFormateado;
     }
+
+    /*
+    public ArrayList<String> obtenerTextoPedidosConfirmados() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        ArrayList<String> textoPedidosConfirmados = new ArrayList<>();
+        ArrayList<Pedido> pedidosConfirmados = unidadProcesadora.obtenerPedidosConfirmados();
+        for (Pedido p : pedidosConfirmados){ 
+            String pedidoFormateado = p.getTipoDeEstado().toString() + " - "
+                + p.getItem().getNombre() + " - "
+                + p.getServicio().getCliente().getNombreCompleto() + " - "
+                + sdf.format(p.getFecha());
+            
+            if (!"".equals(p.getComentario())) {
+                pedidoFormateado += " - " + p.getComentario();
+            }
+            
+            textoPedidosConfirmados.add(pedidoFormateado);
+        }
+        return textoPedidosConfirmados;
+    } */
 
     public void salir() {
         fachada.quitarObservador(this);
@@ -82,7 +113,7 @@ public class ControladorProcesarPedidos implements Observador {
     @Override
     public void actualizar(Object evento, Object origen) {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado)) {
-            vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
+            vista.mostrarPedidosConfirmados(unidadProcesadora.obtenerPedidosConfirmados());
             vista.mostrarPedidosTomados(gestor.getPedidosTomados());
         }
     }
