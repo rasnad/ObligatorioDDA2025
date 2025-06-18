@@ -35,6 +35,7 @@ public class UnidadProcesadora {
    public void loguearGestor(Gestor g){
        gestores.add(g);
    }
+
    public void desloguearGestor(Gestor g){
        gestores.remove(g);
    }

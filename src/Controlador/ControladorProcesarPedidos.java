@@ -44,7 +44,11 @@ public class ControladorProcesarPedidos implements Observador {
     }
 
     public void logoutGestor() {
-        fachada.logoutGestor(gestor);
+        try {
+            fachada.logoutGestor(gestor);
+        }  catch (PolloException e) {
+            vista.mostrarError(e.getMessage());
+        }
     }
 
     public void tomarPedido(Pedido pedido) {
