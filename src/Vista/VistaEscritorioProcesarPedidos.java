@@ -234,41 +234,6 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         textNombreGestor.setText(nombre);
         textUnidadProcesadora.setText(unidadProcesadora);
     }
-    
-    @Override
-    public void mostrarPedidosConfirmados(ArrayList<Pedido> pedidosConfirmados) {
-        //pedidosDisponibles.setListData(pedidosConfirmados.toArray());
-        
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Estado");
-        modelo.addColumn("Item");
-        modelo.addColumn("Cliente");
-        modelo.addColumn("Fecha y Hora");
-        modelo.addColumn("Comentarios");
-        modelo.addColumn("Pedido"); // columna oculta
-
-        
-        for (Pedido p : pedidosConfirmados) {
-            Object[] fila = new Object[6];
-            
-            fila[0] = p.getEstadoTexto();
-            fila[1] = p.getItem().getNombre();
-            fila[2] = p.getServicio().getCliente().getNombreCompleto();
-            fila[3] = sdf.format(p.getFecha());
-            fila[4] = p.getComentario();
-            fila[5] = p; // objeto Pedido (será oculto)
-
-            modelo.addRow(fila);
-        }
-
-        tablePedidosConfirmados.setModel(modelo);
-        tablePedidosConfirmados.setDefaultEditor(Object.class, null);
-
-        // Ocultar la columna de Pedido
-        tablePedidosConfirmados.getColumnModel().getColumn(5).setMinWidth(0);
-        tablePedidosConfirmados.getColumnModel().getColumn(5).setMaxWidth(0);
-        tablePedidosConfirmados.getColumnModel().getColumn(5).setWidth(0);
-    }
 
     @Override
     public void tomarPedido() {
@@ -314,7 +279,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     }
 
     @Override
-    public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados) {
+    public void mostrarPedidos(ArrayList<Pedido> pedidos, javax.swing.JTable tablaPedidos) {
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Nombre del Item");
@@ -324,7 +289,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         modelo.addColumn("Estado");
         modelo.addColumn("Pedido"); // columna oculta
         
-        for (Pedido p : pedidosTomados) {
+        for (Pedido p : pedidos) {
             Object[] fila = new Object[6];
 
             fila[0] = p.getItem().getNombre();
@@ -337,15 +302,25 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
             modelo.addRow(fila);
         }
 
-        tablePedidosTomados.setModel(modelo);
-        tablePedidosTomados.setDefaultEditor(Object.class, null);
+        tablaPedidos.setModel(modelo);
+        tablaPedidos.setDefaultEditor(Object.class, null);
         //StackOverFlow FTW: https://stackoverflow.com/questions/1990817/how-to-make-a-jtable-non-editable
 
         // Ocultar la columna de Pedido
-        tablePedidosTomados.getColumnModel().getColumn(5).setMinWidth(0);
-        tablePedidosTomados.getColumnModel().getColumn(5).setMaxWidth(0);
-        tablePedidosTomados.getColumnModel().getColumn(5).setWidth(0);
+        tablaPedidos.getColumnModel().getColumn(5).setMinWidth(0);
+        tablaPedidos.getColumnModel().getColumn(5).setMaxWidth(0);
+        tablaPedidos.getColumnModel().getColumn(5).setWidth(0);
 
+    }
+    
+    @Override
+    public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados) {
+        mostrarPedidos(pedidosTomados, tablePedidosTomados);
+    }
+
+    @Override
+    public void mostrarPedidosConfirmados(ArrayList<Pedido> pedidosConfirmados) {
+        mostrarPedidos(pedidosConfirmados, tablePedidosConfirmados);
     }
     
     @Override
