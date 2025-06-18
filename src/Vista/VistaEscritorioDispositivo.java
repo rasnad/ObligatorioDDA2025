@@ -546,12 +546,14 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     
     @Override
     public void mostrarPagoExitoso(){
-        JOptionPane.showMessageDialog(this, "PAGO REALIZADO", "PAGO REALIZADO", JOptionPane.INFORMATION_MESSAGE);
+        Dialogo diag = new Dialogo(this);
+        diag.mostrarInfo("PAGO REALIZADO", "PAGO REALIZADO");
     }
     
     @Override 
     public void mostrarPagoComplicado(){
-        JOptionPane.showMessageDialog(this, "Por favor, espere amablemente a que llegue la policía", "PAGO RECHAZADO", JOptionPane.INFORMATION_MESSAGE);
+        Dialogo diag = new Dialogo(this);
+        diag.mostrarError("PAGO RECHAZADO", "Por favor, espere amablemente a que llegue la policía");
     }
     
     @Override
@@ -569,7 +571,8 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
             + "<br>Indique que ha leído la información en pantalla por favor."
             + "</html>";
 
-        JOptionPane.showMessageDialog(this, mensaje, "FACTURA", JOptionPane.INFORMATION_MESSAGE);
+        Dialogo diag = new Dialogo(this);
+        diag.mostrarInfo("FACTURA", mensaje);
     }
     
 }

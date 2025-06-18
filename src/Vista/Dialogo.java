@@ -30,11 +30,21 @@ public class Dialogo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void mostrarError(String titulo, String mensaje) {
-        JOptionPane pane = new JOptionPane(mensaje, JOptionPane.ERROR_MESSAGE);
+    private void mostrar(JOptionPane pane, String titulo){
         Dialog dialog = pane.createDialog(this, titulo);
         dialog.setModal(false);
         dialog.setVisible(true);
+    }
+    
+    public void mostrarError(String titulo, String mensaje) {
+        JOptionPane pane = new JOptionPane(mensaje, JOptionPane.ERROR_MESSAGE);
+        mostrar(pane, titulo);
+        
+    }
+    
+    public void mostrarInfo(String titulo, String mensaje) {
+        JOptionPane pane = new JOptionPane(mensaje, JOptionPane.INFORMATION_MESSAGE);
+        mostrar(pane, titulo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,10 +5,18 @@
         <group>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/ControladorProcesarPedidos.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioProcesarPedidos.java</file>
-            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/VistaProcesarPedidos.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Precarga/DatosDePrueba.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Insumo.java</file>
             <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Modelo/Item.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Precarga/Main.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/VistaDispositivo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/VistaProcesarPedidos.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/Dialogo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioLoginGestor.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/VistaLoginGestor.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Controlador/ControladorLoginGestor.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDispositivo.java</file>
+            <file>file:/C:/Users/nicol/Desktop/Diseño%20de%20Aplicaciones/Obligatorio/ObligatorioDDA2025/src/Vista/VistaEscritorioDevMenu.java</file>
         </group>
     </open-files>
 </project-private>
