@@ -57,8 +57,7 @@ public class ControladorDispositivo implements Observador {
     
     public String devolverGestorDelPedido(Pedido p){
         return p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR";
-    }
-    
+    }   
     
     //Eventos del usuario
     
@@ -147,15 +146,21 @@ public class ControladorDispositivo implements Observador {
             sePudoCobrar = fachada.logoutCliente(dispositivo, servicio, cliente); //Errores de auth, pedidosSinProcesar y de cobro
         } catch (PolloException p) {
             vista.mostrarError("Error de cobro",p.getMessage());
-            return; // CASO 1: Errores de auth y "Tienes pedidos sin confirmar!", escapamos el resto del método
+            return; // CASO 1: Errores de auth y "Tienes pedidos sin confirmar!", no puede hacer logout
         }
         
         if (servicio.getPedidos().isEmpty()){
             limpiarControlador();
-            return; // CASO 2: Login exitoso, pero logout sin pedidos
+            return; // CASO 2: Login exitoso, no tiene pedidos, puede hacer logout
+        }
+        
+        int pedidosNoEntregados = servicio.contarPedidosNoEntregados(); //CASO 3: Warning al usuario por pedidos no entregados
+        System.out.println("PEDIDOS NO ENTREGADOS " + pedidosNoEntregados);
+        if (pedidosNoEntregados > 0){
+            vista.mostrarError("OJO!! NO TE OLVIDES DEL MORFI!!", "¡Tienes " + pedidosNoEntregados +  " en proceso, recuerda ir a retirarlos!");
         }
             
-        crearFactura(); //CASO 3: Cobro de pedidos
+        crearFactura(); //CASO 4: Cobro de pedidos: si se pagó, puede desloguearse, sino no + error en pantalla
         
         if (!sePudoCobrar){
             vista.mostrarPagoComplicado();

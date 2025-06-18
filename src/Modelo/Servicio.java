@@ -112,5 +112,18 @@ public class Servicio extends Observable {
         }
         return true;
     }
+    
+    public int contarPedidosNoEntregados(){
+        int pedidosNoEntregados = 0;
+        
+        for (Pedido p : pedidos){
+            boolean enProceso = p.getEstado().getTipo().equals(EstadoPedido.TipoDeEstado.EN_PROCESO);
+            boolean confirmado = p.getEstado().getTipo().equals(EstadoPedido.TipoDeEstado.CONFIRMADO);
+            if ( enProceso || confirmado ){
+                pedidosNoEntregados++;
+            }
+        }
+        return pedidosNoEntregados;
+    }
 
 }
