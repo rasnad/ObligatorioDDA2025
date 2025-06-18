@@ -459,7 +459,8 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     
     @Override
     public void mostrarError(String titulo, String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+        Dialogo diag = new Dialogo(this);
+        diag.mostrarError(titulo, mensaje);
     }
 
     @Override

@@ -19,5 +19,5 @@ public interface VistaProcesarPedidos {
     
     public void puedeCerrarse();
 
-    public void mostrarError(String mensaje);
+    public void mostrarError(String titulo, String mensaje);
 }

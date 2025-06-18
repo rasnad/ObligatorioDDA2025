@@ -7,7 +7,6 @@ import Modelo.Sistema.Fachada;
 import Modelo.UnidadProcesadora;
 import Observador.Observador;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class ControladorProcesarPedidos implements Observador {
 
@@ -50,26 +49,6 @@ public class ControladorProcesarPedidos implements Observador {
         return pedidoFormateado;
     }
 
-    /*
-    public ArrayList<String> obtenerTextoPedidosConfirmados() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        ArrayList<String> textoPedidosConfirmados = new ArrayList<>();
-        ArrayList<Pedido> pedidosConfirmados = unidadProcesadora.obtenerPedidosConfirmados();
-        for (Pedido p : pedidosConfirmados){ 
-            String pedidoFormateado = p.getTipoDeEstado().toString() + " - "
-                + p.getItem().getNombre() + " - "
-                + p.getServicio().getCliente().getNombreCompleto() + " - "
-                + sdf.format(p.getFecha());
-            
-            if (!"".equals(p.getComentario())) {
-                pedidoFormateado += " - " + p.getComentario();
-            }
-            
-            textoPedidosConfirmados.add(pedidoFormateado);
-        }
-        return textoPedidosConfirmados;
-    } */
-
     public void salir() {
         fachada.quitarObservador(this);
     }
@@ -79,7 +58,7 @@ public class ControladorProcesarPedidos implements Observador {
             fachada.logoutGestor(gestor);
             vista.puedeCerrarse();
         }  catch (PolloException e) {
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error logout", e.getMessage());
         }
     }
 
@@ -87,7 +66,7 @@ public class ControladorProcesarPedidos implements Observador {
         try {
             fachada.tomarPedido(pedido, getGestor());
         } catch (PolloException e) {
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al tomar pedido", e.getMessage());
         }
     }
 
@@ -95,7 +74,7 @@ public class ControladorProcesarPedidos implements Observador {
         try {
             fachada.finalizarPedido(pedido, getGestor());
         } catch (PolloException e) {
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al finalizar pedido", e.getMessage());
         }
     }
 
@@ -103,7 +82,7 @@ public class ControladorProcesarPedidos implements Observador {
         try {
             fachada.entregarPedido(pedido, getGestor());
         } catch (PolloException e) {
-            vista.mostrarError(e.getMessage());
+            vista.mostrarError("Error al entregar pedido", e.getMessage());
         }
 
     }

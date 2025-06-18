@@ -10,6 +10,6 @@ public interface VistaLoginGestor {
     
     public void abrirVentanaProcesar(Gestor gestor);
     
-    public void mostrarError(String mensaje);
+    public void mostrarError(String titulo, String mensaje);
 
 }

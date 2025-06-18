@@ -22,7 +22,7 @@ public class ControladorLoginGestor {
             this.gestor = gestorLogueado;
             vistaLogin.abrirVentanaProcesar( gestorLogueado );
         } catch (PolloException e) {
-            vistaLogin.mostrarError(e.getMessage());
+            vistaLogin.mostrarError("ERROR DE LOGIN", e.getMessage());
         }
     }
 }

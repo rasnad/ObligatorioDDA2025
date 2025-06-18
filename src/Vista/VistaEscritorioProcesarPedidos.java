@@ -4,6 +4,7 @@ import Controlador.ControladorProcesarPedidos;
 import Controlador.VistaProcesarPedidos;
 import Modelo.EstadosDePedido.*;
 import Modelo.Gestor;
+import java.awt.Dialog;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -227,7 +228,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     private javax.swing.JTextField textNombreGestor;
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
-
+    
     //REUSAR AL MÁXIMO!!!!
     private void cambiarEstadoPedido(EstadoPedido.TipoDeEstado tipo){
         int selectedRow = tablePedidosTomados.getSelectedRow();
@@ -330,7 +331,8 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     }
 
     @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "ERROR TOMAR PEDIDO", JOptionPane.ERROR_MESSAGE);
+    public void mostrarError(String titulo, String mensaje) {
+        Dialogo diag = new Dialogo(this);
+        diag.mostrarError(titulo, mensaje);
     }
 }

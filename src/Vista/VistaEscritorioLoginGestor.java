@@ -3,6 +3,7 @@ package Vista;
 import Controlador.ControladorLoginGestor;
 import Controlador.VistaLoginGestor;
 import Modelo.Gestor;
+import java.awt.Dialog;
 import javax.swing.JOptionPane;
 
 public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements VistaLoginGestor {
@@ -97,9 +98,11 @@ public class VistaEscritorioLoginGestor extends javax.swing.JFrame implements Vi
         this.dispose();
     }
 
-    @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "ERROR DE LOGIN", JOptionPane.ERROR_MESSAGE);
+    public void mostrarError(String titulo, String mensaje) {
+        JOptionPane pane = new JOptionPane(mensaje, JOptionPane.ERROR_MESSAGE);
+        Dialog dialog = pane.createDialog(this, titulo);
+        dialog.setModal(false);
+        dialog.setVisible(true);
     }
     
 }
