@@ -20,8 +20,8 @@ public class ControladorProcesarPedidos implements Observador {
     public ControladorProcesarPedidos(Gestor gestor, VistaProcesarPedidos vista) {
         this.vista = vista;
         this.gestor = gestor;
-        inicializarVista();
         fachada.agregarObservador(this);
+        inicializarVista();
     }
 
     //Eventos del Usuario
@@ -46,6 +46,7 @@ public class ControladorProcesarPedidos implements Observador {
     public void logoutGestor() {
         try {
             fachada.logoutGestor(gestor);
+            vista.puedeCerrarse();
         }  catch (PolloException e) {
             vista.mostrarError(e.getMessage());
         }
@@ -75,8 +76,6 @@ public class ControladorProcesarPedidos implements Observador {
         }
 
     }
-
-
 
     //Eventos del Modelo
 

@@ -1,6 +1,6 @@
 package Modelo;
 
-import Modelo.EstadosDePedido.Pedido;
+import Modelo.EstadosDePedido.*;
 import Modelo.Exception.PolloException;
 import java.util.ArrayList;
 
@@ -37,5 +37,14 @@ public class Gestor extends Usuario {
 
     public void finalizarPedido(Pedido pedido) throws PolloException {
         pedido.finalizarPedido();
+    }
+    
+    public boolean tienePedidosNoEntregados(){
+        for (Pedido p : pedidosTomados){
+            if (!p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.ENTREGADO)){
+                return false;
+            }
+        }
+        return true;
     }
 }

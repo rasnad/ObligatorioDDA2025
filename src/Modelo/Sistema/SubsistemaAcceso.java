@@ -87,7 +87,7 @@ public class SubsistemaAcceso {
     }
         
     protected void logoutGestor(Gestor gestor) throws PolloException {
-        if (!gestor.getPedidosTomados().isEmpty()) {
+        if (!gestor.tienePedidosNoEntregados()) {
             throw new PolloException("Tiene pedidos pendientes");
         }
         gestor.getUnidadProcesadora().desloguearGestor(gestor);

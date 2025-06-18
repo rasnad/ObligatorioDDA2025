@@ -44,18 +44,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePedidosTomado = new javax.swing.JTable();
 
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                // Si el clic NO fue dentro de la tabla
-                if (!tablePedidosTomado.getBounds().contains(
-                        SwingUtilities.convertPoint(VistaEscritorioProcesarPedidos.this, evt.getPoint(), tablePedidosTomado))) {
-                    tablePedidosTomado.clearSelection();
-                }
-            }
-        });
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -194,7 +183,6 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         controlador.logoutGestor();
-        controlador.salir();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
@@ -301,6 +289,12 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         tablePedidosTomado.getColumnModel().getColumn(5).setMaxWidth(0);
         tablePedidosTomado.getColumnModel().getColumn(5).setWidth(0);
 
+    }
+    
+    @Override
+    public void puedeCerrarse(){
+        controlador.salir();
+        this.dispose();
     }
 
     @Override
