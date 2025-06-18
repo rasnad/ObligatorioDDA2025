@@ -111,9 +111,24 @@ public class Pedido {
     public void entregarPedido() throws PolloException{
         estado.entregarPedido();
     }
-    
+
+    /*
     @Override
     public String toString(){
         return estado.getTipoDeEstado().toString() + " " + item.getNombre() + " " + servicio.getCliente().getNombreCompleto() + " " + fechaYHora + " " + comentario;
+    }*/
+
+    @Override
+    public String toString() {
+        String clienteNombre = "";
+        if (servicio != null && servicio.getCliente() != null) {
+            clienteNombre = servicio.getCliente().getNombreCompleto();
+        }
+        return estado.getTipoDeEstado().toString() + " "
+                + item.getNombre() + " "
+                + clienteNombre + " "
+                + fechaYHora + " "
+                + comentario;
     }
+
 }

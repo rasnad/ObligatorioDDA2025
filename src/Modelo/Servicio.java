@@ -57,12 +57,16 @@ public class Servicio extends Observable {
         ArrayList<Pedido> pedidosBorrados = new ArrayList<>();
         
         for (Pedido p : pedidosSinConfirmar){
+            boolean productoSinStock = false;
             Item item = p.getItem();
             if ( ! item.tieneStock() ){
                 pedidosBorrados.add(p);
                 p.eliminarPedido();
+                productoSinStock = true;
             }
-            p.confirmarPedido();
+            if (!productoSinStock){
+                p.confirmarPedido();
+            }
             p.restarStockDeItem();
         }
         

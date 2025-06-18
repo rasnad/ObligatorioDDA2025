@@ -7,6 +7,8 @@ import Modelo.Gestor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         initComponents();
         this.controlador = new ControladorProcesarPedidos(gestor, this);
     }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -30,8 +33,6 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnTomarPedido = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablePedidosTomado = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         pedidosDisponibles = new javax.swing.JList();
         labelUnidadProcesadora = new javax.swing.JLabel();
@@ -39,6 +40,20 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         textNombreGestor = new javax.swing.JTextField();
         btnEntregarPedido = new javax.swing.JButton();
         btnFinalizarPedido = new javax.swing.JButton();
+        panelPedidosTomados = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablePedidosTomado = new javax.swing.JTable();
+
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                // Si el clic NO fue dentro de la tabla
+                if (!tablePedidosTomado.getBounds().contains(
+                        SwingUtilities.convertPoint(VistaEscritorioProcesarPedidos.this, evt.getPoint(), tablePedidosTomado))) {
+                    tablePedidosTomado.clearSelection();
+                }
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -60,27 +75,6 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
             }
         });
 
-        tablePedidosTomado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre de Item", "Descripcion", "Cliente", "Fecha Hora", "Estado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablePedidosTomado);
-
         jScrollPane2.setViewportView(pedidosDisponibles);
 
         textUnidadProcesadora.setEditable(false);
@@ -101,13 +95,45 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
             }
         });
 
+        tablePedidosTomado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablePedidosTomado.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tablePedidosTomado);
+
+        javax.swing.GroupLayout panelPedidosTomadosLayout = new javax.swing.GroupLayout(panelPedidosTomados);
+        panelPedidosTomados.setLayout(panelPedidosTomadosLayout);
+        panelPedidosTomadosLayout.setHorizontalGroup(
+            panelPedidosTomadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPedidosTomadosLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        panelPedidosTomadosLayout.setVerticalGroup(
+            panelPedidosTomadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPedidosTomadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelPedidosTomados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,18 +157,16 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                                 .addComponent(btnTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(114, 114, 114))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnEntregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(633, 633, 633)
+                            .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnEntregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap()))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -156,13 +180,13 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTomarPedido)
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addGap(28, 28, 28)
+                .addComponent(panelPedidosTomados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
+                .addGap(82, 82, 82))
         );
 
         pack();
@@ -210,11 +234,13 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelUnidadProcesadora;
+    private javax.swing.JPanel panelPedidosTomados;
     private javax.swing.JList pedidosDisponibles;
     private javax.swing.JTable tablePedidosTomado;
     private javax.swing.JTextField textNombreGestor;
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
+
 
     @Override
     public void mostrarInfoGestor(String nombre, String unidadProcesadora){
