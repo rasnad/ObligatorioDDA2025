@@ -6,7 +6,6 @@ import Modelo.Exception.PolloException;
 import Modelo.Gestor;
 import Modelo.Servicio;
 import Modelo.Usuario;
-import Precarga.DatosDePrueba;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,6 @@ public class SubsistemaAcceso {
     private ArrayList<Gestor> todosLosGestores = new ArrayList<>();   
     private ArrayList<Cliente> clientesLogueados = new ArrayList<>();
     private ArrayList<Gestor> gestoresLogueados = new ArrayList<>();
-    private DatosDePrueba datosDePrueba = new DatosDePrueba();
     
     protected SubsistemaAcceso(){}
 
