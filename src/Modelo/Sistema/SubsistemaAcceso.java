@@ -52,7 +52,7 @@ public class SubsistemaAcceso {
         Gestor gestor = (Gestor) login(todosLosGestores, username, password);
 
         if (gestor == null) {
-            throw new PolloException("Username y/o contraseña incorrecta.");
+            throw new PolloException("Credenciales incorrectas.");
         }
         
         if (gestoresLogueados.contains(gestor)){
