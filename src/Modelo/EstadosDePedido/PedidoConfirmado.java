@@ -17,8 +17,8 @@ public class PedidoConfirmado extends EstadoPedido{
     }
 
     @Override
-    public void cobrarPedido() {
-        this.getPedido().hacerCobrarPedido();
+    public boolean cobrarPedido() {
+        return this.getPedido().hacerCobrarPedido();
     }
     
     @Override //Gestor toma pedido

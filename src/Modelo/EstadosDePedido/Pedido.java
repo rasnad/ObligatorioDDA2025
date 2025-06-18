@@ -100,8 +100,8 @@ public class Pedido {
         estado.eliminarPedido();
     }
     
-    public void cobrarPedido() throws PolloException{
-        estado.cobrarPedido();
+    public boolean cobrarPedido() throws PolloException{
+        return estado.cobrarPedido();
     }
     
     public void finalizarPedido() throws PolloException{

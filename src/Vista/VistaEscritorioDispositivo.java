@@ -524,11 +524,7 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
         tablaPedidosHechos.getColumnModel().getColumn(6).setMinWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setMaxWidth(0);
         tablaPedidosHechos.getColumnModel().getColumn(6).setWidth(0);
-        /*
-        Para los pedidos confirmados muestra la unidad procesadora donde está asignado el pedido, e
-        indica si está en espera de ser tomado por un gestor o el nombre del gestor asignado, y si está
-        pronto para retirar o está en elaboración o si esta entregado al cliente
-        */
+        
     }
 
     @Override
@@ -549,6 +545,16 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
     }
     
     @Override
+    public void mostrarPagoExitoso(){
+        JOptionPane.showMessageDialog(this, "PAGO REALIZADO", "PAGO REALIZADO", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override 
+    public void mostrarPagoComplicado(){
+        JOptionPane.showMessageDialog(this, "Por favor, espere amablemente a que llegue la policía", "PAGO RECHAZADO", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    @Override
     public void mostrarFactura(ArrayList<String> itemsDeCortesia, String descuentosEnServicio,  String averigueBeneficios, String tipoCliente, Cuenta cuenta) {
         
         String itemsDeCortesiaFormateados = String.join("<br>", itemsDeCortesia);
@@ -560,9 +566,10 @@ public final class VistaEscritorioDispositivo extends javax.swing.JFrame impleme
             + "<span style='color:green'>" + descuentosEnServicio + "</span><br><br>"
             + "<b>Total a pagar:</b> $" + String.format("%.2f", cuenta.getServicioConDescuento())
             + averigueBeneficios
+            + "<br>Indique que ha leído la información en pantalla por favor."
             + "</html>";
 
-        JOptionPane.showMessageDialog(this, mensaje, "CUENTA", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, mensaje, "FACTURA", JOptionPane.INFORMATION_MESSAGE);
     }
     
 }

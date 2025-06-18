@@ -57,8 +57,7 @@ public class ControladorDispositivo implements Observador {
     
     public String devolverGestorDelPedido(Pedido p){
         return p.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.NO_CONFIRMADO) ? "" : (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "ESPERANDO GESTOR";
-    }
-    
+    }   
     
     //Eventos del usuario
     
@@ -92,20 +91,6 @@ public class ControladorDispositivo implements Observador {
         return null;
     }
     
-    public void terminarServicioEnDispositivo(){
-        crearFactura();
-        try{
-            fachada.logoutCliente(dispositivo, cliente);
-            if (servicio != null){
-                this.servicio = null;
-                this.cliente = null;
-                vista.limpiar();
-            }
-        } catch (PolloException p){
-            vista.mostrarError("Error de login",p.getMessage());
-        }
-    }
-    
     public void agregarPedido(Item item, String comentario) {
         try {
             fachada.nuevoPedido(item, this.servicio, comentario);
@@ -130,7 +115,7 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
-    public void chequearItemsSinConfirmar(){
+    public void chequearStockDeItemsSinConfirmar(){
         try{
             fachada.stockDeItemsSinConfirmar(servicio);
         } catch (PolloException e){
@@ -152,6 +137,44 @@ public class ControladorDispositivo implements Observador {
             total += i.getPrecioUnitario();
         }
         return total;
+    }
+    
+    public void terminarServicioEnDispositivo(){
+        boolean sePudoCobrar = false;
+        
+        try {
+            sePudoCobrar = fachada.logoutCliente(dispositivo, servicio, cliente); //Errores de auth, pedidosSinProcesar y de cobro
+        } catch (PolloException p) {
+            vista.mostrarError("Error de cobro",p.getMessage());
+            return; // CASO 1: Errores de auth y "Tienes pedidos sin confirmar!", no puede hacer logout
+        }
+        
+        if (servicio.getPedidos().isEmpty()){
+            limpiarControlador();
+            return; // CASO 2: Login exitoso, no tiene pedidos, puede hacer logout
+        }
+        
+        int pedidosNoEntregados = servicio.contarPedidosNoEntregados(); //CASO 3: Warning al usuario por pedidos no entregados
+        System.out.println("PEDIDOS NO ENTREGADOS " + pedidosNoEntregados);
+        if (pedidosNoEntregados > 0){
+            vista.mostrarError("OJO!! NO TE OLVIDES DEL MORFI!!", "¡Tienes " + pedidosNoEntregados +  " en proceso, recuerda ir a retirarlos!");
+        }
+            
+        crearFactura(); //CASO 4: Cobro de pedidos: si se pagó, puede desloguearse, sino no + error en pantalla
+        
+        if (!sePudoCobrar){
+            vista.mostrarPagoComplicado();
+        } else {
+            vista.mostrarPagoExitoso();
+            limpiarControlador();
+        }
+        
+    }
+    
+    private void limpiarControlador(){
+        this.servicio = null;
+        this.cliente = null;
+        vista.limpiar();
     }
     
     public void crearFactura(){
@@ -185,7 +208,19 @@ public class ControladorDispositivo implements Observador {
             }
         
             vista.mostrarFactura(itemsCortesia, descuentosEnServicio, averigueBeneficios, tipoCliente, getCuenta());
+            
         }
+    }
+    
+    public boolean clientePago(){
+        boolean sePudoCobrar = false;
+        
+        
+        
+        
+        
+        
+        return sePudoCobrar;
     }
 
     //Evento del modelo
@@ -193,7 +228,7 @@ public class ControladorDispositivo implements Observador {
     public void actualizar(Object evento, Object origen) {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
-                chequearItemsSinConfirmar();
+                chequearStockDeItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
                 servicio.calcularCuenta();
                 vista.mostrarMonto( servicio.getCuenta().getServicioConDescuento() ); //usar subtotal con descuentos aplicados de clase Cuenta

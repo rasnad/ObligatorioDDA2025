@@ -38,7 +38,7 @@ public abstract class EstadoPedido {
     
     public abstract void eliminarPedido() throws PolloException;;
     
-    public abstract void cobrarPedido() throws PolloException;;
+    public abstract boolean cobrarPedido() throws PolloException;;
     
     public abstract void finalizarPedido() throws PolloException;;
     
