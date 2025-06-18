@@ -228,37 +228,6 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
     private javax.swing.JTextField textUnidadProcesadora;
     // End of variables declaration//GEN-END:variables
 
-
-    @Override
-    public void mostrarInfoGestor(String nombre, String unidadProcesadora){
-        textNombreGestor.setText(nombre);
-        textUnidadProcesadora.setText(unidadProcesadora);
-    }
-
-    @Override
-    public void tomarPedido() {
-        int selectedRow = tablePedidosConfirmados.getSelectedRow();
-        Pedido pedido;
-        
-        if (selectedRow == -1){
-            pedido = null;
-        } else {
-            pedido = (Pedido) tablePedidosConfirmados.getValueAt(tablePedidosConfirmados.getSelectedRow(), 5);
-        }
-        
-        controlador.tomarPedido(pedido);
-    }
-
-    @Override
-    public void finalizarPedido() {
-        cambiarEstadoPedido(EstadoPedido.TipoDeEstado.FINALIZADO);
-    }
-
-    @Override
-    public void entregarPedido() {
-        cambiarEstadoPedido(EstadoPedido.TipoDeEstado.ENTREGADO);
-    }
-    
     //REUSAR AL MÁXIMO!!!!
     private void cambiarEstadoPedido(EstadoPedido.TipoDeEstado tipo){
         int selectedRow = tablePedidosTomados.getSelectedRow();
@@ -278,7 +247,7 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         }
     }
 
-    @Override
+    //REUSO DE CÓDIGO NIVEL SSJ3!! (porque antes usábamos otro método para mostrar una lista, esto reusa mucho más)
     public void mostrarPedidos(ArrayList<Pedido> pedidos, javax.swing.JTable tablaPedidos) {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -312,6 +281,37 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         tablaPedidos.getColumnModel().getColumn(5).setWidth(0);
 
     }
+    
+    @Override
+    public void mostrarInfoGestor(String nombre, String unidadProcesadora){
+        textNombreGestor.setText(nombre);
+        textUnidadProcesadora.setText(unidadProcesadora);
+    }
+
+    @Override
+    public void tomarPedido() {
+        int selectedRow = tablePedidosConfirmados.getSelectedRow();
+        Pedido pedido;
+        
+        if (selectedRow == -1){
+            pedido = null;
+        } else {
+            pedido = (Pedido) tablePedidosConfirmados.getValueAt(tablePedidosConfirmados.getSelectedRow(), 5);
+        }
+        
+        controlador.tomarPedido(pedido);
+    }
+
+    @Override
+    public void finalizarPedido() {
+        cambiarEstadoPedido(EstadoPedido.TipoDeEstado.FINALIZADO);
+    }
+
+    @Override
+    public void entregarPedido() {
+        cambiarEstadoPedido(EstadoPedido.TipoDeEstado.ENTREGADO);
+    }
+    
     
     @Override
     public void mostrarPedidosTomados(ArrayList<Pedido> pedidosTomados) {

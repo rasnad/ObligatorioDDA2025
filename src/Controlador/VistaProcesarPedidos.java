@@ -7,8 +7,6 @@ public interface VistaProcesarPedidos {
     
     public void mostrarInfoGestor(String nombre, String unidadProcesadora);
     
-    public void mostrarPedidos(ArrayList<Pedido> pedidos, javax.swing.JTable tablePedidos);
-    
     public void tomarPedido();
     
     public void finalizarPedido();
