@@ -153,7 +153,7 @@ public class ControladorDispositivo implements Observador {
         int pedidosNoEntregados = servicio.contarPedidosNoEntregados(); //CASO 3: Warning al usuario por pedidos no entregados
         System.out.println("PEDIDOS NO ENTREGADOS " + pedidosNoEntregados);
         if (pedidosNoEntregados > 0){
-            vista.mostrarError("OJO!! NO TE OLVIDES DEL MORFI!!", "¡Tienes " + pedidosNoEntregados +  " en proceso, recuerda ir a retirarlos!");
+            vista.mostrarError("OJO!! NO TE OLVIDES DEL MORFI!!", "¡Tienes " + pedidosNoEntregados +  " pedidos en proceso, recuerda ir a retirarlos!");
         }
             
         crearFactura(); //CASO 4: Cobro de pedidos: si se pagó, puede desloguearse, sino no + error en pantalla
