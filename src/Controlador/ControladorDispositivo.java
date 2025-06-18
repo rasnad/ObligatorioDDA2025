@@ -200,8 +200,7 @@ public class ControladorDispositivo implements Observador {
             }
             
             if ("Cliente Común".equals(tipoCliente)){
-                averigueBeneficios = "Oh no! Ud. no es elegible para ninguno de nuestros beneficios!\nSi es cliente regular, puede averiguar sobre nuestros beneficios tomándose el 192 Manga y caminando hasta la casa de nuestro barman en Villa García.\n";
-            } else if ( ! itemsDeCortesia.isEmpty() || huboDescuentosAlServicio ) {
+                averigueBeneficios = "<br><br>Oh no! Ud. no es elegible para ninguno de nuestros beneficios!<br>Si es cliente regular, puede averiguar sobre nuestros beneficios tomándose el 192 Manga y caminando hasta la casa de nuestro barman en Villa García.<br>";            } else if ( ! itemsDeCortesia.isEmpty() || huboDescuentosAlServicio ) {
                 tipoCliente = "Descuentos por ser: " + tipoCliente;
             } else {
                 tipoCliente = "Gracias por ser " + tipoCliente + "!";

@@ -13,7 +13,7 @@ public class PedidoEnProceso extends EstadoPedido{
     
     @Override
     public void finalizarPedido() throws PolloException {
-        throw new PolloException("No se puede finalizar un pedido que no haya sido entregado.");
+        this.getPedido().setEstado(new PedidoFinalizado());
     }
     
     @Override
@@ -40,7 +40,7 @@ public class PedidoEnProceso extends EstadoPedido{
 
     @Override
     public void entregarPedido() throws PolloException {
-        this.getPedido().setEstado(new PedidoEntregado());
+        throw new PolloException("No se puede entregar un pedido que no haya sido finalizado.");
     }
     
 }

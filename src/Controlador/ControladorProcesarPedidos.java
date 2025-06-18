@@ -29,6 +29,7 @@ public class ControladorProcesarPedidos implements Observador {
     public void inicializarVista() {
         vista.mostrarInfoGestor(gestor.getNombreCompleto(), gestor.getUnidadProcesadora().getNombre());
         vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
+        vista.mostrarPedidosTomados(gestor.getPedidosTomados());
     }
 
     public ArrayList<Pedido> obtenerPedidosConfirmados() {

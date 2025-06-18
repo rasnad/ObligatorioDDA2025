@@ -36,8 +36,7 @@ public class PedidoEntregado extends EstadoPedido{
 
     @Override
     public void finalizarPedido() throws PolloException {
-        this.getPedido().setEstado(new PedidoEntregado());
-        this.getPedido().getGestor().getPedidosTomados().remove(this.getPedido());
+        throw new PolloException("No se puede finalizar un pedido ya Entregado.");
     }
 
     @Override
