@@ -4,6 +4,7 @@ import Modelo.Cliente;
 import Modelo.Dispositivo;
 import Modelo.Exception.PolloException;
 import Modelo.Gestor;
+import Modelo.Servicio;
 import Modelo.Usuario;
 import Precarga.DatosDePrueba;
 
@@ -69,14 +70,20 @@ public class SubsistemaAcceso {
         }
     }
     
-    protected void logoutCliente(Dispositivo dispositivo, Cliente cliente) throws PolloException {
-        if (cliente == null) {
+    protected boolean logoutCliente(Dispositivo dispositivo, Servicio servicio, Cliente cliente) throws PolloException {
+        if (cliente == null || servicio == null) {
             throw new PolloException("Debe identificarse antes de finalizar el servicio");
         }
         
-        dispositivo.liberarClienteDelServicio();
-        cliente.terminarServicioEnDispositivo();
-        logout(clientesLogueados, cliente);
+        boolean sePudoCobrar = servicio.cobrarTodo();
+        
+        if(sePudoCobrar){
+            dispositivo.liberarClienteDelServicio();
+            cliente.terminarServicioEnDispositivo();
+            logout(clientesLogueados, cliente);
+        }
+        
+        return sePudoCobrar;
     }
         
     protected void logoutGestor(Gestor gestor) {

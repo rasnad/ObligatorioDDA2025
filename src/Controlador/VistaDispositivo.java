@@ -22,6 +22,10 @@ public interface VistaDispositivo {
     
     public void mostrarError(String titulo, String mensaje);
     
+    public void mostrarPagoExitoso();
+
+    public void mostrarPagoComplicado();
+    
     public void loginCliente();
     
     public void terminarServicio();

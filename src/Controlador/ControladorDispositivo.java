@@ -92,20 +92,6 @@ public class ControladorDispositivo implements Observador {
         return null;
     }
     
-    public void terminarServicioEnDispositivo(){
-        crearFactura();
-        try{
-            fachada.logoutCliente(dispositivo, cliente);
-            if (servicio != null){
-                this.servicio = null;
-                this.cliente = null;
-                vista.limpiar();
-            }
-        } catch (PolloException p){
-            vista.mostrarError("Error de login",p.getMessage());
-        }
-    }
-    
     public void agregarPedido(Item item, String comentario) {
         try {
             fachada.nuevoPedido(item, this.servicio, comentario);
@@ -130,7 +116,7 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
-    public void chequearItemsSinConfirmar(){
+    public void chequearStockDeItemsSinConfirmar(){
         try{
             fachada.stockDeItemsSinConfirmar(servicio);
         } catch (PolloException e){
@@ -152,6 +138,38 @@ public class ControladorDispositivo implements Observador {
             total += i.getPrecioUnitario();
         }
         return total;
+    }
+    
+    public void terminarServicioEnDispositivo(){
+        boolean sePudoCobrar = false;
+        
+        try {
+            sePudoCobrar = fachada.logoutCliente(dispositivo, servicio, cliente); //Errores de auth, pedidosSinProcesar y de cobro
+        } catch (PolloException p) {
+            vista.mostrarError("Error de cobro",p.getMessage());
+            return; // CASO 1: Errores de auth y "Tienes pedidos sin confirmar!", escapamos el resto del método
+        }
+        
+        if (servicio.getPedidos().isEmpty()){
+            limpiarControlador();
+            return; // CASO 2: Login exitoso, pero logout sin pedidos
+        }
+            
+        crearFactura(); //CASO 3: Cobro de pedidos
+        
+        if (!sePudoCobrar){
+            vista.mostrarPagoComplicado();
+        } else {
+            vista.mostrarPagoExitoso();
+            limpiarControlador();
+        }
+        
+    }
+    
+    private void limpiarControlador(){
+        this.servicio = null;
+        this.cliente = null;
+        vista.limpiar();
     }
     
     public void crearFactura(){
@@ -185,7 +203,19 @@ public class ControladorDispositivo implements Observador {
             }
         
             vista.mostrarFactura(itemsCortesia, descuentosEnServicio, averigueBeneficios, tipoCliente, getCuenta());
+            
         }
+    }
+    
+    public boolean clientePago(){
+        boolean sePudoCobrar = false;
+        
+        
+        
+        
+        
+        
+        return sePudoCobrar;
     }
 
     //Evento del modelo
@@ -193,7 +223,7 @@ public class ControladorDispositivo implements Observador {
     public void actualizar(Object evento, Object origen) {
         if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
             if (servicio != null){
-                chequearItemsSinConfirmar();
+                chequearStockDeItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
                 servicio.calcularCuenta();
                 vista.mostrarMonto( servicio.getCuenta().getServicioConDescuento() ); //usar subtotal con descuentos aplicados de clase Cuenta

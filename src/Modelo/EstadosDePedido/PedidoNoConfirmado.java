@@ -32,8 +32,8 @@ public class PedidoNoConfirmado extends EstadoPedido{
     }
 
     @Override
-    public void cobrarPedido() throws PolloException {
-        throw new PolloException("No se puede cobrar un pedido no confirmado. Debe primero confirmarse o procesarse.");
+    public boolean cobrarPedido() throws PolloException {
+        throw new PolloException("Tienes pedidos sin confirmar!");
     }
 
     @Override

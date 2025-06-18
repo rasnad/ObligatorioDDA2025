@@ -6,7 +6,6 @@ package Modelo;
 
 import Modelo.EstadosDePedido.EstadoPedido;
 import Modelo.EstadosDePedido.Pedido;
-import Modelo.EstadosDePedido.PedidoNoConfirmado;
 import Modelo.Exception.PolloException;
 import Observador.Observable;
 import java.util.ArrayList;
@@ -14,10 +13,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Servicio extends Observable {
-    ArrayList<Pedido> pedidos = new ArrayList<>();
-    Cliente cliente;
-    Dispositivo dispositivo;
-    Cuenta cuenta = new Cuenta();
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+    private Cliente cliente;
+    private Dispositivo dispositivo;
+    private Cuenta cuenta = new Cuenta();
 
     public Servicio(Cliente cliente, Dispositivo dispositivo) {
         this.cliente = cliente;
@@ -102,6 +101,16 @@ public class Servicio extends Observable {
         cuenta.setItemsDescontados(itemsDescontados);
         cuenta.setServicioSinDescuento(subtotal); //total con items descontados PERO sin descuento del servicio
         cuenta.setServicioConDescuento( cliente.calcularBeneficioServicio(subtotal) ); //monto final que se cobra al cliente
+        
+    }
+    
+    public boolean cobrarTodo() throws PolloException{
+        for (Pedido p : pedidos){
+            if (! p.cobrarPedido()){
+                return false;
+            } 
+        }
+        return true;
     }
 
 }

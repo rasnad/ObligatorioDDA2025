@@ -12,8 +12,8 @@ public class PedidoEntregado extends EstadoPedido{
     //Acciones válidas
     
     @Override
-    public void cobrarPedido() throws PolloException {
-        this.getPedido().hacerCobrarPedido();
+    public boolean cobrarPedido() throws PolloException {
+        return this.getPedido().hacerCobrarPedido();
     }
     
     //Acciones inválidas
