@@ -8,13 +8,14 @@ import Modelo.Servicio;
 import Modelo.UnidadProcesadora;
 
 public class Pedido {
-    Item item;
-    UnidadProcesadora unidadProcesadora;
-    Gestor gestor;
-    Servicio servicio;
-    String comentario;
-    Date fechaYHora;    
-    EstadoPedido estado = new PedidoNoConfirmado(this);
+    private Item item;
+    private UnidadProcesadora unidadProcesadora;
+    private Gestor gestor;
+    private Servicio servicio;
+    private String comentario;
+    private Date fechaYHora;    
+    private EstadoPedido estado = new PedidoNoConfirmado(this);
+    private boolean estaFinalizado = false;
 
     public Pedido(Item item, Servicio servicio, String comentario) {
         this.item = item;
@@ -22,6 +23,14 @@ public class Pedido {
         this.servicio = servicio;
         this.comentario = comentario;
         fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
+    }
+    
+    public void marcarEstaFinalizado(){
+        estaFinalizado = true;
+    }
+    
+    public boolean getEstaFinalizado(){
+        return estaFinalizado;
     }
     
     public Item getItem(){

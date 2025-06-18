@@ -211,15 +211,14 @@ public class ControladorDispositivo implements Observador {
         }
     }
     
-    public boolean clientePago(){
-        boolean sePudoCobrar = false;
-        
-        
-        
-        
-        
-        
-        return sePudoCobrar;
+    public void avisarPedidosListos() {
+        for( Pedido pedido : servicio.getPedidos() ){
+            if( !pedido.getEstaFinalizado() && pedido.getTipoDeEstado().equals(EstadoPedido.TipoDeEstado.FINALIZADO ) ){
+                String mensaje = "PEDIDO LISTO! VENGA A BUSCAR " + pedido.getItem().getNombre() + " a " + pedido.getItem().getUnidadProcesadora().getNombre();
+                pedido.marcarEstaFinalizado();
+                vista.mostrarMensajeDelSistema(mensaje);
+            }
+        }
     }
 
     //Evento del modelo
@@ -232,7 +231,7 @@ public class ControladorDispositivo implements Observador {
                 servicio.calcularCuenta();
                 vista.mostrarMonto( servicio.getCuenta().getServicioConDescuento() ); //usar subtotal con descuentos aplicados de clase Cuenta
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
-                //vista.mostrarMensaje(); //evento nuevoMensaje
+                avisarPedidosListos(); //evento nuevoMensaje
             }
         }
     }
