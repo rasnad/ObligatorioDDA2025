@@ -37,8 +37,8 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         labelUnidadProcesadora = new javax.swing.JLabel();
         textUnidadProcesadora = new javax.swing.JTextField();
         textNombreGestor = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEntregarPedido = new javax.swing.JButton();
+        btnFinalizarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -87,9 +87,19 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
 
         textNombreGestor.setEditable(false);
 
-        jButton1.setText("Entregar Pedido");
+        btnEntregarPedido.setText("Entregar Pedido");
+        btnEntregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntregarPedidoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Finalizar Pedido");
+        btnFinalizarPedido.setText("Finalizar Pedido");
+        btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,9 +133,9 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnEntregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addContainerGap()))))
         );
@@ -150,8 +160,8 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEntregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
         );
 
@@ -169,11 +179,29 @@ public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implement
         controlador.tomarPedido(pedido);
     }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
+    private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tablePedidosTomado.getSelectedRow();
+        if (selectedRow != -1) {
+            Pedido pedido = (Pedido) tablePedidosTomado.getValueAt(selectedRow, 5);
+            controlador.finalizarPedido(pedido);
+        }  else controlador.finalizarPedido(null);
+    }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
+
+    private void btnEntregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPedidoActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tablePedidosTomado.getSelectedRow();
+        if (selectedRow != -1) {
+            Pedido pedido = (Pedido) tablePedidosTomado.getValueAt(tablePedidosTomado.getSelectedRow(), 5);
+            controlador.entregarPedido(pedido);
+        }  else controlador.entregarPedido(null);
+    }//GEN-LAST:event_btnEntregarPedidoActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntregarPedido;
+    private javax.swing.JButton btnFinalizarPedido;
     private javax.swing.JButton btnTomarPedido;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

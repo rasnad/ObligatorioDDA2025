@@ -34,4 +34,8 @@ public class Gestor extends Usuario {
     public ArrayList<Pedido> getPedidosTomados() {
         return pedidosTomados;
     }
+
+    public void finalizarPedido(Pedido pedido) throws PolloException {
+        pedido.finalizarPedido();
+    }
 }

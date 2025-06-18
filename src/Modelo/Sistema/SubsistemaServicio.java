@@ -113,6 +113,34 @@ public class SubsistemaServicio {
         Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
 
     }
+
+    protected void finalizarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+
+        if(gestor.getPedidosTomados().isEmpty()) {
+            throw new PolloException("El gestor no tiene pedidos aun asignados.");
+        }
+
+        if(pedido == null) {
+            throw new PolloException("Debe seleccionar un pedido.");
+        }
+
+        gestor.finalizarPedido(pedido);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+    }
+
+    protected void entregarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+
+        if(gestor.getPedidosTomados().isEmpty()) {
+            throw new PolloException("El gestor no tiene pedidos aun asignados.");
+        }
+
+        if(pedido == null) {
+            throw new PolloException("Debe seleccionar un pedido.");
+        }
+
+        gestor.pedidoEntregado(pedido);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+    }
     
     protected void calcularMontoTotal(Servicio servicio){
         if (servicio != null && !servicio.getPedidos().isEmpty()){

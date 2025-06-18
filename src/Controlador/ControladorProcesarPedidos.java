@@ -29,6 +29,7 @@ public class ControladorProcesarPedidos implements Observador {
     public void inicializarVista() {
         vista.mostrarInfoGestor(gestor.getNombreCompleto(), gestor.getUnidadProcesadora().getNombre());
         vista.mostrarPedidosConfirmados(obtenerPedidosConfirmados());
+        vista.mostrarPedidosTomados(gestor.getPedidosTomados());
     }
 
     public ArrayList<Pedido> obtenerPedidosConfirmados() {
@@ -52,8 +53,26 @@ public class ControladorProcesarPedidos implements Observador {
         } catch (PolloException e) {
             vista.mostrarError(e.getMessage());
         }
+    }
+
+    public void finalizarPedido(Pedido pedido) {
+        try {
+            fachada.finalizarPedido(pedido, getGestor());
+        } catch (PolloException e) {
+            vista.mostrarError(e.getMessage());
+        }
+    }
+
+    public void entregarPedido(Pedido pedido) {
+        try {
+            fachada.entregarPedido(pedido, getGestor());
+        } catch (PolloException e) {
+            vista.mostrarError(e.getMessage());
+        }
 
     }
+
+
 
     //Eventos del Modelo
 

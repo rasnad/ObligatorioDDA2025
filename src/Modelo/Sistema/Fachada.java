@@ -107,4 +107,12 @@ public class Fachada extends Observable {
         return subsistemaServicio.devolverUnidadProcesadoraPorNombre(nombre);
     }
 
+    public void finalizarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+        subsistemaServicio.finalizarPedido(pedido, gestor);
+    }
+
+    public void entregarPedido(Pedido pedido, Gestor gestor) throws PolloException {
+        subsistemaServicio.entregarPedido(pedido, gestor);
+    }
+
 }
