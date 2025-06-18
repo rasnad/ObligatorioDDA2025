@@ -22,7 +22,7 @@ public class Pedido {
         this.unidadProcesadora = item.getUnidadProcesadora();
         this.servicio = servicio;
         this.comentario = comentario;
-        fechaYHora = new Date(); //revisar bien lo del formateador simple de fechas
+        fechaYHora = new Date(); //se sobre-escribe al confirmar, pero tengo miedo de dejar este dato en null tan cerca de la entrega
     }
     
     public void marcarEstaFinalizado(){
@@ -80,6 +80,7 @@ public class Pedido {
     }
     
     protected void hacerConfirmarPedido() throws PolloException {
+        fechaYHora = new Date();
         this.getItem().getUnidadProcesadora().agregarPedido(this);
     }
 
