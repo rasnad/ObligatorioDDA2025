@@ -1,7 +1,9 @@
 package Modelo;
 
+import static Modelo.EstadosDePedido.EstadoPedido.TipoDeEstado.CONFIRMADO;
 import Modelo.EstadosDePedido.Pedido;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class UnidadProcesadora {
@@ -39,5 +41,11 @@ public class UnidadProcesadora {
    public void desloguearGestor(Gestor g){
        gestores.remove(g);
    }
+   
+   public ArrayList<Pedido> obtenerPedidosConfirmados(){
+        return pedidos.stream()
+            .filter(pedido -> pedido.getTipoDeEstado().equals(CONFIRMADO))
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
 
 }

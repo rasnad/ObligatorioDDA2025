@@ -1,8 +1,10 @@
 package Modelo;
 
 import Modelo.EstadosDePedido.*;
+import static Modelo.EstadosDePedido.EstadoPedido.TipoDeEstado.CONFIRMADO;
 import Modelo.Exception.PolloException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Gestor extends Usuario {
     private UnidadProcesadora unidadProcesadora;
@@ -47,4 +49,5 @@ public class Gestor extends Usuario {
         }
         return true;
     }
+    
 }

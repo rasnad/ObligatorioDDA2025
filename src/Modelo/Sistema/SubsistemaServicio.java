@@ -123,7 +123,7 @@ public class SubsistemaServicio {
         }
 
         gestor.finalizarPedido(pedido);
-        Fachada.getInstancia().notificarObservadores(Fachada.eventos.estadoDePedidoActualizado);
+        Fachada.getInstancia().notificarObservadores(Fachada.eventos.nuevoMensaje);
     }
 
     protected void entregarPedido(Pedido pedido, Gestor gestor) throws PolloException {

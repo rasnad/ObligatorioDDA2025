@@ -122,5 +122,13 @@ public class Servicio extends Observable {
         }
         return pedidosNoEntregados;
     }
+    
+    public float montoAhorradoEnItemsDeCortesia(){
+        float total = 0;
+        for ( Item i : getCuenta().getItemsDescontados() ){
+            total += i.getPrecioUnitario();
+        }
+        return total;
+    }
 
 }

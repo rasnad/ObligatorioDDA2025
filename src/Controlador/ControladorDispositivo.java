@@ -132,11 +132,7 @@ public class ControladorDispositivo implements Observador {
     }
     
     public float montoAhorradoEnItemsDeCortesia(){
-        float total = 0;
-        for ( Item i : servicio.getCuenta().getItemsDescontados() ){
-            total += i.getPrecioUnitario();
-        }
-        return total;
+        return servicio.montoAhorradoEnItemsDeCortesia();
     }
     
     public void terminarServicioEnDispositivo(){
@@ -151,7 +147,7 @@ public class ControladorDispositivo implements Observador {
         
         if (servicio.getPedidos().isEmpty()){
             limpiarControlador();
-            return; // CASO 2: Login exitoso, no tiene pedidos, puede hacer logout
+            return; // CASO 2: Login exitoso, no tiene pedidos, puede hacer logout sin warnings ni factura, termina CU
         }
         
         int pedidosNoEntregados = servicio.contarPedidosNoEntregados(); //CASO 3: Warning al usuario por pedidos no entregados
@@ -200,7 +196,8 @@ public class ControladorDispositivo implements Observador {
             }
             
             if ("Cliente Común".equals(tipoCliente)){
-                averigueBeneficios = "<br><br>Oh no! Ud. no es elegible para ninguno de nuestros beneficios!<br>Si es cliente regular, puede averiguar sobre nuestros beneficios tomándose el 192 Manga y caminando hasta la casa de nuestro barman en Villa García.<br>";            } else if ( ! itemsDeCortesia.isEmpty() || huboDescuentosAlServicio ) {
+                averigueBeneficios = "<br><br>Oh no! Ud. no es elegible para ninguno de nuestros beneficios!<br>Si es cliente regular, puede averiguar sobre nuestros beneficios tomándose el 192 Manga y caminando hasta la casa de nuestro barman en Villa García.<br>";
+            } else if ( ! itemsDeCortesia.isEmpty() || huboDescuentosAlServicio ) {
                 tipoCliente = "Descuentos por ser: " + tipoCliente;
             } else {
                 tipoCliente = "Gracias por ser " + tipoCliente + "!";
@@ -224,14 +221,16 @@ public class ControladorDispositivo implements Observador {
     //Evento del modelo
     @Override
     public void actualizar(Object evento, Object origen) {
-        if (evento.equals(Fachada.eventos.estadoDePedidoActualizado) ){
-            if (servicio != null){
+        if (servicio != null) {
+            if (evento.equals(Fachada.eventos.estadoDePedidoActualizado)){
                 chequearStockDeItemsSinConfirmar();
                 vista.mostrarPedidosHechos(servicio.getPedidos());
                 servicio.calcularCuenta();
                 vista.mostrarMonto( servicio.getCuenta().getServicioConDescuento() ); //usar subtotal con descuentos aplicados de clase Cuenta
                 vista.obtenerCategoriaSeleccionadaYActualizarItems();
-                avisarPedidosListos(); //evento nuevoMensaje
+            }
+            if (evento.equals(Fachada.eventos.nuevoMensaje)){
+                avisarPedidosListos();
             }
         }
     }
