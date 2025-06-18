@@ -6,8 +6,6 @@ import Modelo.EstadosDePedido.*;
 import java.util.ArrayList;
 
 public class SubsistemaServicio {
-    private ArrayList<Gestor> gestores = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Servicio> servicios = new ArrayList<>();
     private ArrayList<Menu> menues = new ArrayList<>();
     private ArrayList<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();

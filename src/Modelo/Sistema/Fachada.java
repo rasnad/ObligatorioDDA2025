@@ -43,7 +43,7 @@ public class Fachada extends Observable {
         return subsistemaAcceso.logoutCliente(dispositivo, servicio, cliente);
     }
     
-    public void logoutGestor(Gestor gestor){
+    public void logoutGestor(Gestor gestor) throws PolloException {
         subsistemaAcceso.logoutGestor(gestor);
     }
     
