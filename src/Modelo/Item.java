@@ -3,18 +3,19 @@ package Modelo;
 import java.util.ArrayList;
 
 public class Item {
-    ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-    UnidadProcesadora unidadProcesadora;
-    CategoriaItem categoriaItem;
-    String nombre;
-    float precioUnitario;
+    private ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private final UnidadProcesadora unidadProcesadora;
+    private final CategoriaItem categoriaItem;
+    private String nombre;
+    private float precioUnitario;
     
     public Item(ArrayList<Ingrediente> ingredientes, UnidadProcesadora unidadProcesadora, CategoriaItem categoriaItem, String nombre, float precioUnitario) {
         this.ingredientes = ingredientes;
         this.unidadProcesadora = unidadProcesadora;
         this.nombre = nombre;
         this.precioUnitario = precioUnitario;
-        this.setCategoriaItem(categoriaItem);
+        this.categoriaItem = categoriaItem;
+        categoriaItem.agregarItem(this);
     }
     
     public float getPrecioUnitario() {
@@ -27,15 +28,6 @@ public class Item {
     
     public CategoriaItem getCategoriaItem(){
         return categoriaItem;
-    }
-    
-    public final void setCategoriaItem(CategoriaItem categoriaNueva){
-        if (this.categoriaItem != null){
-            this.categoriaItem.removerItem(this);
-        }
-        
-        categoriaNueva.agregarItem(this);
-        categoriaItem = categoriaNueva;
     }
 
     public boolean tieneStock(){

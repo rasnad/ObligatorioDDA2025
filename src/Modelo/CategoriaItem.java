@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CategoriaItem {
-    String nombre;
-    ArrayList<Item> items = new ArrayList<>();
-
-    public void validar() {
- 
-    }
+    private String nombre;
+    private ArrayList<Item> items = new ArrayList<>();
 
     public String getNombre() {
         return this.nombre;
     }
 
     public void agregarItem(Item item) {
-        this.items.add(item);
+        if (!items.contains(item)){
+            this.items.add(item);
+        }
     }
 
     public void removerItem(Item item){
