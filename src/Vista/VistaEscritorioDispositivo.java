@@ -6,7 +6,6 @@ import Modelo.CategoriaItem;
 import Modelo.Cuenta;
 import Modelo.EstadosDePedido.*;
 import Modelo.Item;
-import Modelo.TiposDeCliente.*;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.*;

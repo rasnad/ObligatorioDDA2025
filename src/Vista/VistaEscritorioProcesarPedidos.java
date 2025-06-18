@@ -4,14 +4,10 @@ import Controlador.ControladorProcesarPedidos;
 import Controlador.VistaProcesarPedidos;
 import Modelo.EstadosDePedido.Pedido;
 import Modelo.Gestor;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class VistaEscritorioProcesarPedidos extends javax.swing.JFrame implements VistaProcesarPedidos {
 

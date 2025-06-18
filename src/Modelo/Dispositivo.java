@@ -4,11 +4,11 @@ import Modelo.Exception.PolloException;
 
 public class Dispositivo {
 
-    int id;
-    static int ultimoId = 0;
-    boolean estaOcupado = false;
-    Cliente clienteAsignado;
-    Servicio servicio;
+    private int id;
+    private static int ultimoId = 0;
+    private boolean estaOcupado = false;
+    private Cliente clienteAsignado;
+    private Servicio servicio;
 
     public Servicio getServicio() {
         return servicio;

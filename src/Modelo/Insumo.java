@@ -1,9 +1,9 @@
 package Modelo;
 
 public class Insumo {
-    String nombre;
-    int cantidadMinima;
-    int cantidadActual;
+    private String nombre;
+    private int cantidadMinima;
+    private int cantidadActual;
 
     public Insumo(String nombre, int cantidadMinima, int cantidadActual) {
         this.nombre = nombre;

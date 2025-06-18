@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 
 public class UnidadProcesadora {
-   ArrayList<Gestor> gestores = new ArrayList<>();
-   ArrayList<Pedido> pedidos = new ArrayList<>();
+   private ArrayList<Gestor> gestores = new ArrayList<>();
+   private ArrayList<Pedido> pedidos = new ArrayList<>();
    
    String nombre;
 

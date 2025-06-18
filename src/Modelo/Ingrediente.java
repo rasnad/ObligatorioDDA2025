@@ -1,8 +1,8 @@
 package Modelo;
 
 public class Ingrediente {
-    int cantidad;
-    Insumo insumo;
+    private int cantidad;
+    private Insumo insumo;
 
     public void restarStockDeInsumo(){
         insumo.restarStock(cantidad);

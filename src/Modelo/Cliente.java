@@ -5,10 +5,10 @@ import Modelo.Exception.PolloException;
 import Modelo.TiposDeCliente.TipoCliente;
 
 public class Cliente extends Usuario {
-    int id;
-    TipoCliente tipoCliente;
-    Servicio servicio;
-    Dispositivo dispositivo;
+    private int id;
+    private TipoCliente tipoCliente;
+    private Servicio servicio;
+    private Dispositivo dispositivo;
     
     public Cliente(int id, TipoCliente tipo, String password, String nombreCompleto){
         super(nombreCompleto, Integer.toString(id), password);

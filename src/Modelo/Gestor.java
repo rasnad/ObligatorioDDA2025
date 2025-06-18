@@ -5,10 +5,10 @@ import Modelo.Exception.PolloException;
 import java.util.ArrayList;
 
 public class Gestor extends Usuario {
-    UnidadProcesadora unidadProcesadora;
-    ArrayList<Pedido> pedidosTomados = new ArrayList<>();
-    String userName;
-    String trabajo;
+    private UnidadProcesadora unidadProcesadora;
+    private ArrayList<Pedido> pedidosTomados = new ArrayList<>();
+    private String userName;
+    private String trabajo;
 
     public Gestor(String nombreCompleto, String username, String password, UnidadProcesadora unidad){
         super(nombreCompleto, username, password);

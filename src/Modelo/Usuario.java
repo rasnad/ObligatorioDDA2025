@@ -1,9 +1,9 @@
 package Modelo;
 
 public abstract class Usuario {
-    String nombreCompleto;
-    String password;
-    String username;
+    private String nombreCompleto;
+    private String password;
+    private String username;
     
     public Usuario(String nombreCompleto, String username, String password){
         this.nombreCompleto = nombreCompleto;

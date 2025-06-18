@@ -13,7 +13,7 @@ import static Modelo.EstadosDePedido.EstadoPedido.TipoDeEstado.CONFIRMADO;
 
 public class ControladorProcesarPedidos implements Observador {
 
-    VistaProcesarPedidos vista;
+    private VistaProcesarPedidos vista;
     private final Fachada fachada = Fachada.getInstancia();
     private Gestor gestor;
 
